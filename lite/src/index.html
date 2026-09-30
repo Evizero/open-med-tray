@@ -48,13 +48,9 @@
     </div>
   </nav>
 
-  <!-- Mode panel: head (miniature + title + one-line sub), tab strip, scrolling body, action footer. -->
+  <!-- Mode panel: selection and editing only. Tab strip, scrolling body, action footer. -->
   <aside class="panel inspector" id="inspector" aria-label="Mode panel">
     <button class="sheet-handle" id="sheetHandle" aria-label="Expand controls" aria-expanded="false"></button>
-    <div class="insp-head">
-      <span class="insp-icon" id="inspIcon" aria-hidden="true"></span>
-      <div class="insp-text"><div class="insp-title" id="inspTitle"></div><div class="insp-sub" id="inspSub"></div></div>
-    </div>
     <div class="tabs" id="inspTabs" role="tablist" aria-label="Properties"></div>
     <div class="insp-body" id="inspBody" role="tabpanel"></div>
     <div class="insp-foot" id="inspFoot"></div>
@@ -71,6 +67,16 @@
     <span class="scalebar" id="scalebar"><i class="bar" id="scaleBarBar"></i><span id="scaleBarText"></span></span>
     <span class="caption" id="caption"></span>
     <span class="info" id="infoCard"></span>
+  </div>
+  <!-- Phone: the scene's primary action floats above the collapsed sheet (desktop keeps it in the panel footer). -->
+  <div class="fab" id="fab" role="group" aria-label="Scene actions">
+    <button class="fab-go" id="fabResample" type="button" aria-label="Resample pill" title="Sample a new pill from the procedural priors (R)">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3.25" y="3.25" width="13.5" height="13.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7.1" cy="7.1" r="1.25" fill="currentColor"/><circle cx="10" cy="10" r="1.25" fill="currentColor"/><circle cx="12.9" cy="12.9" r="1.25" fill="currentColor"/></svg>
+      <span>Resample</span>
+    </button>
+    <button class="fab-icon" id="fabReset" type="button" aria-label="Reset view" title="Reset view (0)">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 1.9-4.4M4 3.5v3.3h3.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </div>
   <div class="tour-cap" id="tourCap" role="status" aria-live="polite">
     <div class="progress"><i id="tourProg"></i></div>

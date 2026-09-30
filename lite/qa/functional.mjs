@@ -60,7 +60,7 @@ await withPage(async (page, log) => {
   const pt = await ev(() => { const s = window.__atelier.stage; const p = s.tray.pills[0]; const [x, y] = s.project(p.group.position); return { x, y }; });
   await page.mouse.click(pt.x, pt.y);
   await page.waitForTimeout(1800);
-  const sel = await ev(() => ({ selected: !!window.__atelier.state.selected, view: window.__atelier.stage.trayView, title: document.getElementById('inspTitle').textContent }));
+  const sel = await ev(() => ({ selected: !!window.__atelier.state.selected, view: window.__atelier.stage.trayView, panelLabel: document.getElementById('inspector').getAttribute('aria-label') }));
   await settle(page).catch(() => {});
   await page.screenshot({ path: 'qa/screens/tray-selected-pill.png' });
   ok('click selects a pill and flies to it', sel.selected && sel.view === 'pill', sel);

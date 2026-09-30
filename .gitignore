@@ -51,6 +51,7 @@ blender/fonts/**/*.ttf
 !/lite/qa/functional.mjs
 !/lite/qa/dataset.mjs
 !/lite/qa/mobile.mjs
+!/lite/qa/mobile-controls.mjs
 !/lite/qa/contract-parity.mjs
 !/lite/qa/collection-streaming.mjs
 !/lite/qa/intro/

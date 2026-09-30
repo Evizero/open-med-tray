@@ -283,7 +283,7 @@ export function trayTabs(state, act) {
         seg({ label: 'Worktop', options: Object.entries(SURFACES).map(([k, v]) => [k, v, worktopChip(k)]), get: () => c.surface, set: setC('surface') }),
         seg({ label: 'Lighting', options: Object.entries(LIGHTING).filter(([k]) => k !== 'studio').map(([k, v]) => [k, v.label]), get: () => c.lighting, set: (v) => act.lighting(v) }),
       ]),
-      section(null, [el('p', { class: 'hint', text: `Seed ${c.seed}. Click a pill to inspect or edit its product; R rolls a new scene.` })]),
+      section(null, [el('p', { class: 'hint', text: `Seed ${c.seed}. Select a pill to inspect or edit its product; Resample (R) draws a whole new scene.` })]),
     ],
     container: () => {
       const covers = TRAY_STYLES[c.style].covers;

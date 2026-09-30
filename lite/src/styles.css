@@ -33,8 +33,10 @@
   --rail-w: 64px;
   --panel-w: 300px;
   --status-h: 26px;
-  --head-h: 64px;
-  --tabs-h: 38px;
+  /* One top band: the panel's tab strip and the workspace heads (collection,
+     scene inspector) share it, so their rules line up in every mode. */
+  --head-h: 48px;
+  --tabs-h: var(--head-h);
   --foot-h: 56px;
   --pad: 16px;
   --top-h: 0px;
@@ -103,17 +105,6 @@ html.dim-dragging #gl { cursor: inherit !important; }
 /* ---------- mode panel ---------- */
 .panel { position: absolute; top: 0; bottom: 0; left: var(--rail-w); width: var(--panel-w); background: var(--panel); border-right: 1px solid var(--hair); display: flex; flex-direction: column; z-index: 5; overflow: hidden; }
 .sheet-handle { display: none; }
-.insp-head { flex: 0 0 var(--head-h); height: var(--head-h); display: flex; align-items: center; gap: 12px; padding: 0 var(--pad); border-bottom: 1px solid var(--hair); overflow: hidden; }
-.insp-icon { flex: 0 0 auto; width: 44px; height: 30px; display: grid; place-items: center; color: var(--ink-2); }
-.insp-icon svg { width: 44px; height: 29px; display: block; }
-.insp-icon svg[viewBox="0 0 20 20"] { width: 22px; height: 22px; }
-.insp-text { min-width: 0; flex: 1; }
-.insp-title { font-size: 13.5px; font-weight: 600; line-height: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.insp-sub { display: grid; margin-top: 1px; color: var(--ink-2); }
-.insp-sub > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.insp-sub .s1 { font-size: 11.5px; line-height: 16px; }
-.insp-sub .s2 { font-size: 11.5px; line-height: 16px; color: var(--ink-3); }
-.insp-sub .s2.num { font-family: var(--mono); font-size: 10.5px; line-height: 15px; font-variant-numeric: tabular-nums; }
 .tabs { flex: 0 0 var(--tabs-h); height: var(--tabs-h); display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; position: relative; border-bottom: 1px solid var(--hair); padding: 0 8px; }
 .tabs button { border: 0; background: transparent; padding: 0 4px; font-size: 12px; font-weight: 500; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .15s; }
 .tabs button[aria-selected="true"] { color: var(--ink); }
@@ -129,6 +120,16 @@ html.dim-dragging #gl { cursor: inherit !important; }
 .insp-foot .spacer { flex: 1 1 auto; }
 .insp-foot .counter { font-size: 11.5px; color: var(--ink-3); white-space: nowrap; flex: 0 0 auto; font-variant-numeric: tabular-nums; }
 .insp-foot .progressbar { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: transparent; margin: 0; border-radius: 0; }
+/* Resample is the scene's primary action; the preset pager sits beside it. */
+.insp-foot .btn.resample { gap: 7px; }
+.btn.resample svg { width: 17px; height: 17px; }
+.resampling .btn.resample svg, .resampling .fab-go svg { animation: roll .5s var(--ease); }
+@keyframes roll { from { transform: rotate(0); } to { transform: rotate(180deg); } }
+/* The pager takes the same share as Tray's secondary button, so Resample has
+   one footprint in both modes. */
+.insp-foot .pager { display: flex; align-items: center; gap: 2px; flex: 1 1 22px; min-width: 0; } /* basis = a footer .btn's padding + border */
+.insp-foot .pager .counter { flex: 1 1 auto; min-width: 0; text-align: center; overflow: hidden; text-overflow: ellipsis; }
+.fab { display: none; }
 
 /* Sections: one uppercase caption, then fields on a 14 px rhythm. */
 .sec { padding: 16px var(--pad) 18px; border-bottom: 1px solid var(--hair); }
@@ -578,26 +579,30 @@ details.adv > summary:focus-visible { outline-offset: 0; }
 /* ---------- phone: top bar, two-state bottom sheet ---------- */
 @media (max-width: 760px) {
   /* peek = 1px top rule + 22px handle + 48px head + 40px tab strip */
-  :root { --top-h: 56px; --rail-w: 0px; --panel-w: 0px; --head-h: 48px; --tabs-h: 40px; --foot-h: 60px; --peek: 111px; --sheet-h: min(62svh, 560px); --pad: 16px; --thumb: 20px; }
-  .rail { top: 0; left: 0; right: 0; bottom: auto; width: auto; height: var(--top-h); flex-direction: row; align-items: stretch; padding: 0 6px 0 10px; gap: 4px; border-right: 0; border-bottom: 1px solid var(--hair); }
-  .brand { align-self: center; margin-right: 2px; height: 44px; }
-  .modes { flex-direction: row; flex: 1 1 auto; padding: 6px 0; gap: 4px; width: auto; min-width: 0; }
-  .modes button { height: auto; min-width: 0; font-size: 10.5px; gap: 3px; }
-  .actions { margin: 0; flex-direction: row; align-self: center; width: auto; padding: 0; gap: 2px; }
-  .icon-btn { width: 44px; height: 44px; font-size: 9.5px; }
-  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: var(--sheet-h); border-right: 0; border-top: 1px solid var(--hair); border-radius: 12px 12px 0 0; box-shadow: 0 -1px 12px rgba(31, 30, 28, .06); transform: translateY(calc(var(--sheet-h) - var(--peek))); transition: transform .3s var(--ease); }
+  /* Top bar: 56 px below the status-bar inset. Peek = 1 px top rule + 24 px
+     handle + 45 px tab strip (44 px tabs over its rule), above the
+     home-indicator inset.
+     --fab-reserve keeps the framed render clear of the floating Resample card. */
+  :root { --top-h: calc(56px + env(safe-area-inset-top, 0px)); --rail-w: 0px; --panel-w: 0px; --head-h: 48px; --tabs-h: 45px; --foot-h: 60px; --peek-base: 70px; --peek: calc(var(--peek-base) + env(safe-area-inset-bottom, 0px)); --fab-reserve: 62px; --sheet-h: min(62svh, 560px); --pad: 16px; --thumb: 20px; }
+  /* Mark plus the three modes, on one even rhythm. Tour and reset view live
+     in the introduction and the Resample card on phones. */
+  .rail { top: 0; left: 0; right: 0; bottom: auto; width: auto; height: var(--top-h); flex-direction: row; align-items: center; padding: env(safe-area-inset-top, 0px) calc(8px + env(safe-area-inset-right, 0px)) 0 calc(8px + env(safe-area-inset-left, 0px)); gap: 4px; border-right: 0; border-bottom: 1px solid var(--hair); }
+  .brand { flex: 0 0 52px; width: 52px; height: 44px; border-radius: 10px; }
+  .modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); flex: 1 1 auto; padding: 0; gap: 4px; width: auto; min-width: 0; }
+  .modes button { height: 44px; min-width: 0; border-radius: 10px; font-size: 10.5px; gap: 3px; }
+  .actions { display: none; }
+  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: var(--sheet-h); padding-bottom: env(safe-area-inset-bottom, 0px); border-right: 0; border-top: 1px solid var(--hair); border-radius: 12px 12px 0 0;
+    /* The second shadow is a panel-coloured apron below the bottom edge, seen only when the sheet is pulled past open. */
+    box-shadow: 0 -1px 12px rgba(31, 30, 28, .06), 0 48px 0 0 var(--panel); transform: translateY(calc(var(--sheet-h) - var(--peek))); transition: transform .32s var(--ease); }
   .panel.open { transform: none; }
-  .sheet-handle { display: flex; justify-content: center; align-items: center; height: 22px; flex: 0 0 22px; border: 0; background: none; width: 100%; padding: 0; }
-  .sheet-handle::before { content: ""; width: 36px; height: 4px; border-radius: 2px; background: var(--hair-2); }
-  .insp-head { border-bottom: 0; }
-  .insp-icon { width: 40px; height: 28px; }
-  .insp-icon svg { width: 40px; height: 27px; }
-  .insp-title { font-size: 14px; }
-  .insp-sub { display: flex; gap: 0; align-items: baseline; }
-  .insp-sub .s1 { flex: 0 1 auto; }
-  .insp-sub .s2 { flex: 0 0 auto; }
-  .insp-sub .s1 + .s2::before { content: "\00a0\00b7\00a0"; font-family: var(--sans); }
-  .tabs { border-top: 1px solid var(--hair); }
+  .panel.dragging, .panel.snap { transition: none; }
+  /* Grab area: handle and tab strip take vertical drags (69 px across the
+     full width); taps still toggle / pick a tab. */
+  .sheet-handle, .tabs { touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .sheet-handle { display: flex; justify-content: center; align-items: center; height: 24px; flex: 0 0 24px; border: 0; background: none; width: 100%; padding: 0; }
+  .sheet-handle::before { content: ""; width: 36px; height: 4px; border-radius: 2px; background: var(--hair-2); transition: background .15s, width .2s var(--ease); }
+  .panel.dragging .sheet-handle::before { background: var(--ink-3); width: 44px; }
+  .sheet-handle:focus-visible { outline-offset: -3px; border-radius: 8px; }
   .tabs button { font-size: 12.5px; }
   .seg button { height: 36px; font-size: 12px; }
   .seg.stack button { height: 52px; }
@@ -621,7 +626,23 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .toggle, .txt { min-height: 38px; }
   .tile-actions .act { width: 32px; height: 32px; }
   /* Readout is a halo'd line drawn on the render above the sheet peek. */
-  .readout { left: 12px; right: 12px; bottom: calc(var(--peek) + 8px); height: auto; padding: 0; background: none; border: 0; color: var(--ink); text-shadow: var(--halo); font-size: 10.5px; gap: 10px; }
+  .readout { left: calc(12px + env(safe-area-inset-left, 0px)); right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(var(--peek) + 8px); height: auto; padding: 0; background: none; border: 0; color: var(--ink); text-shadow: var(--halo); font-size: 10.5px; gap: 10px; transform: translateY(calc(-1 * var(--lift, 0px))); }
+  /* Resample card: one floating control centred over the render, above the
+     readout line and the collapsed sheet. Hidden (not just faded) when off. */
+  .fab { display: flex; align-items: center; gap: 4px; position: absolute; left: 50%; bottom: calc(var(--peek) + 34px); z-index: 4; padding: 4px; border-radius: 14px; background: rgba(251, 251, 249, .92); -webkit-backdrop-filter: blur(12px) saturate(1.2); backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: 0 0 0 .5px rgba(31, 30, 28, .14), 0 1px 2px rgba(31, 30, 28, .08), 0 8px 24px -8px rgba(31, 30, 28, .3);
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 10px) scale(.97); transition: opacity .18s ease-out, transform .28s var(--ease), visibility 0s .28s; }
+  .fab-on .fab { opacity: calc(1 - var(--lift-k, 0) * 1.4); visibility: visible; pointer-events: auto; transform: translate(-50%, calc(-1 * var(--lift, 0px))); transition: opacity .2s ease-out, transform .32s var(--ease), visibility 0s; }
+  .sheet-dragging .fab { transition: none; }
+  .fab-go { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px 0 16px; border: 0; border-radius: 10px; background: var(--accent); color: #fff; font-size: 14.5px; font-weight: 600; letter-spacing: .005em; white-space: nowrap; -webkit-tap-highlight-color: transparent; transition: background .12s, transform .12s var(--ease); }
+  .fab-go svg { width: 20px; height: 20px; flex: 0 0 auto; }
+  .fab-go:active { background: var(--accent-hover); transform: scale(.97); }
+  .fab-go:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .fab-icon { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 10px; background: transparent; color: var(--ink-2); -webkit-tap-highlight-color: transparent; transition: background .12s, color .12s; }
+  .fab-icon[hidden] { display: none; }
+  .fab-icon svg { width: 20px; height: 20px; }
+  .fab-icon:active { background: var(--fill); color: var(--ink); }
+  .fab-icon:focus-visible { outline-offset: -2px; }
   .readout .caption, .readout .ctx { display: none; }
   .readout.hinting .caption { display: inline; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .readout.hinting .info, .readout.hinting .scalebar { display: none; }
@@ -674,6 +695,14 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .sci-side { overflow: visible; border-left: 0; border-top: 1px solid var(--hair-2); }
   .fl-dl { padding: 8px 0; }
   .sci-table td { padding: 8px 4px; }
+}
+/* Short landscape phones: the card moves to the right end of the readout row
+   so the render keeps its little height. */
+@media (max-width: 760px) and (max-height: 500px) {
+  :root { --fab-reserve: 26px; }
+  .readout { right: calc(212px + env(safe-area-inset-right, 0px)); }
+  .fab { left: auto; right: calc(12px + env(safe-area-inset-right, 0px)); bottom: calc(var(--peek) + 6px); transform: translateY(10px) scale(.97); }
+  .fab-on .fab { transform: translateY(calc(-1 * var(--lift, 0px))); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }

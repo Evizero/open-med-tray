@@ -1,7 +1,8 @@
 // Open Med Tray Lite — application wiring: state, inspector, overlays, tour, export.
 import * as THREE from 'three';
 import { Stage } from './app/stage.js';
-import { PRESETS, BASE, validate, familyOf } from './scene/catalog.js';
+import { PRESETS, BASE, validate, familyOf, randomProduct, instanceVariant } from './scene/catalog.js';
+import { RNG } from './util/rng.js';
 import {sampleIntrinsics} from './scene/camera-intrinsics.js';
 import { randomConfig, SEMANTIC } from './scene/trayscene.js';
 import { TRAY_STYLES } from './geo/tray.js';
@@ -12,13 +13,12 @@ import {CollectionStore} from './labels/collection-store.js';
 import { el, toggle, tabStrip, tabArrow, placeIndicator, refreshPanel, setEditHooks } from './ui/controls.js';
 import { DimHandles } from './ui/handles.js';
 import { capsuleDims, softgelDims } from './geo/shells.js';
-import { presetList, presetIcon, pillTabs, instanceTab, trayTabs, datasetTabs } from './ui/panels.js';
-import { LIGHTING } from './render/lighting.js';
+import { presetList, pillTabs, instanceTab, trayTabs, datasetTabs } from './ui/panels.js';
 import { createCollection } from './ui/collection.js';
 import { createInspector } from './ui/scene-inspector.js';
 import { createIntro } from './ui/intro.js';
+import { bindSheetDrag } from './ui/sheet-drag.js';
 import {prepareWood} from './render/wood.js';
-import { SURFACES } from './render/surfaces.js';
 
 const $ = (id) => document.getElementById(id);
 const mobileQuery = matchMedia('(max-width: 760px)');
@@ -30,7 +30,7 @@ const introOnLoad = !new URLSearchParams(location.search).has('no-intro');
 const DEFAULT_TRAY = { ...randomConfig(20260929), seed: 20260929, style: 'moulded_daily', container: 'white_plastic', cover: 'none', surface: 'wood', lighting: 'window', count: 7, products: 3, damage: .12, debris: true, sticker: true, language: 'en', camera: { ...sampleIntrinsics(20260929), clearance: 118, tilt: 0, roll: 0, offsetX: 0, offsetY: 0 } };
 
 const state = {
-  mode: 'specimen', presetId: 'p10', spec: clone(PRESETS[0].spec),
+  mode: 'specimen', presetId: 'p10', spec: clone(PRESETS[0].spec), sampled: false,
   tray: clone(DEFAULT_TRAY), trayView: 'capture', selected: null,
   labels: 'off', boxes: true, labelData: null,
   dataset: { sampling:'mixed', stressProbability:.06, cameraProfile:'auto', count: 8, res: '1024x512', samples: 12, seed: 1000, running: false, zip: null, nextIndex: 0, status: '', showLabels: false, scenes: [] },
@@ -47,14 +47,19 @@ let stage;
 // While the introduction covers the bench on load, the camera waits on the
 // first pose of the macro pull-back; closing the sheet releases it.
 let introHold = false;
+// Whether the introduction covers the bench (from show() until its close
+// starts), so the floating scene action stays out from under the sheet.
+let introUp = introOnLoad;
 const INTRO_EXAMPLE = clone(PRESETS.find((p) => p.id === 'p10').spec);
 const intro = createIntro({
   // The blueprint is a fixed example (the default preset), not a live drawing of the bench.
   reduced, getSpec: () => INTRO_EXAMPLE,
   onClose: (action) => {
+    introUp = false;
     const held = introHold; introHold = false;
     if (action === 'tour') playTour();
     else if (held) stage.specimenFrame(stage.pill, { macro: true, resume: true });
+    updateFab();
   },
 });
 async function boot() {
@@ -100,7 +105,13 @@ async function boot() {
     else if (!reduced) stage.specimenFrame(stage.pill, { macro: true });
   }));
   addEventListener('resize', () => { layout(); });
-  mobileQuery.addEventListener('change', () => { layout(); renderInspector(); });
+  // Mobile browsers settle toolbar and orientation changes over several
+  // frames; coalesce those into one layout per frame.
+  let relayout = 0;
+  const queueLayout = () => { cancelAnimationFrame(relayout); relayout = requestAnimationFrame(() => layout()); };
+  visualViewport?.addEventListener('resize', queueLayout);
+  addEventListener('orientationchange', queueLayout);
+  mobileQuery.addEventListener('change', () => { if (!mobileQuery.matches) setSheet(false, true); layout(); renderInspector(); updateFab(); });
 }
 
 // ------------------------------------------------------------ layout
@@ -108,15 +119,34 @@ async function boot() {
 // the workspace. Phone: top bar + two-state bottom sheet. Safe render bounds
 // follow these fixed chrome dimensions, never the current panel content.
 const cssPx = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
+// Resolved safe-area insets (env() only resolves inside a real property).
+let safeProbe = null;
+function safeBottom() {
+  if (!safeProbe) { safeProbe = document.createElement('div'); safeProbe.setAttribute('aria-hidden', 'true'); safeProbe.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding-bottom:env(safe-area-inset-bottom,0px)'; document.body.append(safeProbe); }
+  return parseFloat(getComputedStyle(safeProbe).paddingBottom) || 0;
+}
+// Phone sheet geometry of the last layout (the drag gesture reads its travel).
+const sheetGeom = { h: 0, peek: 0 };
 function layout() {
-  const w = innerWidth, h = innerHeight;
+  sheetDrag?.abort();
+  // The fixed #app box is the visible viewport the canvas fills (it follows
+  // mobile toolbars); window sizes are only a fallback.
+  const app = $('app');
+  const w = app.clientWidth || innerWidth, h = app.clientHeight || innerHeight;
   const mobile = mobileQuery.matches;
   const root = document.documentElement.style;
   let insets;
   if (mobile) {
-    const sheetH = Math.round(Math.min(h * .62, 560));
+    const top = $('rail').offsetHeight, safeB = safeBottom();
+    const peek = cssPx('--peek-base') + safeB;
+    // Expanded: ~62% of the screen; short landscape screens get most of the
+    // height below the bar so the controls stay usable.
+    const sheetH = Math.round(Math.min(h - top - 8, Math.max(Math.min(h * .62, 560), Math.min(h - top - 24, 300)) + safeB));
     root.setProperty('--sheet-h', sheetH + 'px');
-    insets = { top: cssPx('--top-h'), left: 0, right: 0, bottom: $('inspector').classList.contains('open') ? sheetH : cssPx('--peek') };
+    Object.assign(sheetGeom, { h: sheetH, peek });
+    // Collapsed, the floating Resample card and the readout line sit above the
+    // peek; the render (and its annotations) is framed clear of both.
+    insets = { top, left: 0, right: 0, bottom: $('inspector').classList.contains('open') ? sheetH : peek + cssPx('--fab-reserve') };
   } else { root.removeProperty('--sheet-h'); insets = { top: 0, left: cssPx('--rail-w') + cssPx('--panel-w'), right: 0, bottom: cssPx('--status-h') }; }
   stage.resize(w, h);
   stage.setInsets(insets);
@@ -127,9 +157,11 @@ function layout() {
 }
 
 // ------------------------------------------------------------ inspector
-// One frame for every mode: head (title + one-line sub), tab strip, scrolling
-// body, action footer. Switching family, preset, selection or mode replaces
-// the body (and footer content) inside the same footprint.
+// One frame for every mode, for selection and editing only: tab strip,
+// scrolling body, action footer. No summary head; the render and the readout
+// show what is selected. Switching family, preset, selection or mode replaces
+// the body (and footer content) inside the same footprint. `label` names the
+// panel for assistive technology only.
 const tabState = { specimen: 'presets', tray: 'scene', inspect: 'instance', dataset: 'batch' };
 const scrollMemo = {};
 const disclosureMemo = new Map();
@@ -139,19 +171,21 @@ function inspectorDef() {
   if (state.mode === 'specimen') {
     const ed = pillTabs(() => state.spec, (fn, final, hint) => editSpecimen(fn, final, hint), { onFamily: (k) => switchFamily(k) });
     return {
-      key: 'specimen', title: presetName() ?? 'Custom specimen', sub: describeParts(state.spec),
+      key: 'specimen', label: 'Specimen controls',
       tabs: [
         { id: 'presets', label: 'Presets', build: () => [presetList(state.presetId, (p) => applyPreset(p))] },
         { id: 'form', label: 'Form', build: ed.form }, { id: 'surface', label: 'Surface', build: ed.surface }, { id: 'marks', label: 'Marks', build: ed.marks },
       ],
+      // Resample is the primary action; the preset pager is secondary.
       foot: () => {
         const i = PRESETS.findIndex((p) => p.id === state.presetId);
         const step = (d) => { const j = Math.max(0, PRESETS.findIndex((p) => p.id === state.presetId)); applyPreset(PRESETS[(j + d + PRESETS.length) % PRESETS.length]); };
         return [
-          el('span', { class: 'counter', text: i >= 0 ? `Preset ${i + 1} of ${PRESETS.length}` : `Custom · ${PRESETS.length} presets` }),
-          el('span', { class: 'spacer' }),
-          el('button', { class: 'btn ghost icon', type: 'button', 'aria-label': 'Previous preset', title: 'Previous preset ([)', 'data-k': 'btn:prev', onclick: () => step(-1) }, chev(-1)),
-          el('button', { class: 'btn ghost icon', type: 'button', 'aria-label': 'Next preset', title: 'Next preset (])', 'data-k': 'btn:next', onclick: () => step(1) }, chev(1)),
+          resampleButton('pill'),
+          el('span', { class: 'pager' },
+            el('button', { class: 'btn ghost icon', type: 'button', 'aria-label': 'Previous preset', title: 'Previous preset ([)', 'data-k': 'btn:prev', onclick: () => step(-1) }, chev(-1)),
+            el('span', { class: 'counter', text: i >= 0 ? `${i + 1} / ${PRESETS.length}` : state.sampled ? 'Sampled' : 'Custom', title: i >= 0 ? `Preset ${i + 1} of ${PRESETS.length}` : `Not a preset · ${PRESETS.length} presets` }),
+            el('button', { class: 'btn ghost icon', type: 'button', 'aria-label': 'Next preset', title: 'Next preset (])', 'data-k': 'btn:next', onclick: () => step(1) }, chev(1))),
         ];
       },
     };
@@ -160,7 +194,7 @@ function inspectorDef() {
     const pill = state.selected, tray = stage.tray, pi = pill.placement.product;
     const ed = pillTabs(() => stage.tray.products[pi], (fn, final) => editProduct(pi, fn, final), { onFamily: (k) => editProduct(pi, (x) => { Object.keys(x).forEach((key) => delete x[key]); Object.assign(x, clone(BASE[k])); }, true) });
     return {
-      key: 'inspect', title: `Product ${pi + 1} · instance ${pill.label.instance}`, sub: describeParts(tray.products[pi]),
+      key: 'inspect', label: `Pill controls: product ${pi + 1}, instance ${pill.label.instance}`,
       tabs: [
         { id: 'instance', label: 'Instance', build: () => instanceTab(pill, tray) },
         { id: 'form', label: 'Form', build: ed.form }, { id: 'surface', label: 'Surface', build: ed.surface }, { id: 'marks', label: 'Marks', build: ed.marks },
@@ -172,21 +206,20 @@ function inspectorDef() {
     };
   }
   if (state.mode === 'tray') {
-    const c = state.tray;
     const t = trayTabs({ ...state, trayView: stage.trayView }, trayActions);
     return {
-      key: 'tray', title: TRAY_STYLES[c.style].label, sub: [`${stage.tray?.meta.placed_pills ?? c.count} pills · ${c.products} product${c.products === 1 ? '' : 's'}`, `${LIGHTING[c.lighting].label} · ${SURFACES[c.surface].toLowerCase()}`],
+      key: 'tray', label: 'Tray controls',
       tabs: [{ id: 'scene', label: 'Scene', build: t.scene }, { id: 'container', label: 'Container', build: t.container }, { id: 'contents', label: 'Contents', build: t.contents }, { id: 'camera', label: 'Camera', build: t.camera }],
       foot: () => [
-        el('button', { class: 'btn', type: 'button', text: 'New scene', title: 'Randomize (R)', 'data-k': 'btn:new', onclick: () => trayActions.randomize() }),
-        el('button', { class: 'btn ghost', type: 'button', text: 'Replay drop', 'data-k': 'btn:replay', onclick: () => trayActions.rebuild(true) }),
+        resampleButton('tray'),
+        el('button', { class: 'btn ghost', type: 'button', text: 'Replay drop', title: 'Drop the same pills into the same tray again', 'data-k': 'btn:replay', onclick: () => trayActions.rebuild(true) }),
       ],
     };
   }
   const t = datasetTabs(state, datasetActions);
   const d = state.dataset;
   return {
-    key: 'dataset', title: 'Dataset', sub: [`${d.scenes.length} scene${d.scenes.length === 1 ? '' : 's'} in collection`, `next seed ${d.seed}`],
+    key: 'dataset', label: 'Dataset controls',
     tabs: [{ id: 'batch', label: 'Batch', build: t.batch }, { id: 'archive', label: 'Archive', build: t.archive }],
     // Footer: the "Scenes to add" stepper sits on its own row above the actions.
     foot: () => {
@@ -206,14 +239,6 @@ function inspectorDef() {
     },
   };
 }
-
-// Panel head miniature: the live spec (specimen / inspected product) or the mode glyph.
-function headIcon() {
-  if (state.mode === 'specimen') return presetIcon(state.spec);
-  if (state.mode === 'tray' && state.selected) return presetIcon(stage.tray.products[state.selected.placement.product]);
-  return document.querySelector(`.modes button[data-mode="${state.mode}"] svg`)?.cloneNode(true) ?? null;
-}
-function updateHeadIcon() { const slot = $('inspIcon'); if (!slot) return; const icon = headIcon(); slot.replaceChildren(icon || ''); }
 
 function renderInspector({ animate = false } = {}) {
   const def = inspectorDef();
@@ -236,9 +261,7 @@ function renderInspector({ animate = false } = {}) {
   inspKey = def.key; inspTabs = def.tabs;
   if (!def.tabs.some((t) => t.id === tabState[def.key])) tabState[def.key] = def.tabs[0].id;
   const tab = def.tabs.find((t) => t.id === tabState[def.key]);
-  $('inspTitle').textContent = def.title; $('inspTitle').title = def.title;
-  setSub(def.sub);
-  updateHeadIcon();
+  $('inspector').setAttribute('aria-label', def.label);
   tabStrip(strip, def.tabs, tab.id, (id) => setTab(id));
   placeIndicator(strip);
   body.classList.toggle('anim', animate && !reduced);
@@ -267,15 +290,14 @@ function setTab(id) {
   if (mobileQuery.matches) openSheetIfMobile();
 }
 
-// Head sub: a descriptive line over an exact-numbers line (mono). Each line
-// keeps its words together; the head has room for both on every viewport.
-function setSub([a, b, numeric = false]) {
-  const s = $('inspSub');
-  s.replaceChildren(el('span', { class: 's1', text: a }), el('span', { class: numeric ? 's2 num' : 's2', text: b }));
-  s.title = `${a} · ${b}`;
-}
+// One label everywhere; the description says what is sampled in this mode.
+const RESAMPLE_HINT = {
+  pill: 'Sample a new pill: family, size, colour, finish and marks (R)',
+  tray: 'Sample a new tray scene: container, cover, contents, light and camera (R)',
+};
+const dice = () => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 20 20'); s.setAttribute('aria-hidden', 'true'); s.innerHTML = '<rect x="3.25" y="3.25" width="13.5" height="13.5" rx="3.2" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7.1" cy="7.1" r="1.25" fill="currentColor"/><circle cx="10" cy="10" r="1.25" fill="currentColor"/><circle cx="12.9" cy="12.9" r="1.25" fill="currentColor"/>'; return s; };
+const resampleButton = (kind) => el('button', { class: 'btn accent resample', type: 'button', title: RESAMPLE_HINT[kind], 'data-k': 'btn:resample', onclick: () => resample() }, dice(), el('span', { text: 'Resample' }));
 const chev = (d) => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 16 16'); s.setAttribute('aria-hidden', 'true'); s.innerHTML = `<path d="${d < 0 ? 'M10 3.5 5.5 8l4.5 4.5' : 'M6 3.5 10.5 8 6 12.5'}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`; return s; };
-function presetName() { const p = PRESETS.find((x) => x.id === state.presetId); return p?.name; }
 // Sizes as built (validated and resolved), matching the drawn dimensions.
 const specDims = (s0) => {
   const s = validate(clone(s0));
@@ -283,19 +305,13 @@ const specDims = (s0) => {
   const d = s.kind === 'softgel' ? softgelDims(s) : { L: s.length, W: s.width, H: s.thickness };
   return `${d.L.toFixed(1)} × ${d.W.toFixed(1)} × ${d.H.toFixed(1)} mm`;
 };
-const FINISH_NAMES = { chalky: 'uncoated', matte_film: 'matte film', satin_film: 'satin film' };
-// Head lines: what it is (family and the property that distinguishes it), then exact size.
-function describeParts(s) {
-  const fam = s.kind === 'tablet' ? `${s.outline === 'polygon' ? `${s.sides}-sided` : s.outline} tablet · ${FINISH_NAMES[s.finish] ?? s.finish}` : s.kind === 'capsule' ? 'Hard gelatin capsule' : `${s.shape} softgel · ${s.opacity}`;
-  return [fam[0].toUpperCase() + fam.slice(1), specDims(s), true];
-}
 function describeSpec(s) {
   const fam = s.kind === 'tablet' ? `${s.outline === 'polygon' ? `${s.sides}-sided` : s.outline} tablet` : s.kind === 'capsule' ? 'two-piece capsule' : `${s.shape} softgel, ${s.opacity}`;
   return `${fam} · ${specDims(s)}`;
 }
 
 function applyPreset(p) {
-  state.presetId = p.id;
+  state.presetId = p.id; state.sampled = false;
   const next = clone(p.spec);
   const sameKind = next.kind === state.spec.kind;
   state.spec = next;
@@ -316,12 +332,12 @@ let liveTimer = 0;
 // both back exactly, so an aborted gesture leaves no trace (not even
 // "Custom specimen").
 let editSnap = null, handles = null;
-function beginEdit() { editSnap = state.mode === 'specimen' ? { spec: clone(state.spec), presetId: state.presetId } : null; }
+function beginEdit() { editSnap = state.mode === 'specimen' ? { spec: clone(state.spec), presetId: state.presetId, sampled: state.sampled } : null; }
 function cancelEdit() {
   if (!editSnap || state.mode !== 'specimen') { editSnap = null; return false; }
   const snap = editSnap; editSnap = null;
   cancelAnimationFrame(liveTimer);
-  state.spec = snap.spec; state.presetId = snap.presetId;
+  state.spec = snap.spec; state.presetId = snap.presetId; state.sampled = snap.sampled;
   stage.pill.live(clone(state.spec), true); stage.groundHero(); stage.lightStudio(); stage.pipe.reset(); stage.wake();
   renderInspector(); updateCaption(); scheduleDims();
   return true;
@@ -329,7 +345,7 @@ function cancelEdit() {
 function editSpecimen(fn, final, hint) {
   fn(state.spec);
   validate(state.spec);
-  state.presetId = null;
+  state.presetId = null; state.sampled = false;
   hideDims();
   if (hint === 'morph') {
     stage.setSpecimen(clone(state.spec)).then(() => scheduleDims());
@@ -340,9 +356,6 @@ function editSpecimen(fn, final, hint) {
     liveTimer = requestAnimationFrame(() => { stage.pill.live(state.spec, !!final); stage.groundHero(); stage.pipe.reset(); stage.wake(); if (final) { stage.lightStudio(); scheduleDims(); } });
     if (final && needsRerender(fn)) renderInspector();
   }
-  setSub(describeParts(state.spec));
-  $('inspTitle').textContent = presetName() ?? 'Custom specimen';
-  if (final) updateHeadIcon();
   updateCaption();
 }
 // Discrete controls change which sub-controls exist.
@@ -367,7 +380,7 @@ function editProduct(pi, fn, final) {
 
 function openInStudio(spec) {
   state.spec = clone(spec);
-  state.presetId = null;
+  state.presetId = null; state.sampled = false;
   deselect(true);
   setMode('specimen').then(() => stage.setSpecimen(clone(spec), { transition: 'section' }));
 }
@@ -398,6 +411,7 @@ async function setMode(mode) {
   renderInspector();
   updateCaption();
   closeSheetIfMobile();
+  updateFab();
 }
 
 const trayActions = {
@@ -409,8 +423,10 @@ const trayActions = {
     rebuildTray(false,true);
   },
   rebuild(animate) { rebuildTray(animate); },
+  // Resample: a whole new scene from the priors (the requested camera height is kept).
   randomize() {
-    const seed = Math.floor(Math.random() * 1e6);
+    let seed;
+    do seed = Math.floor(Math.random() * 1e6); while (seed === state.tray.seed);
     const cam = state.tray.camera;
     state.tray = { ...randomConfig(seed), camera: { ...randomConfig(seed).camera } };
     state.tray.camera.clearance = cam.clearance;
@@ -419,12 +435,12 @@ const trayActions = {
   randomizeCamera() { delete state.tray.camera.captureLock; const c=state.tray.camera,seed=(c.intrinsicsSeed??state.tray.seed)+1;Object.assign(c,sampleIntrinsics(seed),{framing:'lens'});stage.tray.config.camera=clone(c);stage.updateTrayCamera();renderInspector();refreshLabels(); },
   camera(fn, final) { delete state.tray.camera.captureLock; fn(state.tray.camera); stage.tray.config.camera = clone(state.tray.camera); if (stage.trayView === 'capture') stage.updateTrayCamera(); if (final) refreshLabels(); else hideLabelsQuick(); updateCaption(); updateCamActual(); },
   captureRecord: () => stage.capture?.userData.record ?? null,
-  lighting(v) { state.tray.lighting = v; stage.tray.config.lighting = v; stage.applyTrayLighting(); stage.pipe.reset(); stage.wake(); refreshLabels(); renderInspectorHead(); },
+  lighting(v) { state.tray.lighting = v; stage.tray.config.lighting = v; stage.applyTrayLighting(); stage.pipe.reset(); stage.wake(); refreshLabels(); renderTrayPanel(); },
   labels(v) { setLabels(v); },
   boxes(v) { state.boxes = v; drawOverlay(); },
   view(v) { stage.setTrayView(v); setLabels(state.labels); renderInspector(); },
 };
-function renderInspectorHead() { if (state.mode === 'tray' && !state.selected) renderInspector(); }
+function renderTrayPanel() { if (state.mode === 'tray' && !state.selected) renderInspector(); }
 
 // Automatic fit may back the camera off beyond the requested clearance (raised
 // lids, near surfaces); say so beside the request, only when they differ.
@@ -452,12 +468,14 @@ function select(pill) {
   renderInspector();
   updateCaption();
   openSheetIfMobile();
+  updateFab();
 }
 function deselect(silent) {
   if (!state.selected) return;
   state.selected = null;
   stage.setTrayView('capture');
   if (!silent) { renderInspector(); updateCaption(); refreshLabels(); }
+  updateFab();
 }
 
 // ------------------------------------------------------------ labels overlay
@@ -963,6 +981,7 @@ async function playTour() {
   $('tourBtn').setAttribute('aria-pressed', 'true');
   $('tourCap').classList.add('on');
   $('readout').classList.add('hidden');
+  updateFab();
   hideDims();
   for (let i = 0; i < TOUR.length && state.tour.playing; i++) {
     state.tour.step = i;
@@ -983,6 +1002,7 @@ function stopTour() {
   $('tourCap').classList.remove('on');
   $('readout').classList.remove('hidden');
   $('tourPause').textContent = 'Pause';
+  updateFab();
   scheduleDims();
 }
 function pauseTour(force) {
@@ -993,17 +1013,83 @@ function pauseTour(force) {
 
 // ------------------------------------------------------------ mobile sheet
 // Two explicit states (collapsed peek / expanded), toggled only by the user
-// (handle, tab tap, selection, Esc, canvas tap); heights never follow content.
-function setSheet(open) {
+// (handle or head drag and tap, tab tap, selection, Esc, canvas tap); heights
+// never follow content. `force` also applies off the phone layout (reset).
+let sheetDrag = null;
+function setSheet(open, force = false) {
   const insp = $('inspector');
-  if (!mobileQuery.matches || insp.classList.contains('open') === open) return;
+  if ((!mobileQuery.matches && !force) || insp.classList.contains('open') === open) return;
   insp.classList.toggle('open', open);
   $('sheetHandle').setAttribute('aria-expanded', String(open));
   $('sheetHandle').setAttribute('aria-label', open ? 'Collapse controls' : 'Expand controls');
+  updateFab();
   layout();
 }
 function openSheetIfMobile() { setSheet(true); }
 function closeSheetIfMobile() { setSheet(false); }
+
+// ------------------------------------------------------------ resample
+// The scene's primary action: a whole new pill (specimen) or tray scene from
+// the procedural priors. On phones it floats above the collapsed sheet; the
+// panel footer carries the same action on desktop and in the expanded sheet.
+const SAMPLE_DAMAGE = .12; // chance of chips or a fracture, as for tray instances
+function samplePill() {
+  const key = (s) => JSON.stringify([s.kind, s.outline ?? s.shape, s.length, s.width, s.thickness, s.colorName ?? s.capColorName]);
+  const prev = key(state.spec);
+  let spec;
+  for (let i = 0; i < 4; i++) {
+    const rng = new RNG(Math.floor(Math.random() * 1e9) + 1);
+    spec = validate(instanceVariant(randomProduct(rng, 0, { split: 'preview' }), rng, SAMPLE_DAMAGE));
+    if (key(spec) !== prev) break;
+  }
+  return spec;
+}
+let resampling = null;
+function resample() {
+  if (state.mode === 'dataset' || state.dataset.running) return Promise.resolve(false);
+  stopTour();
+  handles?.cancel();
+  if (state.mode === 'tray') { trayActions.randomize(); return Promise.resolve(true); }
+  // A specimen build is synchronous and then animates; further taps wait for it.
+  if (resampling) return resampling;
+  $('app').classList.add('resampling');
+  // Let the pressed state paint before the geometry is built.
+  resampling = new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))).then(() => {
+    if (state.mode !== 'specimen') return false;
+    const next = samplePill(), sameKind = next.kind === state.spec.kind;
+    state.spec = next; state.presetId = null; state.sampled = true;
+    hideDims();
+    const done = stage.setSpecimen(clone(next), { transition: sameKind ? 'auto' : 'section' });
+    renderInspector();
+    updateCaption();
+    return done.then(() => { scheduleDims(); return true; });
+  }).catch((e) => { console.error('resample', e); return false; })
+    .finally(() => { resampling = null; $('app').classList.remove('resampling'); });
+  return resampling;
+}
+// Shown on phones in Specimen and Tray while nothing else claims the bottom
+// of the render: not in Dataset, pill inspection, the tour, the introduction
+// or with the sheet expanded (its footer then carries Resample).
+function updateFab() {
+  const fab = $('fab'); if (!fab || !stage) return;
+  const on = mobileQuery.matches && (state.mode === 'specimen' || state.mode === 'tray') && !state.selected && !state.tour.playing && !introUp && !state.dataset.running && !$('inspector').classList.contains('open');
+  // Off, the card is visibility:hidden (display:none on desktop), which also
+  // takes it out of focus order and the accessibility tree.
+  $('app').classList.toggle('fab-on', on);
+  const tray = state.mode === 'tray';
+  $('fabResample').setAttribute('aria-label', tray ? 'Resample tray scene' : 'Resample pill');
+  $('fabResample').title = RESAMPLE_HINT[tray ? 'tray' : 'pill'];
+  // The capture camera is fixed, so there is no tray view to reset.
+  $('fabReset').hidden = tray;
+}
+// The card and readout ride up with the sheet while it is dragged from the peek.
+function liftChrome(px) {
+  const app = $('app');
+  app.classList.toggle('sheet-dragging', px !== null);
+  if (px === null) { app.style.removeProperty('--lift'); app.style.removeProperty('--lift-k'); return; }
+  app.style.setProperty('--lift', px + 'px');
+  app.style.setProperty('--lift-k', Math.min(1, px / 56).toFixed(3));
+}
 
 // ------------------------------------------------------------ input
 let hoverPill = null, down = null;
@@ -1013,8 +1099,22 @@ function bindUI() {
   $('tourPause').addEventListener('click', () => pauseTour());
   $('tourStop').addEventListener('click', () => stopTour());
   $('resetBtn').addEventListener('click', resetView);
-  $('brandBtn').addEventListener('click', () => { stopTour(); handles?.cancel(); intro.show({ from: $('brandBtn'), returnFocus: $('brandBtn') }); });
-  $('sheetHandle').addEventListener('click', () => setSheet(!$('inspector').classList.contains('open')));
+  $('brandBtn').addEventListener('click', () => { stopTour(); handles?.cancel(); introUp = true; updateFab(); intro.show({ from: $('brandBtn'), returnFocus: $('brandBtn') }); });
+  const sheetOpen = () => $('inspector').classList.contains('open');
+  $('sheetHandle').addEventListener('click', () => setSheet(!sheetOpen()));
+  $('sheetHandle').addEventListener('keydown', (e) => { if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); setSheet(e.key === 'ArrowUp'); } });
+  // Grab area: the handle and the whole tab strip (69 px across the full
+  // width). Vertical drags move the sheet; taps keep their meaning (toggle /
+  // pick a tab) and horizontal movement is left alone.
+  sheetDrag = bindSheetDrag({
+    panel: $('inspector'), surfaces: [$('sheetHandle'), $('inspTabs')],
+    enabled: () => mobileQuery.matches, isOpen: sheetOpen, setOpen: (open) => setSheet(open),
+    range: () => sheetGeom.h - sheetGeom.peek, onLift: liftChrome,
+  });
+  window.__atelier.sheetDrag = sheetDrag;
+  $('fabResample').addEventListener('click', () => resample());
+  $('fabReset').addEventListener('click', resetView);
+  updateFab();
   $('inspTabs').addEventListener('keydown', (e) => { const id = tabArrow($('inspTabs'), e); if (id) setTab(id); });
   const modes = document.querySelector('.modes');
   modes.addEventListener('keydown', (e) => { const m = tabArrow(modes, e, 'data-mode'); if (m) { stopTour(); setMode(m); } });
@@ -1050,7 +1150,7 @@ function bindUI() {
     else if (k === 't') state.tour.playing ? stopTour() : playTour();
     else if (k === ' ' && state.tour.playing) { e.preventDefault(); pauseTour(); }
     else if (k === 'escape') { if (state.tour.playing) stopTour(); else if (state.selected) deselect(); else closeSheetIfMobile(); }
-    else if (k === 'r' && state.mode === 'tray') trayActions.randomize();
+    else if (k === 'r' && !e.metaKey && !e.ctrlKey && (state.mode === 'specimen' || state.mode === 'tray')) resample();
     else if (k === 'l' && state.mode === 'tray') { const order = ['off', 'instance', 'semantic']; setLabels(order[(order.indexOf(state.labels) + 1) % 3]); renderInspector(); }
     else if ((k === ']' || k === '[') && state.mode === 'specimen') { const i = Math.max(0, PRESETS.findIndex((p) => p.id === state.presetId)); applyPreset(PRESETS[(i + (k === ']' ? 1 : PRESETS.length - 1)) % PRESETS.length]); }
     else if (k === '0') resetView();
@@ -1097,5 +1197,5 @@ function labelsHash() {
   for (let i = 0; i < l.raw.length; i++) { h ^= l.raw[i]; h = Math.imul(h, 16777619); }
   return (h >>> 0).toString(16) + ':' + l.boxes.length;
 }
-window.__atelier.api = { intro, get inspector() { return sceneInspector; }, get collection() { return collection; }, labelsHash, floorMask, view: namedView, applyPresetById: (id) => applyPreset(PRESETS.find((p) => p.id === id)), setMode, applyPreset, setLabels, trayActions, datasetActions, select, deselect, playTour, stopTour, pauseTour, refreshLabels, setTab, setSheet, tabState, state, SEMANTIC };
+window.__atelier.api = { intro, get inspector() { return sceneInspector; }, get collection() { return collection; }, labelsHash, floorMask, view: namedView, applyPresetById: (id) => applyPreset(PRESETS.find((p) => p.id === id)), setMode, applyPreset, setLabels, trayActions, resample, updateFab, datasetActions, select, deselect, playTour, stopTour, pauseTour, refreshLabels, setTab, setSheet, tabState, state, SEMANTIC };
 boot().catch((e) => { console.error(e); intro.abort(); introHold = false; document.getElementById('boot').innerHTML = `<span style="font-size:18px">WebGL 2 is required (${e.message})</span>`; });
