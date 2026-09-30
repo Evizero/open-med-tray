@@ -127,7 +127,7 @@ function imprintMask(im, spec, size, rect, mirror) {
   return m;
 }
 
-export function buildRelief(spec, dims, { size = 1024 } = {}) {
+export function buildRelief(spec, dims, { size = 1024, previous = null } = {}) {
   const ext = Math.max(dims.L, dims.W) + .6;
   const rect = [-ext / 2, -ext / 2, ext, ext];
   const texel = ext / size;
@@ -136,6 +136,11 @@ export function buildRelief(spec, dims, { size = 1024 } = {}) {
   const noise = makeNoise2((spec.seed ?? 1) + 31);
   const info = { breakouts: 0, pores: 0, breakoutFaces: spec.breakoutFaces ?? 'top' };
   const geometryFields = [], surface = surfaceParameters(spec);
+  // Pores change with grain relief/finish, but the manufactured imprint and
+  // pull-outs do not. Reuse their exact fields instead of re-rasterising text
+  // and blurring two million texels on each surface-slider input.
+  const geometryKey = JSON.stringify([size, dims.L, dims.W, spec.imprint, spec.imprintBack, spec.seed, spec.pressDefects, spec.breakoutDensity, spec.breakoutSize, spec.breakoutFaces]);
+  const reuseGeometry = previous?.geometryKey === geometryKey;
 
   const addImprint = (im, target, mirror) => {
     if (!im || im.layout === 'none' || !(im.depth > 0)) return;
@@ -148,47 +153,54 @@ export function buildRelief(spec, dims, { size = 1024 } = {}) {
       if (b[i] <= .01) continue;
       const t = clamp((b[i] - .08) / .84, 0, 1), s = t * t * (3 - 2 * t);
       const x = rect[0] + (i % size + .5) * texel, y = rect[1] + (Math.floor(i / size) + .5) * texel;
-      const w = 1 - .25 * wear * (noise(x * 18, y * 18) + 1);
+      const w = wear === 0 ? 1 : 1 - .25 * wear * (noise(x * 18, y * 18) + 1);
       target[i] = Math.min(target[i], -im.depth * s * w);
     }
   };
-  addImprint(spec.imprint, top, false);
-  addImprint(spec.imprintBack, bot, true);
+  if (!reuseGeometry) {
+    addImprint(spec.imprint, top, false);
+    addImprint(spec.imprintBack, bot, true);
+  } else info.breakouts = previous.info.breakouts;
 
   // Sparse irregular granule pull-outs (not smooth round dents).
   const press = spec.pressDefects ?? 1;
   for (const [target, tag] of [[top, 1], [bot, 2]]) {
     const r2 = rng.fork(tag);
-    const expected = Math.PI * dims.L * dims.W * .25 * (spec.breakoutDensity ?? .035) * Math.min(1.5, Math.max(0, press));
-    let count = 0, prod = 1; const lim = Math.exp(-Math.min(expected, 20));
-    while (prod > lim) { prod *= r2.random(); count++; }
-    count = tag === 2 && spec.breakoutFaces !== 'both' ? 0 : Math.max(0, count - 1);
-    for (let n = 0; n < count; n++) {
-      const ang = r2.uniform(0, Math.PI * 2), rr = Math.sqrt(r2.uniform(.04, .78));
-      const cx = rr * Math.cos(ang) * dims.L * .5, cy = rr * Math.sin(ang) * dims.W * .5;
-      const radius = (spec.breakoutSize ?? .18) * r2.uniform(.62, 1.18);
-      const aspect = r2.uniform(.55, 1.15), rot = r2.uniform(0, Math.PI * 2), sides = r2.int(4, 7);
-      const planes = [];
-      for (let k = 0; k < sides; k++) planes.push([Math.cos(rot + k * 2 * Math.PI / sides), Math.sin(rot + k * 2 * Math.PI / sides) / aspect, radius * r2.uniform(.72, 1.05)]);
-      const depth = r2.uniform(.020, .047) * Math.min(1.7, press);
-      const tx = r2.uniform(-.2, .2), ty = r2.uniform(-.2, .2);
-      const x0 = Math.floor((cx - radius * 1.6 - rect[0]) / texel), x1 = Math.ceil((cx + radius * 1.6 - rect[0]) / texel);
-      const y0 = Math.floor((cy - radius * 1.6 - rect[1]) / texel), y1 = Math.ceil((cy + radius * 1.6 - rect[1]) / texel);
-      for (let py = Math.max(0, y0); py <= Math.min(size - 1, y1); py++) for (let px = Math.max(0, x0); px <= Math.min(size - 1, x1); px++) {
-        const x = rect[0] + (px + .5) * texel, y = rect[1] + (py + .5) * texel;
-        const ux = x - cx, uy = y - cy;
-        let inset = Infinity;
-        for (const [nx, ny, off] of planes) inset = Math.min(inset, off - nx * ux - ny * uy);
-        if (inset <= 0) continue;
-        const lip = Math.min(1, inset / .012);
-        const crumb = noise(x * 51 + n, y * 51);
-        const floor = Math.max(.35, .85 + tx * ux / radius + ty * uy / radius + .16 * crumb);
-        const i = py * size + px;
-        target[i] = Math.min(target[i], target[i] - depth * lip * floor);
+    if (reuseGeometry) {
+      const field = tag === 1 ? previous.geometryTop : previous.geometryBottom;
+      target.set(field); geometryFields.push(field);
+    } else {
+      const expected = Math.PI * dims.L * dims.W * .25 * (spec.breakoutDensity ?? .035) * Math.min(1.5, Math.max(0, press));
+      let count = 0, prod = 1; const lim = Math.exp(-Math.min(expected, 20));
+      while (prod > lim) { prod *= r2.random(); count++; }
+      count = tag === 2 && spec.breakoutFaces !== 'both' ? 0 : Math.max(0, count - 1);
+      for (let n = 0; n < count; n++) {
+        const ang = r2.uniform(0, Math.PI * 2), rr = Math.sqrt(r2.uniform(.04, .78));
+        const cx = rr * Math.cos(ang) * dims.L * .5, cy = rr * Math.sin(ang) * dims.W * .5;
+        const radius = (spec.breakoutSize ?? .18) * r2.uniform(.62, 1.18);
+        const aspect = r2.uniform(.55, 1.15), rot = r2.uniform(0, Math.PI * 2), sides = r2.int(4, 7);
+        const planes = [];
+        for (let k = 0; k < sides; k++) planes.push([Math.cos(rot + k * 2 * Math.PI / sides), Math.sin(rot + k * 2 * Math.PI / sides) / aspect, radius * r2.uniform(.72, 1.05)]);
+        const depth = r2.uniform(.020, .047) * Math.min(1.7, press);
+        const tx = r2.uniform(-.2, .2), ty = r2.uniform(-.2, .2);
+        const x0 = Math.floor((cx - radius * 1.6 - rect[0]) / texel), x1 = Math.ceil((cx + radius * 1.6 - rect[0]) / texel);
+        const y0 = Math.floor((cy - radius * 1.6 - rect[1]) / texel), y1 = Math.ceil((cy + radius * 1.6 - rect[1]) / texel);
+        for (let py = Math.max(0, y0); py <= Math.min(size - 1, y1); py++) for (let px = Math.max(0, x0); px <= Math.min(size - 1, x1); px++) {
+          const x = rect[0] + (px + .5) * texel, y = rect[1] + (py + .5) * texel;
+          const ux = x - cx, uy = y - cy;
+          let inset = Infinity;
+          for (const [nx, ny, off] of planes) inset = Math.min(inset, off - nx * ux - ny * uy);
+          if (inset <= 0) continue;
+          const lip = Math.min(1, inset / .012);
+          const crumb = noise(x * 51 + n, y * 51);
+          const floor = Math.max(.35, .85 + tx * ux / radius + ty * uy / radius + .16 * crumb);
+          const i = py * size + px;
+          target[i] = Math.min(target[i], target[i] - depth * lip * floor);
+        }
+        info.breakouts++;
       }
-      info.breakouts++;
+      geometryFields.push(target.slice());
     }
-    geometryFields.push(target.slice());
     // Small pores: jittered cells gated by density (not a pit in every cell).
     const poreDensity = surface.pores;
     if (poreDensity > 0) {
@@ -211,12 +223,16 @@ export function buildRelief(spec, dims, { size = 1024 } = {}) {
     }
   }
   const half = new Uint16Array(size * size * 2);
-  for (let i = 0; i < size * size; i++) { half[i * 2] = THREE.DataUtils.toHalfFloat(top[i]); half[i * 2 + 1] = THREE.DataUtils.toHalfFloat(bot[i]); }
+  for (let i = 0; i < size * size; i++) {
+    // Imprint edges can contain -0: preserve its half-float sign bit too.
+    half[i * 2] = top[i] === 0 ? (1 / top[i] < 0 ? 0x8000 : 0) : THREE.DataUtils.toHalfFloat(top[i]);
+    half[i * 2 + 1] = bot[i] === 0 ? (1 / bot[i] < 0 ? 0x8000 : 0) : THREE.DataUtils.toHalfFloat(bot[i]);
+  }
   const texture = new THREE.DataTexture(half, size, size, THREE.RGFormat, THREE.HalfFloatType);
   texture.minFilter = THREE.LinearFilter; texture.magFilter = THREE.LinearFilter;
   texture.wrapS = texture.wrapT = THREE.ClampToEdgeWrapping;
   texture.needsUpdate = true;
-  return { texture, rect, size, info, top, bottom: bot, geometryTop: geometryFields[0], geometryBottom: geometryFields[1] };
+  return { texture, rect, size, info, top, bottom: bot, geometryKey, geometryTop: geometryFields[0], geometryBottom: geometryFields[1] };
 }
 
 // Capsule print: ink mask in (axial mm, arc mm) coordinates.

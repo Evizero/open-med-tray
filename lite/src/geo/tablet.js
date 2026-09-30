@@ -8,6 +8,32 @@ import { clamp } from '../util/rng.js';
 
 export const CROWN_RINGS = 40, LAND_RINGS = 4, BEVEL_RINGS = 8, BAND_RINGS = 6;
 
+// Slider changes move vertices, never these connectivity arrays. Build each
+// supported topology once, directly into its final typed array.
+const indexCache = new Map();
+export function surfaceIndices(rings, n, { poles = false, reverse = false } = {}) {
+  const key = `${rings}:${n}:${+poles}:${+reverse}`;
+  if (indexCache.has(key)) return indexCache.get(key);
+  const index = new Uint32Array((rings - 1) * n * 6 + (poles ? n * 6 : 0));
+  let i = 0;
+  const put = (a, b, c) => { index[i++] = a; index[i++] = b; index[i++] = c; };
+  if (poles) for (let k = 0; k < n; k++) {
+    const next = (k + 1) % n;
+    put(rings * n, reverse ? k : next, reverse ? next : k);
+  }
+  for (let r = 0; r < rings - 1; r++) for (let k = 0; k < n; k++) {
+    const a = r * n + k, b = r * n + (k + 1) % n, c = (r + 1) * n + (k + 1) % n, e = (r + 1) * n + k;
+    if (reverse) { put(a, e, c); put(a, c, b); }
+    else { put(a, b, c); put(a, c, e); }
+  }
+  if (poles) for (let k = 0; k < n; k++) {
+    const a = (rings - 1) * n + k, next = (rings - 1) * n + (k + 1) % n, pole = rings * n + 1;
+    put(a, reverse ? pole : next, reverse ? next : pole);
+  }
+  indexCache.set(key, index);
+  return index;
+}
+
 // Resolve derived dimensions and clamp everything to a valid, non-self-
 // intersecting profile. Returns the effective values (recorded in metadata).
 export function tabletDims(spec, outline) {
@@ -133,17 +159,7 @@ export function buildTablet(spec, { n = 256 } = {}) {
     }
   }
 
-  const tris = [];
-  for (let k = 0; k < n; k++) tris.push(tp, k, (k + 1) % n);
-  for (let r = 0; r < R - 1; r++) {
-    for (let k = 0; k < n; k++) {
-      const a = r * n + k, b = r * n + (k + 1) % n, c = (r + 1) * n + (k + 1) % n, e = (r + 1) * n + k;
-      tris.push(a, e, c, a, c, b);
-    }
-  }
-  const last = (R - 1) * n;
-  for (let k = 0; k < n; k++) tris.push(last + k, bp, last + (k + 1) % n);
-  const index = new Uint32Array(tris);
+  const index = surfaceIndices(R, n, { poles: true, reverse: true });
   const normals = vertexNormals(base, index, vcount);
   return { positions: pos, normals, index, dims: d, rings: R, n, vcount, referencePositions: base };
 }
@@ -175,7 +191,9 @@ export function vertexNormals(pos, index, vcount) {
     const ux = pos[b] - pos[a], uy = pos[b + 1] - pos[a + 1], uz = pos[b + 2] - pos[a + 2];
     const vx = pos[c] - pos[a], vy = pos[c + 1] - pos[a + 1], vz = pos[c + 2] - pos[a + 2];
     const nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx;
-    for (const o of [a, b, c]) { nrm[o] += nx; nrm[o + 1] += ny; nrm[o + 2] += nz; }
+    nrm[a] += nx; nrm[a + 1] += ny; nrm[a + 2] += nz;
+    nrm[b] += nx; nrm[b + 1] += ny; nrm[b + 2] += nz;
+    nrm[c] += nx; nrm[c + 1] += ny; nrm[c + 2] += nz;
   }
   for (let v = 0; v < vcount; v++) {
     const o = v * 3, l = Math.hypot(nrm[o], nrm[o + 1], nrm[o + 2]) || 1;

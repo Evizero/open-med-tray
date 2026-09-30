@@ -230,17 +230,25 @@ function thumbnail(rgb, w, h, tw) {
   const src = document.createElement('canvas'); src.width = w; src.height = h;
   const id = new ImageData(w, h);
   for (let k = 0; k < w * h; k++) { id.data[k * 4] = rgb[k * 3]; id.data[k * 4 + 1] = rgb[k * 3 + 1]; id.data[k * 4 + 2] = rgb[k * 3 + 2]; id.data[k * 4 + 3] = 255; }
-  src.getContext('2d').putImageData(id, 0, 0);
-  const ctx = cv.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(src, 0, 0, tw, th);
-  return cv.toDataURL('image/jpeg', .86);
+  try {
+    const source = src.getContext('2d'), ctx = cv.getContext('2d');
+    if (!source || !ctx) throw new Error('Thumbnail canvas allocation failed');
+    source.putImageData(id, 0, 0);
+    ctx.imageSmoothingQuality = 'high'; ctx.drawImage(src, 0, 0, tw, th);
+    return cv.toDataURL('image/jpeg', .86);
+  } finally { src.width = src.height = cv.width = cv.height = 0; }
 }
 function thumbnailRGBA(vis, tw, prev, w, h) {
   const th = Math.round(tw * h / w);
   const src = document.createElement('canvas'); src.width = w; src.height = h;
   const id = new ImageData(w, h);
   for (let k = 0; k < w * h; k++) { id.data[k * 4] = prev[k * 3]; id.data[k * 4 + 1] = prev[k * 3 + 1]; id.data[k * 4 + 2] = prev[k * 3 + 2]; id.data[k * 4 + 3] = 255; }
-  src.getContext('2d').putImageData(id, 0, 0);
   const cv = document.createElement('canvas'); cv.width = tw; cv.height = th;
-  const ctx = cv.getContext('2d'); ctx.imageSmoothingQuality = 'high'; ctx.drawImage(src, 0, 0, tw, th);
-  return cv.toDataURL('image/jpeg', .86);
+  try {
+    const source = src.getContext('2d'), ctx = cv.getContext('2d');
+    if (!source || !ctx) throw new Error('Thumbnail canvas allocation failed');
+    source.putImageData(id, 0, 0);
+    ctx.imageSmoothingQuality = 'high'; ctx.drawImage(src, 0, 0, tw, th);
+    return cv.toDataURL('image/jpeg', .86);
+  } finally { src.width = src.height = cv.width = cv.height = 0; }
 }

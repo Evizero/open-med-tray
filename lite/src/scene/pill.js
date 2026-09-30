@@ -20,6 +20,14 @@ export const LOD = {
   tray: { tabletN: 160, relief: 320, shellN: 112, capsuleN: 96 },
 };
 
+const UNIFORM_FIELDS = {
+  tablet: new Set(['color', 'colorName', 'powder', 'speckles', 'grainScale', 'mottling', 'roughness', 'roughnessShift']),
+  capsule: new Set(['capColor', 'capColorName', 'bodyColor', 'bodyColorName', 'scuffs']),
+  softgel: new Set(['color', 'colorName', 'secondColor', 'density', 'roughness', 'seamWidth', 'seamRelief']),
+};
+const structureKey = (spec) => JSON.stringify(Object.fromEntries(Object.entries(spec).filter(([key]) => !UNIFORM_FIELDS[spec.kind]?.has(key))));
+const reliefContentKey = (s) => JSON.stringify([s.imprint, s.imprintBack, s.seed, s.pores, s.pressDefects, s.breakoutDensity, s.breakoutSize, s.breakoutFaces, s.texture, s.finish, s.wear]);
+
 const HATCH_VS = /* glsl */`
 #include <common>
 #include <clipping_planes_pars_vertex>
@@ -72,15 +80,17 @@ export class Pill {
   get footprint() { const d = this.dims; return this.kind === 'capsule' ? [d.L, d.rc * 2] : [d.L, d.W]; }
 
   build(spec) {
+    const previousRelief = this.relief;
     this.cancelMorph();
     this.disposeContent();
     this.spec = spec;
+    this.needsFinalize = false;
     this.label.semantic = classFor(spec);
     const lod = this.lod;
     if (spec.kind === 'tablet') {
       const built = buildTablet(spec, { n: lod.tabletN });
       this.dims = built.dims;
-      this.relief = buildRelief(spec, built.dims, { size: lod.relief });
+      this.relief = buildRelief(spec, built.dims, { size: lod.relief, previous: previousRelief });
       this.textures.push(this.relief.texture);
       this.record.physicalRelief = displaceFaceRelief(built, this.relief, spec);
       this.record.surfaceParameters = surfaceParameters(spec);
@@ -157,37 +167,49 @@ export class Pill {
   }
 
   // Fast in-place update while a slider is dragged: same topology -> rewrite
-  // vertex arrays and uniforms; relief is rebuilt at reduced resolution only if
-  // it depends on what changed. `final` does the full-quality rebuild.
+  // vertex arrays and uniforms. Shape drags keep the full-resolution relief in
+  // physical mm; `final` resamples its size-dependent pores and pull-outs once.
   live(spec, final = false) {
     spec = validate(structuredClone(spec));
     this.label.semantic = classFor(spec);
+    // Appearance controls have no geometric work. Keep the existing buffers,
+    // textures and materials, including on release; only a preceding geometry
+    // preview may still need the full commit (e.g. capsule print placement).
+    if (!this.morph && spec.kind === this.spec.kind && structureKey(spec) === structureKey(this.spec) && !(final && this.needsFinalize)) {
+      this.spec = spec; this.updateUniformsOnly(spec);
+      if (spec.kind === 'tablet') this.record.surfaceParameters = surfaceParameters(spec);
+      else if (spec.kind === 'softgel') this.record.optics = this.materials[0].userData.optics;
+      return false;
+    }
     const hasDmg = (s) => s.kind === 'tablet' && ((s.damage?.chips ?? 0) > 0 || s.damage?.fracture);
     const dNow = hasDmg(spec), dPrev = hasDmg(this.spec);
     // CSG damage is only re-evaluated on release; while dragging, update shading.
-    if (!final && spec.kind === this.spec.kind && (dNow || dPrev) && dNow === dPrev) { this.spec = spec; this.updateUniformsOnly(spec); return; }
-    if (final || spec.kind !== this.spec.kind || !this.base || dNow || dPrev || this.morph) { this.build(spec); return; }
+    if (!final && spec.kind === this.spec.kind && (dNow || dPrev) && dNow === dPrev) { this.spec = spec; this.needsFinalize = true; this.updateUniformsOnly(spec); return false; }
+    if (final || spec.kind !== this.spec.kind || !this.base || dNow || dPrev || this.morph) { this.build(spec); return true; }
     let target;
     if (spec.kind === 'tablet') target = buildTablet(spec, { n: this.lod.tabletN });
     else if (spec.kind === 'softgel') target = buildSoftgel(spec, { n: this.lod.shellN });
     else target = buildCapsule(spec, { n: this.lod.capsuleN });
     const prev = this.spec;
     if (spec.kind === 'tablet') {
-      const reliefKey = (s) => JSON.stringify([s.imprint, s.imprintBack, s.length, s.width, s.outline, s.sides, s.seed, s.pores, s.pressDefects, s.breakoutDensity, s.breakoutSize, s.breakoutFaces, s.texture, s.finish, s.wear]);
-      if (reliefKey(prev) !== reliefKey(spec)) {
+      if (reliefContentKey(prev) !== reliefContentKey(spec)) {
         // Keep one resolution during drag and release: no last-frame relief jump.
-        const r = buildRelief(spec, target.dims, { size: this.lod.relief });
+        const r = buildRelief(spec, target.dims, { size: this.lod.relief, previous: this.relief });
         const old = this.relief.texture;
         this.textures = this.textures.filter(t => t !== old); old.dispose();
         this.textures.push(r.texture); this.relief = r;
       }
+      // Resizing never stretches the existing artwork: rect remains in mm.
+      // Both geometry and shading return zero outside it, so newly exposed
+      // edges remain clean. Releasing rebuilds the exact field for those edges.
       this.record.physicalRelief = displaceFaceRelief(target, this.relief, spec);
       this.record.surfaceParameters = surfaceParameters(spec);
+      this.record.relief = this.relief.info;
     }
     const pairs = spec.kind === 'capsule' ? [[target.cap, this.meshes[0], 'cap'], [target.body, this.meshes[1], 'body']] : [[target, this.meshes[0], null]];
     for (const [t, m, key] of pairs) {
       const pos = m.geometry.attributes.position, nor = m.geometry.attributes.normal;
-      if (pos.array.length !== t.positions.length) { this.build(spec); return; }
+      if (pos.array.length !== t.positions.length) { this.build(spec); return true; }
       pos.array.set(t.positions); nor.array.set(t.normals);
       pos.needsUpdate = true; nor.needsUpdate = true;
       m.geometry.computeBoundingSphere();
@@ -196,10 +218,12 @@ export class Pill {
     this.base = target;
     this.dims = target.dims;
     this.spec = spec;
+    this.needsFinalize = true;
     if (spec.kind === 'tablet') {
       updateTabletUniforms(this.materials[0], spec, target.dims, this.relief);
       updateTabletUniforms(this.materials[1], spec, target.dims, null);
     } else this.updateUniformsOnly(spec);
+    return true;
   }
 
   updateUniformsOnly(spec) {

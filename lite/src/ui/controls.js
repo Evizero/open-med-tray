@@ -31,6 +31,11 @@ function fieldLabel(label, note) {
 const cues = new Set();
 export function registerCue(node) { cues.add(node); return node; }
 function refreshCues() { for (const c of cues) { if (c.isConnected) c.refresh(); else cues.delete(c); } }
+let cueFrame = 0;
+function queueCues() {
+  if (cueFrame) return;
+  cueFrame = requestAnimationFrame(() => { cueFrame = 0; refreshCues(); });
+}
 // Re-read every slider and cue from state (after an edit made elsewhere, e.g.
 // a 3D handle drag). Focused value fields keep what the user is typing.
 export function refreshPanel(root = document.getElementById('inspBody')) {
@@ -83,7 +88,7 @@ export function slider({ label, get, set, min, max, step = .01, unit = 'mm', dig
   };
   const snap = (v) => { v = Math.max(+min, Math.min(+max, +min + Math.round((v - min) / step) * step)); return +v.toFixed(Math.max(decimals(step), 0)); };
   input.value = get(); show(+input.value);
-  input.addEventListener('input', () => { show(+input.value); set(+input.value, false); refreshCues(); });
+  input.addEventListener('input', () => { show(+input.value); set(+input.value, false); queueCues(); });
   input.addEventListener('change', () => set(+input.value, true));
   if (editable) {
     // before: field text at focus; start: model value at focus; live: the

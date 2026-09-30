@@ -133,6 +133,8 @@ export function createCollection({ grid, reduced, onOpen, onDownload, onDelete }
 
     queueStart(plan) {
       this.queueEnd({ instant: true });
+      // Failed slots remain readable until the user starts the next batch.
+      grid.querySelectorAll('.slot.failed').forEach((s) => s.remove());
       grid.querySelector('.sheet-empty')?.remove();
       const slots = Array.from({ length: plan.count }, (_, i) => slot(i, plan));
       grid.append(...slots);
@@ -183,17 +185,30 @@ export function createCollection({ grid, reduced, onOpen, onDownload, onDelete }
       if (!queue) return;
       for (const s of queue.slots) if (s?.classList.contains('queued')) { s.classList.add('cancelling'); s.querySelector('.st').textContent = 'cancelled'; s.querySelector('.slot-state').textContent = 'Will not run'; }
     },
-    // Remove what is left of the batch (finished, cancelled or failed).
-    queueEnd({ reason = 'done', instant = false } = {}) {
+    // Completed/cancelled slots leave; an error stays available for diagnosis.
+    queueEnd({ reason = 'done', instant = false, error = null } = {}) {
       if (!queue) return;
       const left = queue.slots.filter(Boolean);
       queue = null;
+      const failedSlot = reason === 'failed' ? left.find((s) => s.classList.contains('active')) ?? left[0] : null;
       for (const s of left) {
         if (instant) { s.remove(); continue; }
+        if (s === failedSlot) {
+          s.classList.remove('queued'); s.classList.add('active', 'failed');
+          s.querySelector('.slot-state').textContent = 'Failed · not added';
+          s.querySelector('.st').textContent = 'failed';
+          if (error) {
+            const detail = `${error.stage} · ${error.name}: ${error.message}`;
+            s.querySelector('.sub').textContent = detail;
+            s.title = detail;
+            s.setAttribute('aria-label', `${s.getAttribute('aria-label')?.split(',')[0]}, ${detail}`);
+          }
+          continue;
+        }
         if (s.classList.contains('active')) {
-          s.classList.add(reason === 'failed' ? 'failed' : 'stopped');
-          s.querySelector('.slot-state').textContent = reason === 'failed' ? 'Failed · not added' : 'Stopped · not added';
-          s.querySelector('.st').textContent = reason === 'failed' ? 'failed' : 'stopped';
+          s.classList.add('stopped');
+          s.querySelector('.slot-state').textContent = 'Stopped · not added';
+          s.querySelector('.st').textContent = 'stopped';
           setTimeout(() => leave(s, () => emptyState(false)), reduced ? 600 : 900);
         } else leave(s, () => emptyState(false));
       }

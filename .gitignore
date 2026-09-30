@@ -53,8 +53,10 @@ blender/fonts/**/*.ttf
 !/lite/qa/mobile.mjs
 !/lite/qa/mobile-controls.mjs
 !/lite/qa/interaction-races.mjs
+!/lite/qa/slider-performance.mjs
 !/lite/qa/dataset-dock.mjs
 !/lite/qa/dataset-startup.mjs
+!/lite/qa/dataset-failure.mjs
 !/lite/qa/contract-parity.mjs
 !/lite/qa/collection-streaming.mjs
 !/lite/qa/intro/

@@ -1,7 +1,7 @@
 // Surfaces of revolution along local X: softgels (rotary-die, port of
 // blender/softgel_geometry.py) and two-piece hard capsules (cap telescoped over
 // body with a real lip step). Units: mm.
-import { vertexNormals } from './tablet.js';
+import { vertexNormals, surfaceIndices } from './tablet.js';
 import { RNG, clamp } from '../util/rng.js';
 
 // Softgel: in scaled coordinates (x/cap, y/(w/2), z/(h/2)) the shell is exactly a
@@ -41,15 +41,7 @@ export function buildSoftgel(spec, { n = 160, endRings = 34 } = {}) {
   }
   const p0 = R * n, p1 = R * n + 1;
   pos[p0 * 3] = -d.L / 2; pos[p1 * 3] = d.L / 2;
-  const tris = [];
-  for (let k = 0; k < n; k++) tris.push(p0, (k + 1) % n, k);
-  for (let r = 0; r < R - 1; r++) for (let k = 0; k < n; k++) {
-    const a = r * n + k, b = r * n + (k + 1) % n, c = (r + 1) * n + (k + 1) % n, e = (r + 1) * n + k;
-    tris.push(a, b, c, a, c, e);
-  }
-  const last = (R - 1) * n;
-  for (let k = 0; k < n; k++) tris.push(last + k, last + (k + 1) % n, p1);
-  const index = new Uint32Array(tris);
+  const index = surfaceIndices(R, n, { poles: true });
   // Analytic normals: capsule normal in scaled space, mapped by the scale.
   const nrm = new Float32Array(vcount * 3);
   const put = (o, sx, sy, sz) => { const nx = sx / d.cap, ny = sy / (d.W / 2), nz = sz / (d.H / 2), l = Math.hypot(nx, ny, nz) || 1; nrm[o] = nx / l; nrm[o + 1] = ny / l; nrm[o + 2] = nz / l; };
@@ -74,12 +66,7 @@ function revolve(profile, n, ovality = 1, wobble = null) {
       pos[o] = x; pos[o + 1] = (rad + w) * Math.cos(a); pos[o + 2] = (rad + w) * Math.sin(a) * ovality;
     }
   }
-  const tris = [];
-  for (let r = 0; r < R - 1; r++) for (let k = 0; k < n; k++) {
-    const a = r * n + k, b = r * n + (k + 1) % n, c = (r + 1) * n + (k + 1) % n, e = (r + 1) * n + k;
-    tris.push(a, b, c, a, c, e);
-  }
-  const index = new Uint32Array(tris);
+  const index = surfaceIndices(R, n);
   return { positions: pos, normals: vertexNormals(pos, index, vcount), index, vcount };
 }
 

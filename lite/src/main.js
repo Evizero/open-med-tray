@@ -330,6 +330,15 @@ function switchFamily(kind) {
 }
 
 let liveTimer = 0;
+let pendingSpecimen = null;
+function flushSpecimenEdit() {
+  const pending = pendingSpecimen;
+  if (state.mode !== 'specimen' || !stage.pill || stage.pill.morph || stage.section) return;
+  const queued = pending && pending.revision === specimenRevision && pending.pill === stage.pill;
+  if (!queued && !stage.pill.needsFinalize) return;
+  cancelAnimationFrame(liveTimer); liveTimer = 0; pendingSpecimen = null;
+  stage.pill.live(clone(state.spec), true); stage.groundHero();
+}
 // Edit transaction for live previews (3D handle drags, arrow-key steps in a
 // value field): the first real change snapshots spec and preset; cancel puts
 // both back exactly, so an aborted gesture leaves no trace (not even
@@ -340,6 +349,7 @@ function cancelEdit() {
   if (!editSnap || state.mode !== 'specimen') { editSnap = null; return false; }
   const snap = editSnap; editSnap = null;
   cancelAnimationFrame(liveTimer);
+  pendingSpecimen = null; liveTimer = 0;
   state.spec = snap.spec; state.presetId = snap.presetId; state.sampled = snap.sampled;
   stage.pill.live(clone(state.spec), true); stage.groundHero(); stage.lightStudio(); stage.pipe.reset(); stage.wake();
   renderInspector(); updateCaption(); scheduleDims();
@@ -357,7 +367,17 @@ function editSpecimen(fn, final, hint) {
   } else {
     // Coalesce slider input to one geometry update per frame.
     cancelAnimationFrame(liveTimer);
-    liveTimer = requestAnimationFrame(() => { stage.pill.live(state.spec, !!final); stage.groundHero(); stage.pipe.reset(); stage.wake(); if (final) { stage.lightStudio(); scheduleDims(); } });
+    const revision = specimenRevision, pill = stage.pill, spec = clone(state.spec);
+    pendingSpecimen = { revision, pill };
+    liveTimer = requestAnimationFrame(() => {
+      pendingSpecimen = null; liveTimer = 0;
+      // A preset/mode/selection change can replace the subject before this
+      // queued input runs. It must never apply an old gesture to the new pill.
+      if (revision !== specimenRevision || state.mode !== 'specimen' || pill !== stage.pill) return;
+      if (pill.live(spec, !!final) !== false) stage.groundHero();
+      stage.pipe.reset(); stage.wake();
+      if (final) { stage.lightStudio(); scheduleDims(); }
+    });
     if (final && needsRerender(fn)) renderInspector();
   }
   updateCaption();
@@ -371,7 +391,16 @@ function editProduct(pi, fn, final) {
   fn(spec);
   validate(spec);
   const sel = state.selected;
-  if (!final) { cancelAnimationFrame(liveTimer); liveTimer = requestAnimationFrame(() => { const inst = { ...clone(spec), seed: sel.spec.seed, damage: sel.spec.damage }; sel.live(inst, false); stage.pipe.reset(); stage.wake(); }); return; }
+  cancelAnimationFrame(liveTimer);
+  pendingSpecimen = null;
+  if (!final) {
+    const inst = { ...clone(spec), seed: sel.spec.seed, damage: sel.spec.damage };
+    liveTimer = requestAnimationFrame(() => {
+      if (state.mode !== 'tray' || stage.tray !== tray || state.selected !== sel) return;
+      sel.live(inst, false); stage.pipe.reset(); stage.wake();
+    });
+    return;
+  }
   // Rebuild the scene with the edited product; placement stays physically valid.
   const products = tray.products.map(clone);
   stage.buildTray(state.tray, { animate: false, products });
@@ -393,6 +422,9 @@ function openInStudio(spec) {
 async function setMode(mode) {
   handles?.cancel();
   if ((state.dataset.running || generating) && mode !== 'dataset') { toast('Generation in progress — cancel first'); return; }
+  // A gesture can lose its release when a mode changes. Finish its exact
+  // geometry/relief before parking the studio, so returning shows saved state.
+  flushSpecimenEdit();
   specimenRevision++;
   const prev = state.mode;
   if (mode !== 'dataset') sceneInspector?.close({ instant: true });
@@ -923,13 +955,13 @@ const datasetActions = {
       return datasetActions.run(resume,true);
     });
     if(resume&&d.pendingRun?.generatorRevision!==GENERATOR_REVISION){d.status='This batch belongs to a different generator version. Use its original HTML to resume, or Generate & add a new batch.';renderInspector();return;}
-    stopTour();d.running=true;d.zip=null;d.status='Starting…';batchStep=null;
+    stopTour();d.running=true;d.zip=null;d.status='Starting…';d.failure=null;batchStep=null;
     const run=resume&&d.pendingRun?structuredClone(d.pendingRun):{generatorRevision:GENERATOR_REVISION,count:clampCount(d.count),done:0,baseSeed:d.seed,startIndex:d.nextIndex,res:d.res,samples:d.samples,cameraProfile:d.cameraProfile,stressProbability:d.stressProbability,sampling:d.sampling};
     d.pendingRun=run;
     const [w,h]=run.res.split('x').map(Number),count=run.count-run.done,baseSeed=run.baseSeed+run.done,startIndex=run.startIndex+run.done,offset=run.done;
     const ac=new AbortController();d.abort=ac;renderInspector();renderCollection();
     collection.queueStart({count,startIndex,baseSeed,width:w,height:h,samples:run.samples});
-    const t0=performance.now();let added=0,failed=false;
+    const t0=performance.now();let added=0,failed=false,failureStage='checkpoint';
     // Measured per-stage durations of the active scene (UI only; not exported).
     let timing={},cur=null,tStage=0;
     const mark=(index,stage)=>{const now=performance.now();if(cur&&cur.index===index)timing[cur.stage]=(timing[cur.stage]||0)+now-tStage;else timing={building:0,rendering:0,encoding:0};cur={index,stage};tStage=now;};
@@ -937,22 +969,29 @@ const datasetActions = {
       if(collectionStore.db)await collectionStore.checkpoint(checkpoint(d,run));
       const res=await generateDataset(stage,{
         count,baseSeed,startIndex,collect:false,width:w,height:h,samples:run.samples,cameraProfile:run.cameraProfile,stressProbability:run.stressProbability,sampling:run.sampling,scenarioOffset:offset,signal:ac.signal,
-        onProgress:(p)=>{const {index,count,stage:st}=p;mark(index,st);batchStep={n:index+1,count};collection.queueProgress(p);d.status=`Adding ${index+1} of ${count}: ${st}…`;setDsStatus(d.status,index/count);},
+        onProgress:(p)=>{const {index,count,stage:st}=p;failureStage=st;mark(index,st);batchStep={n:index+1,count};collection.queueProgress(p);d.status=`Adding ${index+1} of ${count}: ${st}…`;setDsStatus(d.status,index/count);},
         onScene:async record=>{
           if(cur?.index===record.index)mark(record.index,'done');record.timing=timing;
           record.ok=Object.values(record.meta.verification).every(Boolean);
           const nextRun={...run,done:offset+added+1};
           const next={nextIndex:record.globalIndex+1,seed:record.seed+1,run:nextRun.done<nextRun.count?nextRun:null,settings:settingsOf(run)};
+          failureStage='saving';
           if(collectionStore.db)record=await collectionStore.save(record,next);
           d.scenes.push(record);added++;d.nextIndex=next.nextIndex;d.seed=next.seed;d.pendingRun=next.run;
+          failureStage='preview';
           const shown=collection.queueComplete(record,record.index,{running:true});renderCollection();setDsStatus(`Added ${added} of ${count}`,(added/count));
           await shown;
         }
       });
       const secs=((performance.now()-t0)/1000).toFixed(1);
       d.status=`${res.cancelled?'Stopped':'Finished'}: added ${added} scene${added===1?'':'s'} in ${secs} s`;
-    } catch(e) {console.error(e);failed=true;d.status=`Failed: ${e.message}. ${added} completed scenes retained.`;}
-    finally {d.running=false;d.abort=null;collection.queueEnd({reason:failed?'failed':ac.signal.aborted?'cancelled':'done'});renderCollection();renderInspector();setDsStatus(d.status);}
+    } catch(e) {
+      failed=true;
+      d.failure={name:e?.name??'Error',message:e?.message??String(e),stage:failureStage,index:cur?.index??0,seed:baseSeed+(cur?.index??0),resolution:[w,h],samples:run.samples,contextLost:stage.renderer.getContext().isContextLost(),stack:e?.stack??null};
+      console.error('Dataset generation failed',d.failure,e);
+      d.status=`Failed: ${d.failure.stage} · ${d.failure.name}: ${d.failure.message}. ${added} completed scenes retained.`;
+    }
+    finally {d.running=false;d.abort=null;collection.queueEnd({reason:failed?'failed':ac.signal.aborted?'cancelled':'done',error:d.failure});renderCollection();renderInspector();setDsStatus(d.status);}
   },
   cancel() {state.dataset.abort?.abort();collection.queueCancelling();setDsStatus('Stopping after the current scene…');updateDock();},
   async remove(name) {

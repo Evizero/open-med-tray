@@ -59,13 +59,44 @@ export async function applyCameraResponse(rgb,w,h,seed,profile='auto',strength=1
   const record=cameraParameters(seed,profile,strength),pixels=cameraPixels(rgb,w,h,record);
   if(record.jpeg_quality===100)return {pixels,record};
   const cv=document.createElement('canvas');cv.width=w;cv.height=h;
-  const ctx=cv.getContext('2d',{willReadFrequently:true}),im=ctx.createImageData(w,h);
-  for(let i=0;i<w*h;i++){im.data.set(pixels.subarray(i*3,i*3+3),i*4);im.data[i*4+3]=255;}
-  ctx.putImageData(im,0,0);
-  const blob=await new Promise((resolve,reject)=>cv.toBlob(b=>b?resolve(b):reject(new Error('JPEG encode failed')),'image/jpeg',record.jpeg_quality/100));
-  const bitmap=await createImageBitmap(blob);
-  try{ctx.drawImage(bitmap,0,0);}finally{bitmap.close();}
-  const rgba=ctx.getImageData(0,0,w,h).data;
-  for(let i=0;i<w*h;i++)pixels.set(rgba.subarray(i*4,i*4+3),i*3);
-  return {pixels,record};
+  try {
+    const ctx=cv.getContext('2d',{willReadFrequently:true});
+    if(!ctx)throw new Error('Camera response canvas allocation failed');
+    const im=ctx.createImageData(w,h);
+    for(let i=0;i<w*h;i++){im.data.set(pixels.subarray(i*3,i*3+3),i*4);im.data[i*4+3]=255;}
+    ctx.putImageData(im,0,0);
+    const blob=await new Promise((resolve,reject)=>cv.toBlob(b=>b?resolve(b):reject(new Error('JPEG encode failed')),'image/jpeg',record.jpeg_quality/100));
+    await drawJPEG(ctx,blob);
+    const rgba=ctx.getImageData(0,0,w,h).data;
+    for(let i=0;i<w*h;i++)pixels.set(rgba.subarray(i*4,i*4+3),i*3);
+    return {pixels,record};
+  } finally {
+    // Release the 2D backing store before the next scene, including failures.
+    cv.width=0;cv.height=0;
+  }
+}
+
+// Safari versions/devices can lack ImageBitmap or reject a valid JPEG Blob.
+// Decode the same bytes through Image rather than omitting the JPEG response.
+async function drawJPEG(ctx,blob) {
+  let bitmap;
+  if(typeof globalThis.createImageBitmap==='function') {
+    try {
+      bitmap=await globalThis.createImageBitmap(blob);
+      ctx.drawImage(bitmap,0,0);
+      return;
+    } catch {
+      // The ordinary image decoder below still validates the encoded bytes.
+    } finally { bitmap?.close(); }
+  }
+  const url=URL.createObjectURL(blob);
+  try {
+    const image=new Image();
+    await new Promise((resolve,reject)=>{
+      image.onload=resolve;
+      image.onerror=()=>reject(new Error('JPEG image decode failed'));
+      image.src=url;
+    });
+    ctx.drawImage(image,0,0);
+  } finally { URL.revokeObjectURL(url); }
 }
