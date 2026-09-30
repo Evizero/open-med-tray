@@ -4,6 +4,10 @@
 
 Open Med Tray generates synthetic medication-tray scenes for computer-vision research. Tablets, capsules, softgels, containers, covers, lighting and cameras are procedural and seeded, and every render comes with integer instance and class IDs from the same scene and camera.
 
+[![Open Med Tray trailer: a generated medication tray split by a blue line into the rendered image and the same pixels with their instance labels](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-poster-r2.jpg)](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-mobile-r2.mp4)
+
+**Trailer** (62 s, 720p MP4, 10.8 MB): tablets, capsules, softgels, containers and whole scenes from the generator, Open Med Tray Lite at work in the browser, and the labels that come with every render. [Watch the trailer](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-mobile-r2.mp4) · [Showcase media](https://github.com/Evizero/open-med-tray/releases/tag/showcase-media)
+
 **Showcase:** [evizero.github.io/open-med-tray](https://evizero.github.io/open-med-tray/) hosts the landing page and [Open Med Tray Lite](https://evizero.github.io/open-med-tray/lite/). Nothing else from this repository is hosted there; the source, including the research history, is public here on GitHub.
 
 ## Two editions
