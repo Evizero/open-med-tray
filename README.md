@@ -1,12 +1,10 @@
 <img src="brand/png/open-med-tray-lockup@2x.png" alt="Open Med Tray" width="300">
 
-# Open Med Tray
-
 Open Med Tray generates synthetic medication-tray scenes for computer-vision research. Tablets, capsules, softgels, containers, covers, lighting and cameras are procedural and seeded, and every render comes with integer instance and class IDs from the same scene and camera.
 
-[![Open Med Tray trailer: a generated medication tray split by a blue line into the rendered image and the same pixels with their instance labels](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-poster-r2.jpg)](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-mobile-r2.mp4)
+https://github.com/user-attachments/assets/8e095cf5-2933-47b1-84ae-46a18c79e769
 
-**Trailer** (62 s, 720p MP4, 10.8 MB): tablets, capsules, softgels, containers and whole scenes from the generator, Open Med Tray Lite at work in the browser, and the labels that come with every render. [Watch the trailer](https://github.com/Evizero/open-med-tray/releases/download/showcase-media/open-med-tray-release-teaser-mobile-r2.mp4) · [Showcase media](https://github.com/Evizero/open-med-tray/releases/tag/showcase-media)
+**Trailer** (62 s): tablets, capsules, softgels, containers and whole scenes from the generator, Open Med Tray Lite at work in the browser, and the labels that come with every render. [Download the MP4](brand/media/open-med-tray-teaser.mp4) (720p, 10.8 MB).
 
 **Showcase:** [evizero.github.io/open-med-tray](https://evizero.github.io/open-med-tray/) hosts the landing page and [Open Med Tray Lite](https://evizero.github.io/open-med-tray/lite/). Nothing else from this repository is hosted there; the source, including the research history, is public here on GitHub.
 
@@ -33,7 +31,7 @@ Lite is a subset of the full generator, not a port with full parity. Its geometr
 | `brand/` | Mark, lockups, page sources and their build tools |
 | `docs/research-history.md` | Research record kept for context, including earlier results under the name MedTray; not hosted on the showcase site |
 
-The repository holds source only. Datasets, renders, trained models and the generator's font files are not committed; `scripts/fetch_fonts.py` downloads the fonts on demand. The small web fonts and images the pages and Lite need to run are included.
+The repository holds source only, apart from the 10.8 MB showcase trailer in [`brand/media/`](brand/media/). Datasets, renders, trained models and the generator's font files are not committed; `scripts/fetch_fonts.py` downloads the fonts on demand. The small web fonts and images the pages and Lite need to run are included.
 
 ## Setup
 
