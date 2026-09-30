@@ -24,5 +24,6 @@
   "devDependencies": {
     "esbuild": "0.28.2",
     "playwright-core": "1.63.0"
-  }
+  },
+  "license": "MIT"
 }

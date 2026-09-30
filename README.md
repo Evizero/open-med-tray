@@ -52,7 +52,7 @@ uv run --with fonttools python scripts/fetch_fonts.py      # base and branding f
 
 **Blender add-on:** after fetching the fonts, `uv run python scripts/package_open_med_tray.py` writes `artifacts/open-med-tray-addon.zip`. In Blender 5.2 choose Preferences → Add-ons → Install from Disk, then open the **Open Med Tray** tab in the 3D View sidebar. Details are in [`blender/README.md`](blender/README.md).
 
-**Showcase pages:** the site is served from the `gh-pages` branch, which holds only `index.html`, `lite/index.html` and `.nojekyll`. After committing a rebuilt landing page (`node brand/tools/build-brand.mjs`) or Lite:
+**Showcase pages:** the site is served from the `gh-pages` branch, which holds the two HTML pages, the social-preview image, `sitemap.xml` and `.nojekyll`. After committing a rebuilt landing page (`node brand/tools/build-brand.mjs`) or Lite:
 
 ```bash
 python3 scripts/build_pages.py                             # stage the allowlist in _site/ and check its links
@@ -67,5 +67,8 @@ A research preview, not a release.
 
 - Every scene is synthetic. Open Med Tray does not identify or verify medication, is not a medical device and has not been validated for any clinical purpose. Models trained on its data are research demonstrations.
 - Labels mark visible geometric surfaces with transparent covers removed; refraction, glare and defocus in the render can move edges in those regions.
-- Licensing is not final. Terms for the generator, Lite and the add-on are still being decided; third-party notices ship with each component.
-- The source repository is public. Public source is not a license grant; see the licensing note above.
+## License
+
+Original Open Med Tray source and documentation, including Lite, are available under the [MIT License](LICENSE), copyright © 2026 Christof Salis. Third-party components keep their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+The MIT grant for original code does not replace Blender's GPL requirements for distributions integrating its Python API. See [Blender's licensing policy](https://www.blender.org/about/license/).

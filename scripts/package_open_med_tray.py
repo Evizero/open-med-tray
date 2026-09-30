@@ -12,7 +12,10 @@ parser.add_argument('--out', type=Path, default=ROOT / 'artifacts/open-med-tray-
 args = parser.parse_args()
 if not (args.source / 'fonts/DejaVuSans.ttf').exists() or not any((args.source / 'fonts/branding_static').glob('*/*.ttf')):
     raise SystemExit('Run scripts/fetch_fonts.py before packaging.')
-files = {}
+files = {
+    'medtray/LICENSE': ROOT / 'LICENSE',
+    'medtray/THIRD_PARTY_NOTICES.md': ROOT / 'THIRD_PARTY_NOTICES.md',
+}
 for path in args.source.glob('*.py'):
     if path.name != 'generate_draft.py':
         files['medtray/' + ('__init__.py' if path.name == 'medtray_addon.py' else path.name)] = path

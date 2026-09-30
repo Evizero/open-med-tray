@@ -13,7 +13,7 @@ const r = (p) => readFileSync(here + p);
 const sourceHash=createHash('sha256');
 function fingerprint(dir){for(const entry of readdirSync(here+dir,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const path=dir+'/'+entry.name;if(entry.isDirectory())fingerprint(path);else sourceHash.update(path).update(r(path));}}
 fingerprint('src');fingerprint('fonts');
-for(const path of ['build.mjs','package.json','package-lock.json'])if(existsSync(here+path))sourceHash.update(path).update(r(path));
+for(const path of ['build.mjs','package.json','package-lock.json','../LICENSE','../THIRD_PARTY_NOTICES.md'])if(existsSync(here+path))sourceHash.update(path).update(r(path));
 for(const config of ['classes.json','photoreal-v46.json','appearance-presets.json'])sourceHash.update(config).update(readFileSync(new URL('../configs/'+config,import.meta.url)));
 const generatorRevision=sourceHash.digest('hex');
 
@@ -48,6 +48,7 @@ const fonts = [
 const fontCss = fonts.map(([fam, w, st, f]) => `@font-face{font-family:"${fam}";font-weight:${w};font-style:${st};font-display:block;src:url(data:font/woff2;base64,${r('fonts/' + f).toString('base64')}) format("woff2")}`).join('\n');
 
 const licences = [
+  ['Open Med Tray', '../LICENSE'],
   ['three.js', 'node_modules/three/LICENSE'],
   ['three-mesh-bvh', 'node_modules/three-mesh-bvh/LICENSE'],
   ['three-bvh-csg', 'node_modules/three-bvh-csg/LICENSE'],
@@ -56,7 +57,7 @@ const licences = [
   ['Instrument Serif (font)', 'node_modules/@fontsource/instrument-serif/LICENSE'],
 ];
 mkdirSync(here + 'licenses', { recursive: true });
-let licText = 'Open Med Tray Lite bundles the following third-party software and fonts. Full licence texts follow.\n';
+let licText = 'Open Med Tray Lite is MIT licensed. Bundled third-party software and fonts retain their own licences. Full licence texts follow.\n';
 for (const [name, p] of licences) {
   const t = r(p).toString('utf8').replace(/\*\//g, '* /');
   licText += `\n==== ${name} (${p.replace('node_modules/', '')}) ====\n${t}\n`;

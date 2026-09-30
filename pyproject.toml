@@ -3,6 +3,8 @@ name = "medtray"
 version = "0.1.0"
 description = "Procedural Blender medication-tray vision research prototype"
 requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 dependencies = ["torch>=2.6", "numpy>=2", "pillow>=11", "matplotlib>=3.9", "scipy>=1.14", "scikit-image>=0.24", "OpenEXR>=3.3"]
 [project.optional-dependencies]
 dev = ["pytest>=8"]
