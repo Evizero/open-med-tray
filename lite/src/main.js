@@ -223,14 +223,13 @@ function inspectorDef() {
     tabs: [{ id: 'batch', label: 'Batch', build: t.batch }, { id: 'archive', label: 'Archive', build: t.archive }],
     // Footer: the "Scenes to add" stepper sits on its own row above the actions.
     foot: () => {
-      const setCount = (v) => { d.count = Math.max(1, Math.min(64, Math.round(Number(v) || 1))); const i = $('dsBatchCount'); if (i) i.value = d.count; const [m, p] = [$('dsCountMinus'), $('dsCountPlus')]; if (m) m.disabled = d.running || d.count <= 1; if (p) p.disabled = d.running || d.count >= 64; };
       return [
         el('div', { class: 'progressbar' }, el('i', { id: 'dsProg' })),
         el('label', { class: 'batch-count', for: 'dsBatchCount' }, el('span', { text: 'Scenes to add' }),
           el('span', { class: 'stepper' },
-            el('button', { type: 'button', id: 'dsCountMinus', text: '−', 'aria-label': 'Fewer scenes', title: 'Fewer scenes', disabled: d.running || d.count <= 1 ? '' : null, 'data-k': 'btn:count-', onclick: () => setCount(d.count - 1) }),
-            el('input', { id: 'dsBatchCount', type: 'number', min: 1, max: 64, step: 1, value: d.count, disabled: d.running ? '' : null, 'aria-label': 'Scenes to add', 'data-k': 'batch-count', onchange: (e) => setCount(e.target.value) }),
-            el('button', { type: 'button', id: 'dsCountPlus', text: '+', 'aria-label': 'More scenes', title: 'More scenes', disabled: d.running || d.count >= 64 ? '' : null, 'data-k': 'btn:count+', onclick: () => setCount(d.count + 1) }))),
+            el('button', { type: 'button', id: 'dsCountMinus', text: '−', 'aria-label': 'Fewer scenes', title: 'Fewer scenes', disabled: d.running || d.count <= COUNT_MIN ? '' : null, 'data-k': 'btn:count-', onclick: () => setDatasetCount(d.count - 1) }),
+            el('input', { id: 'dsBatchCount', type: 'number', min: COUNT_MIN, max: COUNT_MAX, step: 1, value: d.count, disabled: d.running ? '' : null, 'aria-label': 'Scenes to add', 'data-k': 'batch-count', ...countInputHandlers }),
+            el('button', { type: 'button', id: 'dsCountPlus', text: '+', 'aria-label': 'More scenes', title: 'More scenes', disabled: d.running || d.count >= COUNT_MAX ? '' : null, 'data-k': 'btn:count+', onclick: () => setDatasetCount(d.count + 1) }))),
         ...(d.pendingRun&&!d.running?[el('button',{class:'btn',id:'dsResume',type:'button',text:`Resume ${d.pendingRun.count-d.pendingRun.done} remaining`,disabled:d.exporting||d.pendingRun.generatorRevision!==GENERATOR_REVISION?'':null,title:d.pendingRun.generatorRevision!==GENERATOR_REVISION?'The generator changed. Resume in the original HTML, or Generate & add a new batch.':'Continue the saved batch with its original settings',onclick:()=>datasetActions.generate(true)})]:[]),
         el('button', { class: 'btn accent' + (d.running ? ' hidden' : ''), id: 'dsGo', type: 'button', text: 'Generate & add', title: 'Render the scenes and append them to the collection', disabled:d.exporting?'':null, 'data-k': 'btn:generate', onclick: () => datasetActions.generate() }),
         el('button', { class: 'btn' + (d.running ? '' : ' hidden'), id: 'dsCancel', type: 'button', text: 'Cancel', title: 'Stop after the current scene; completed scenes are kept', 'data-k': 'btn:cancel', onclick: () => datasetActions.cancel() }),
@@ -280,6 +279,7 @@ function renderInspector({ animate = false } = {}) {
   if (focusKey) (body.querySelector(`[data-k="${CSS.escape(focusKey)}"]`) || foot.querySelector(`[data-k="${CSS.escape(focusKey)}"]`))?.focus({ preventScroll: true });
   else if (tabFocus) strip.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
   updateCamActual();
+  updateDock();
 }
 function setTab(id) {
   if (!inspKey || !inspTabs.some((t) => t.id === id)) return;
@@ -392,7 +392,7 @@ function openInStudio(spec) {
 // ------------------------------------------------------------ modes
 async function setMode(mode) {
   handles?.cancel();
-  if (state.dataset.running && mode !== 'dataset') { toast('Generation in progress — cancel first'); return; }
+  if ((state.dataset.running || generating) && mode !== 'dataset') { toast('Generation in progress — cancel first'); return; }
   specimenRevision++;
   const prev = state.mode;
   if (mode !== 'dataset') sceneInspector?.close({ instant: true });
@@ -839,7 +839,7 @@ function initDataset() {
   });
   sceneInspector = createInspector({
     root: $('sceneInspector'), reduced,
-    getScenes: () => state.dataset.scenes, isRunning: () => state.dataset.running || state.dataset.exporting,
+    getScenes: () => state.dataset.scenes, isRunning: () => state.dataset.running || !!generating || state.dataset.exporting,
     onDownloadScene: downloadScene,
     readArchive,
     onDownloadFile: (bytes, filename) => saveArchive(bytes, filename, filename.endsWith('.png') ? 'image/png' : filename.endsWith('.json') ? 'application/json' : 'application/octet-stream'),
@@ -849,9 +849,9 @@ function initDataset() {
       if (reveal) pic.scrollIntoView({ block: 'nearest' });
       const r = pic.getBoundingClientRect(); return r.width ? r : null;
     },
-    onClosed: (name) => collection.focusTile(name),
+    onClosed: (name) => { updateDock(); collection.focusTile(name); },
     isMobile: () => mobileQuery.matches,
-    setInertBehind: (on) => { $('sheet').inert = on; for (const id of ['rail', 'inspector']) $(id).inert = on && mobileQuery.matches; },
+    setInertBehind: (on) => { $('sheet').inert = on; for (const id of ['rail', 'inspector']) $(id).inert = on && mobileQuery.matches; if (on) updateDock(); },
   });
   collectionReady=(async()=>{
     const d=state.dataset;d.storage='opening';
@@ -868,13 +868,51 @@ function initDataset() {
 }
 function renderCollection() {
   const d=state.dataset;
-  collection.sync(d.scenes,{running:d.running||d.exporting});
+  collection.sync(d.scenes,{running:d.running||!!generating||d.exporting});
   sceneInspector.sync();
   const pills=d.scenes.reduce((a,r)=>a+r.meta.placed_pills,0);
   $('sheetMeta').textContent=`${d.scenes.length} scene${d.scenes.length===1?'':'s'} in collection${d.scenes.length?` · ${pills} pills`:''}`;
 }
+// Scenes per batch: one range and one setter for the panel footer and the
+// phone dock, so either control always shows the count the next batch uses.
+const COUNT_MIN = 1, COUNT_MAX = 64;
+const clampCount = (v) => Math.max(COUNT_MIN, Math.min(COUNT_MAX, Math.round(Number(v) || COUNT_MIN)));
+function setDatasetCount(v) {
+  const d = state.dataset;
+  if (!d.running && !generating) d.count = clampCount(v);
+  syncCountControls();
+}
+function syncCountControls(skip = null) {
+  const d = state.dataset, locked = d.running || !!generating;
+  for (const [input, minus, plus] of [['dsBatchCount', 'dsCountMinus', 'dsCountPlus'], ['dockCount', 'dockMinus', 'dockPlus']].map((ids) => ids.map($))) {
+    if (!input) continue;
+    if (input !== skip) input.value = d.count;
+    input.disabled = locked;
+    minus.disabled = locked || d.count <= COUNT_MIN;
+    plus.disabled = locked || d.count >= COUNT_MAX;
+  }
+}
+// Typing takes effect as soon as it is a valid count (without rewriting the
+// field mid-entry); committing clamps. Digits stay in the field rather than
+// reaching the 1/2/3 mode shortcuts.
+const countInputHandlers = {
+  oninput: (e) => { const v = Number(e.target.value); if (Number.isInteger(v) && v >= COUNT_MIN && v <= COUNT_MAX && !state.dataset.running && !generating) { state.dataset.count = v; syncCountControls(e.target); } },
+  onchange: (e) => setDatasetCount(e.target.value),
+  onkeydown: (e) => { e.stopPropagation(); if (e.key === 'Enter') setDatasetCount(e.target.value); },
+};
+// The start of a batch (opening the collection, taking the cross-tab lock)
+// is asynchronous; a second press meanwhile must neither start another batch
+// nor be refused as "another tab".
+let generating = null, batchStep = null;
 const datasetActions = {
-  async generate(resume=false,locked=false) {
+  generate(resume = false) {
+    const d = state.dataset;
+    if (generating || d.running || d.exporting) return Promise.resolve();
+    generating = datasetActions.run(resume).finally(() => { generating = null; batchStep = null; renderCollection(); syncCountControls(); updateDock(); });
+    renderCollection(); syncCountControls(); updateDock();
+    return generating;
+  },
+  async run(resume=false,locked=false) {
     const d=state.dataset;if(d.running||d.exporting)return;
     await collectionReady;if(d.running||d.exporting)return;
     if(collectionStore.db&&navigator.locks&&!locked)return navigator.locks.request(collectionStore.name,{ifAvailable:true},async lock=>{
@@ -882,11 +920,11 @@ const datasetActions = {
       const saved=await collectionStore.restore();d.scenes=saved.scenes;
       if(saved.checkpoint&&saved.checkpoint.nextIndex!==d.nextIndex){d.nextIndex=saved.checkpoint.nextIndex;d.seed=saved.checkpoint.seed;}
       d.pendingRun=saved.checkpoint?.run??null;
-      return datasetActions.generate(resume,true);
+      return datasetActions.run(resume,true);
     });
     if(resume&&d.pendingRun?.generatorRevision!==GENERATOR_REVISION){d.status='This batch belongs to a different generator version. Use its original HTML to resume, or Generate & add a new batch.';renderInspector();return;}
-    stopTour();d.running=true;d.zip=null;d.status='Starting…';
-    const run=resume&&d.pendingRun?structuredClone(d.pendingRun):{generatorRevision:GENERATOR_REVISION,count:Math.max(1,Math.min(64,Math.round(d.count))),done:0,baseSeed:d.seed,startIndex:d.nextIndex,res:d.res,samples:d.samples,cameraProfile:d.cameraProfile,stressProbability:d.stressProbability,sampling:d.sampling};
+    stopTour();d.running=true;d.zip=null;d.status='Starting…';batchStep=null;
+    const run=resume&&d.pendingRun?structuredClone(d.pendingRun):{generatorRevision:GENERATOR_REVISION,count:clampCount(d.count),done:0,baseSeed:d.seed,startIndex:d.nextIndex,res:d.res,samples:d.samples,cameraProfile:d.cameraProfile,stressProbability:d.stressProbability,sampling:d.sampling};
     d.pendingRun=run;
     const [w,h]=run.res.split('x').map(Number),count=run.count-run.done,baseSeed=run.baseSeed+run.done,startIndex=run.startIndex+run.done,offset=run.done;
     const ac=new AbortController();d.abort=ac;renderInspector();renderCollection();
@@ -899,7 +937,7 @@ const datasetActions = {
       if(collectionStore.db)await collectionStore.checkpoint(checkpoint(d,run));
       const res=await generateDataset(stage,{
         count,baseSeed,startIndex,collect:false,width:w,height:h,samples:run.samples,cameraProfile:run.cameraProfile,stressProbability:run.stressProbability,sampling:run.sampling,scenarioOffset:offset,signal:ac.signal,
-        onProgress:(p)=>{const {index,count,stage:st}=p;mark(index,st);collection.queueProgress(p);d.status=`Adding ${index+1} of ${count}: ${st}…`;setDsStatus(d.status,index/count);},
+        onProgress:(p)=>{const {index,count,stage:st}=p;mark(index,st);batchStep={n:index+1,count};collection.queueProgress(p);d.status=`Adding ${index+1} of ${count}: ${st}…`;setDsStatus(d.status,index/count);},
         onScene:async record=>{
           if(cur?.index===record.index)mark(record.index,'done');record.timing=timing;
           record.ok=Object.values(record.meta.verification).every(Boolean);
@@ -916,9 +954,9 @@ const datasetActions = {
     } catch(e) {console.error(e);failed=true;d.status=`Failed: ${e.message}. ${added} completed scenes retained.`;}
     finally {d.running=false;d.abort=null;collection.queueEnd({reason:failed?'failed':ac.signal.aborted?'cancelled':'done'});renderCollection();renderInspector();setDsStatus(d.status);}
   },
-  cancel() {state.dataset.abort?.abort();collection.queueCancelling();setDsStatus('Stopping after the current scene…');},
+  cancel() {state.dataset.abort?.abort();collection.queueCancelling();setDsStatus('Stopping after the current scene…');updateDock();},
   async remove(name) {
-    const d=state.dataset;if(d.running||d.exporting)return;
+    const d=state.dataset;if(d.running||generating||d.exporting)return;
     if(collectionStore.db)try{await collectionStore.remove(name);}catch(e){setDsStatus(`Delete failed: ${e.message}`);return;}
     const i=d.scenes.findIndex(s=>s.name===name);if(i<0)return;
     d.scenes.splice(i,1);d.zip=null;d.status=`Deleted ${name} and its paired targets.`;
@@ -951,6 +989,48 @@ function setDsStatus(text, frac) {
   const s = $('dsStatus'); if (s) s.textContent = text;
   const m = $('sheetStatus'); if (m) m.textContent = text;
   const p = $('dsProg'); if (p && frac !== undefined) p.style.width = `${Math.round(frac * 100)}%`;
+  if (frac !== undefined) $('dockProg').style.width = `${Math.round(frac * 100)}%`;
+  updateDock();
+}
+
+// Phone, Dataset: the dock carries the batch size and Generate & add while
+// the sheet is collapsed; it steps aside for the expanded sheet (whose footer
+// carries both), an open scene (until its close finishes), the introduction
+// and the tour. A press that starts a batch arms Cancel only after a short
+// delay, so a double tap cannot start and immediately stop the same batch.
+// Scene builds block the main thread, so a second tap can be delivered
+// seconds late: presses are timed by their pointerdown / keydown, and the
+// second click of a double click never cancels.
+const CANCEL_ARM_MS = 600;
+let dockArmedAt = 0, dockArmTimer = 0, dockPressAt = 0;
+function updateDock() {
+  const dock = $('dsDock'); if (!dock || !stage) return;
+  const d = state.dataset, busy = d.running || !!generating;
+  const on = mobileQuery.matches && state.mode === 'dataset' && !introUp && !state.tour.playing && !$('inspector').classList.contains('open') && $('sceneInspector').hidden;
+  $('app').classList.toggle('dock-on', on);
+  dock.classList.toggle('running', busy);
+  syncCountControls();
+  const stopping = !!d.abort?.signal.aborted;
+  const cancelReady = d.running && !stopping && performance.now() >= dockArmedAt;
+  const go = $('dockGo');
+  go.setAttribute('aria-disabled', String(busy ? !cancelReady : !!d.exporting));
+  $('dockGoText').textContent = !busy ? 'Generate & add' : stopping ? 'Stopping…' : 'Cancel';
+  go.title = busy ? 'Stop after the current scene; completed scenes are kept' : 'Render the scenes and append them to the collection';
+  const step = busy ? (batchStep ? `Adding ${batchStep.n} of ${batchStep.count}` : 'Starting…') : '';
+  if ($('dockState').textContent !== step) $('dockState').textContent = step;
+  if (!busy) $('dockProg').style.width = '0%';
+}
+function dockAction(e) {
+  const d = state.dataset, pressed = dockPressAt || e.timeStamp;
+  dockPressAt = 0;
+  if (d.running || generating) {
+    if (d.running && !d.abort?.signal.aborted && e.detail <= 1 && pressed >= dockArmedAt) datasetActions.cancel();
+    return;
+  }
+  if (d.exporting) return;
+  dockArmedAt = pressed + CANCEL_ARM_MS;
+  clearTimeout(dockArmTimer); dockArmTimer = setTimeout(updateDock, CANCEL_ARM_MS + 20);
+  datasetActions.generate();
 }
 
 // ------------------------------------------------------------ tour
@@ -981,7 +1061,7 @@ const TOUR = [
 ];
 async function playTour() {
   handles?.cancel();
-  if (state.dataset.running) return;
+  if (state.dataset.running || generating) return;
   state.tour = { playing: true, paused: false, step: 0 };
   $('tourBtn').setAttribute('aria-pressed', 'true');
   $('tourCap').classList.add('on');
@@ -1087,6 +1167,7 @@ function updateFab() {
   $('fabResample').title = RESAMPLE_HINT[tray ? 'tray' : 'pill'];
   // The capture camera is fixed, so there is no tray view to reset.
   $('fabReset').hidden = tray;
+  updateDock();
 }
 // The card and readout ride up with the sheet while it is dragged from the peek.
 function liftChrome(px) {
@@ -1120,6 +1201,12 @@ function bindUI() {
   window.__atelier.sheetDrag = sheetDrag;
   $('fabResample').addEventListener('click', () => resample());
   $('fabReset').addEventListener('click', resetView);
+  $('dockGo').addEventListener('pointerdown', (e) => { dockPressAt = e.timeStamp; });
+  $('dockGo').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') dockPressAt = e.timeStamp; });
+  $('dockGo').addEventListener('click', dockAction);
+  $('dockMinus').addEventListener('click', () => setDatasetCount(state.dataset.count - 1));
+  $('dockPlus').addEventListener('click', () => setDatasetCount(state.dataset.count + 1));
+  for (const [type, fn] of Object.entries(countInputHandlers)) $('dockCount').addEventListener(type.slice(2), fn);
   updateFab();
   $('inspTabs').addEventListener('keydown', (e) => { const id = tabArrow($('inspTabs'), e); if (id) setTab(id); });
   const modes = document.querySelector('.modes');

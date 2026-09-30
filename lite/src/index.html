@@ -78,6 +78,24 @@
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 1.9-4.4M4 3.5v3.3h3.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </div>
+  <!-- Phone, Dataset: the batch size above Generate & add floats over the collection while the sheet is collapsed (the panel footer carries both otherwise). -->
+  <div class="dock" id="dsDock" role="group" aria-label="Generate scenes">
+    <div class="dock-row">
+      <span class="dock-lbl" aria-hidden="true">Scenes to add</span>
+      <span class="dock-state" id="dockState" role="status"></span>
+      <span class="stepper">
+        <button type="button" id="dockMinus" aria-label="Fewer scenes" title="Fewer scenes">−</button>
+        <input id="dockCount" type="number" inputmode="numeric" min="1" max="64" step="1" value="8" aria-label="Scenes to add" enterkeyhint="done">
+        <button type="button" id="dockPlus" aria-label="More scenes" title="More scenes">+</button>
+      </span>
+      <span class="dock-bar" aria-hidden="true"><i id="dockProg"></i></span>
+    </div>
+    <button class="dock-go" id="dockGo" type="button" title="Render the scenes and append them to the collection">
+      <svg class="i-add" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.75" y="6.25" width="11.5" height="10" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.75 3.75h9.75a1.75 1.75 0 0 1 1.75 1.75v7.75" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M8.5 8.75v5M6 11.25h5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <svg class="i-stop" viewBox="0 0 20 20" aria-hidden="true"><rect x="5.5" y="5.5" width="9" height="9" rx="1.8" fill="currentColor"/></svg>
+      <span id="dockGoText">Generate &amp; add</span>
+    </button>
+  </div>
   <div class="tour-cap" id="tourCap" role="status" aria-live="polite">
     <div class="progress"><i id="tourProg"></i></div>
     <div class="tour-txt"><span class="t" id="tourTitle"></span><span class="n" id="tourNote"></span></div>
