@@ -1,0 +1,431 @@
+{
+  "license": "SIL Open Font License 1.1; per-family OFL.txt preserved",
+  "source_repository": "https://github.com/google/fonts",
+  "families": [
+    "barlowcondensed",
+    "bebasneue",
+    "caveat",
+    "cinzel",
+    "comicneue",
+    "cormorantgaramond",
+    "dancingscript",
+    "domine",
+    "greatvibes",
+    "josefinsans",
+    "kaushanscript",
+    "librebaskerville",
+    "lobster",
+    "manrope",
+    "merriweather",
+    "montserrat",
+    "nunito",
+    "orbitron",
+    "oswald",
+    "pacifico",
+    "playfairdisplay",
+    "quicksand",
+    "rajdhani",
+    "sacramento"
+  ],
+  "fonts": [
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Black.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Black.ttf",
+      "git_blob_sha": "9afd142246dc003dd340653580df49a454aeb172",
+      "sha256": "e74b750df582c608f35db467b711b2b60d2217618e85e60b72b42dfd00446cab"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-BlackItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-BlackItalic.ttf",
+      "git_blob_sha": "b62bf4ca1652203b401941b749672d9ac15bdbb3",
+      "sha256": "e1ed5d7e50c6a4498454d40509ce2362384a2c7870df3418fdbd010f81dffad3"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Bold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Bold.ttf",
+      "git_blob_sha": "9e480f467d703009e3abfce290b2ec2b7d24e188",
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-BoldItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-BoldItalic.ttf",
+      "git_blob_sha": "26e8dc259f1727505dfaf7418ddeda8c51f7a7b9",
+      "sha256": "d8694f65cd70c3e5e600ead37657aab0adb5f63b275d0c1f6f4a7046de222145"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-ExtraBold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ExtraBold.ttf",
+      "git_blob_sha": "d5a6c7505459f142b20d65d3579e1b840462b75f",
+      "sha256": "724c9c25952d5f4a2d87185d9767aa006144c5f0d944dc05bf7d5d603551c260"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-ExtraBoldItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ExtraBoldItalic.ttf",
+      "git_blob_sha": "fbb716a1922dcc8c5a939394609c1d55a6d5d292",
+      "sha256": "331783dae9ec0c398f4d32c9fd5a56d4c602caa0c1628c2b9cbfe93f48eb68c9"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-ExtraLight.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ExtraLight.ttf",
+      "git_blob_sha": "f9f862c33c697c7b8f87de4ddf42fb0e2b942496",
+      "sha256": "19e3c4a81dc7fcee8c38ab6be3819fcc45d3f3822f011ac7b4bd550e6502b80f"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-ExtraLightItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ExtraLightItalic.ttf",
+      "git_blob_sha": "f6463bd28578ffe7189872e8295727cac8deb858",
+      "sha256": "a58c17c59c226eb0ef411b73696f79374d170f2708acc6d72d8db8c07f333286"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Italic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Italic.ttf",
+      "git_blob_sha": "a21a34af919e5cbf86b16c1d2aae9ef820fe6e7f",
+      "sha256": "063615da0a64f318397de2afac330dfbfbbf4cdb562a9987cb72bfdcbd37ba7c"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Light.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Light.ttf",
+      "git_blob_sha": "d6ab6a8151541c4a86293f64339b8e8d5c07a03a",
+      "sha256": "2c37e1e6b5feb71d38a42e6180d2e2f4ca1aad22cfecbd017430f3863deba67d"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-LightItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-LightItalic.ttf",
+      "git_blob_sha": "66b45cee46b01effa74e0dc9158f28a9b3bc3a21",
+      "sha256": "14aabc4936c54a3aae666abccbc4be612e4a33501c9483f7e4ebb249359d0171"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Medium.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Medium.ttf",
+      "git_blob_sha": "eee49eb632153608c0bef5809ceab2418dd617a8",
+      "sha256": "262bd143292ce479ee0cd09a42b47ab173fca8e9c6eb5ed0b5c8a845bc371d17"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-MediumItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-MediumItalic.ttf",
+      "git_blob_sha": "cc94dccd943786d502204285467d9a15b0daa711",
+      "sha256": "e036488bfe3ea1e9f39f006b1237c2931e7cfea7d9ecdccdf17507a5986f73d9"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Regular.ttf",
+      "git_blob_sha": "ecbe0cc84118decc6a16216ad53d83d39888b175",
+      "sha256": "583cec5da3b84bc4dc7c9c72e2a565c94d34e431518b19d7e250b7830ad5f996"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-SemiBold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-SemiBold.ttf",
+      "git_blob_sha": "9df66576492bee4bd0559066825472808fa98adc",
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-SemiBoldItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-SemiBoldItalic.ttf",
+      "git_blob_sha": "09b6d41487efb1ba6034e7e21a4ccdf30bd5d589",
+      "sha256": "dc83cbbb7545a117ab9e4c10ed07d35eef6f563b77621a1d357f25a3194987d1"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-Thin.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-Thin.ttf",
+      "git_blob_sha": "3b5efe54b95d0f8bb256ed71a6d46cb5c97ab668",
+      "sha256": "68afe339b8503a9d74b2c3b5b0c521ea5333461f29aeaf7c680141482114d85a"
+    },
+    {
+      "family": "barlowcondensed",
+      "file": "barlowcondensed/BarlowCondensed-ThinItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlowcondensed/BarlowCondensed-ThinItalic.ttf",
+      "git_blob_sha": "eeb101502efe11603828d7510ecfc4765f5a59ad",
+      "sha256": "5b0ff874e3ae64e2b3dc2c761d8ba2eb3eae324d269441f6de0062e8fbff0b8e"
+    },
+    {
+      "family": "bebasneue",
+      "file": "bebasneue/BebasNeue-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/bebasneue/BebasNeue-Regular.ttf",
+      "git_blob_sha": "c328c6e08b20a20a1de47d823e007ee73812a438",
+      "sha256": "08e4623805102d819f58601e46e345648846075e363b2ceb23313c2d1c83ec73"
+    },
+    {
+      "family": "caveat",
+      "file": "caveat/Caveat[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/caveat/Caveat%5Bwght%5D.ttf",
+      "git_blob_sha": "f84acf2ce2d1b3329b194749530dbaec047e6df6",
+      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988"
+    },
+    {
+      "family": "cinzel",
+      "file": "cinzel/Cinzel[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cinzel/Cinzel%5Bwght%5D.ttf",
+      "git_blob_sha": "d218a0b9c8879fd5a708872cc0ef357e507b35ca",
+      "sha256": "f4d83d34d1f6c741193e4acf4b3dff9531e5a67b6aa65228d00a7db72a4e0f34"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-Bold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-Bold.ttf",
+      "git_blob_sha": "378eb2004a5bdb5ff06e97fc709ec4f1fc205d80",
+      "sha256": "3e7e5fccfd7e0788f317b43312151c1bd5cf058c9697a8d83eac3939050bd61e"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-BoldItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-BoldItalic.ttf",
+      "git_blob_sha": "8c437a3532cf2ddb9bb1148b624740040e0afb82",
+      "sha256": "5c312c2a2fa64eee82f3b87fcfab8f3b12a5e59b043124401d322eb323cfbf16"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-Italic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-Italic.ttf",
+      "git_blob_sha": "72d9b0b829fc8ab058865463187a303ea723c4f8",
+      "sha256": "e06bfd1552f5c9464c5665733ffd69239b0593885dbb9e059688a5900f78cf98"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-Light.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-Light.ttf",
+      "git_blob_sha": "42448d3709fc5cb9380b4390195986a8647b6531",
+      "sha256": "efb91c06dccc264f07f800c0691d40c94e8cfce6183daade0709268bec178f76"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-LightItalic.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-LightItalic.ttf",
+      "git_blob_sha": "a966eb75a5e8c87b5bc3120f3721f577ca2ce315",
+      "sha256": "a6d36baee09c7025916ddb517835458d15ef890291507197a54875ccc096b927"
+    },
+    {
+      "family": "comicneue",
+      "file": "comicneue/ComicNeue-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/comicneue/ComicNeue-Regular.ttf",
+      "git_blob_sha": "88e9417f0e247c141adbcaa2464107d8d5b55aa1",
+      "sha256": "a0ee5a37c8b27c4db0700137d928598b1e23b0089e1546a8961909176b779360"
+    },
+    {
+      "family": "cormorantgaramond",
+      "file": "cormorantgaramond/CormorantGaramond-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "0d914e7663b7a1429d06ec60a5c5bb026031a2ef",
+      "sha256": "0f48ea6abb2084537854f7174c470991a463b13036309e3b50a81511611c530d"
+    },
+    {
+      "family": "cormorantgaramond",
+      "file": "cormorantgaramond/CormorantGaramond[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf",
+      "git_blob_sha": "d992a83ce525c330fad3a19087746bcb2dc038ee",
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0"
+    },
+    {
+      "family": "dancingscript",
+      "file": "dancingscript/DancingScript[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/dancingscript/DancingScript%5Bwght%5D.ttf",
+      "git_blob_sha": "9f521e7fb357ec9ea9820ebd36a9d7b1f72f2935",
+      "sha256": "21808625578fe8d8cd10cb684be546dca077b27cd03a53a2f1ec11dc743c924c"
+    },
+    {
+      "family": "domine",
+      "file": "domine/Domine[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/domine/Domine%5Bwght%5D.ttf",
+      "git_blob_sha": "d676bdedb4dd8063b91d87b5e11e013d51321013",
+      "sha256": "c63552cb60c658e90c1da3e83f9e7cf203562c39cdbf5a78ba9df62d8e7a1ed7"
+    },
+    {
+      "family": "greatvibes",
+      "file": "greatvibes/GreatVibes-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/greatvibes/GreatVibes-Regular.ttf",
+      "git_blob_sha": "a1327ff3b862246f1f253639040edcc473e5f3a9",
+      "sha256": "8d509802186f1b51572531ecf313e8098f9a5bfdfaca93f0c9b34467f9982d15"
+    },
+    {
+      "family": "josefinsans",
+      "file": "josefinsans/JosefinSans-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/josefinsans/JosefinSans-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "2496e84a6e1ba39a678bf76dfb0329e43a4a7254",
+      "sha256": "c22b42ca690be7ea07d04415ac70b48603dff88e854738cba4bd87027b905ef1"
+    },
+    {
+      "family": "josefinsans",
+      "file": "josefinsans/JosefinSans[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/josefinsans/JosefinSans%5Bwght%5D.ttf",
+      "git_blob_sha": "4d59aa52b1fa6235b5b917793233e8526cc7ed50",
+      "sha256": "9255abdb5f393bc51e101abbd07a716a977fd3e15472b1b84b260f426a342bfd"
+    },
+    {
+      "family": "kaushanscript",
+      "file": "kaushanscript/KaushanScript-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/kaushanscript/KaushanScript-Regular.ttf",
+      "git_blob_sha": "e69e4ac0192b8890c1d3a3aeb1df731df9de6ff6",
+      "sha256": "6d8d379d9bba98178bee476d68114c8f83812c18005ecccf679e70f60e03d8f6"
+    },
+    {
+      "family": "librebaskerville",
+      "file": "librebaskerville/LibreBaskerville-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/librebaskerville/LibreBaskerville-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "22a7e0fa0ed2724dd8b592f3f8c0de85f3d3fda1",
+      "sha256": "223959683dc73ec4437bd61fabaa4b3f22209e22855ffd3aee36ba61a5116e97"
+    },
+    {
+      "family": "librebaskerville",
+      "file": "librebaskerville/LibreBaskerville[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/librebaskerville/LibreBaskerville%5Bwght%5D.ttf",
+      "git_blob_sha": "eae4eba83203138da3a3a7603b598b7ebc5a5238",
+      "sha256": "05a95421961341c5b2556285e8415df9db27dab4f4abe22b446b3c6a8b916c5d"
+    },
+    {
+      "family": "lobster",
+      "file": "lobster/Lobster-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/lobster/Lobster-Regular.ttf",
+      "git_blob_sha": "f30b6f66cea410dac2227c04daf40e64c6a8ae4f",
+      "sha256": "d6568e697fd50cedc0be04d8aae4127fe95add607e7bff954ca88604be80c205"
+    },
+    {
+      "family": "manrope",
+      "file": "manrope/Manrope[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+      "git_blob_sha": "75274da58537d6123b14f2cd0c355ad4681fc2b3",
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    },
+    {
+      "family": "merriweather",
+      "file": "merriweather/Merriweather-Italic[opsz,wdth,wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/merriweather/Merriweather-Italic%5Bopsz%2Cwdth%2Cwght%5D.ttf",
+      "git_blob_sha": "f16120757a8a92cfa12a5fc9a7dcbaa2f8297ab6",
+      "sha256": "f68a8f4989258679e4fbaf50aa42400132b5373c2d9d2514ba82ef6e85947a0b"
+    },
+    {
+      "family": "merriweather",
+      "file": "merriweather/Merriweather[opsz,wdth,wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/merriweather/Merriweather%5Bopsz%2Cwdth%2Cwght%5D.ttf",
+      "git_blob_sha": "cb775b80fa0a6f3b2aea114869a7171695b50a62",
+      "sha256": "d0ed0e359e396af7ad05e73dffd11a3a4c326ea0d0283c56bd9361cb2cc86a96"
+    },
+    {
+      "family": "montserrat",
+      "file": "montserrat/Montserrat-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "c8b8441744f2092ea8cbeb7b6f881e53bfe9c623",
+      "sha256": "51607f316bc020e59f03cbf51543eecffbea501c0b31d73e5b82927c5cca442c"
+    },
+    {
+      "family": "montserrat",
+      "file": "montserrat/Montserrat[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf",
+      "git_blob_sha": "c97aca18592834d8706549c279cb8d5ac5d85f69",
+      "sha256": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7"
+    },
+    {
+      "family": "nunito",
+      "file": "nunito/Nunito-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/nunito/Nunito-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "e63b7a6b390495bfe2ec827b723b51679022b61e",
+      "sha256": "b520cc871868b0acfca1beda875df7f4a44ebce914f8a89f83977fc9c09529c8"
+    },
+    {
+      "family": "nunito",
+      "file": "nunito/Nunito[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/nunito/Nunito%5Bwght%5D.ttf",
+      "git_blob_sha": "2ec1f4b0676c83ef33049db87b311171699e9192",
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "family": "orbitron",
+      "file": "orbitron/Orbitron[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/orbitron/Orbitron%5Bwght%5D.ttf",
+      "git_blob_sha": "1fc54ce7116a6ec549f37358466bcc92f9a72c33",
+      "sha256": "f42db2dd16e642258e35782916eceb1dcdbea06fb958d77ad71dc5963587e8fd"
+    },
+    {
+      "family": "oswald",
+      "file": "oswald/Oswald[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/oswald/Oswald%5Bwght%5D.ttf",
+      "git_blob_sha": "d1a3b9cb1325bf20b3a06ef9849d21c411212a3b",
+      "sha256": "5b38c246e255a12f5712d640d56bcced0472466fc68983d2d0410ec0457c2817"
+    },
+    {
+      "family": "pacifico",
+      "file": "pacifico/Pacifico-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/pacifico/Pacifico-Regular.ttf",
+      "git_blob_sha": "27765d02ac13f241b1e207dbda7b2dd1b68280da",
+      "sha256": "5b6c0d5334a7bf77dea52b975c5a0c408878c0f7115ed5b6fb151f634b7bf701"
+    },
+    {
+      "family": "playfairdisplay",
+      "file": "playfairdisplay/PlayfairDisplay-Italic[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay/PlayfairDisplay-Italic%5Bwght%5D.ttf",
+      "git_blob_sha": "94fae1f2853dd325b1a3602370780d154ffc8c89",
+      "sha256": "a5e26dc5e2e77fb2803a0bf02fd4f81ee136ec8dea863ccdb0c59a263b21378b"
+    },
+    {
+      "family": "playfairdisplay",
+      "file": "playfairdisplay/PlayfairDisplay[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/playfairdisplay/PlayfairDisplay%5Bwght%5D.ttf",
+      "git_blob_sha": "7a09eb71f10622fd083134ac9ed46f59b21bee18",
+      "sha256": "c40f2293766a503bc70cce9e512ef844a4ccb7cbcde792fe2ea31d191917d8d6"
+    },
+    {
+      "family": "quicksand",
+      "file": "quicksand/Quicksand[wght].ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/quicksand/Quicksand%5Bwght%5D.ttf",
+      "git_blob_sha": "8cd9133bc8b152573b581a3f788346be2d30adb4",
+      "sha256": "39c9b64223561f56aaff6062a6f04063c4fc86809ad6768722c06614d977e1cc"
+    },
+    {
+      "family": "rajdhani",
+      "file": "rajdhani/Rajdhani-Bold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/rajdhani/Rajdhani-Bold.ttf",
+      "git_blob_sha": "47af15713b45605a5d98241b8211a3409f522b34",
+      "sha256": "691470dd3286a14e9677940d0bf75796179841ba5215cbda1a2c8910a3226afd"
+    },
+    {
+      "family": "rajdhani",
+      "file": "rajdhani/Rajdhani-Light.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/rajdhani/Rajdhani-Light.ttf",
+      "git_blob_sha": "1015ce5f4627bba57efe786eedd56f2f572d5fec",
+      "sha256": "140e9f13af69538161c5780fcf7f81594c069aea887e7bffd417ae1c641213c3"
+    },
+    {
+      "family": "rajdhani",
+      "file": "rajdhani/Rajdhani-Medium.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/rajdhani/Rajdhani-Medium.ttf",
+      "git_blob_sha": "a6960c6d7f50f57de0bb117158626f3c31edad9a",
+      "sha256": "12ff7dcfe4c206e3875ac53b1762eab57de6a2fa7f5a86c26b97b88d6591eac2"
+    },
+    {
+      "family": "rajdhani",
+      "file": "rajdhani/Rajdhani-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/rajdhani/Rajdhani-Regular.ttf",
+      "git_blob_sha": "d25bd37233b672ef565e01d998a9412d761d7b00",
+      "sha256": "6e1fc228a8318251a6e569502ec57bac1e4656c582f92f59ccecc4688e039b98"
+    },
+    {
+      "family": "rajdhani",
+      "file": "rajdhani/Rajdhani-SemiBold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/rajdhani/Rajdhani-SemiBold.ttf",
+      "git_blob_sha": "d43750bd05c130d36c8e7fbeb06ecd7c5d3c3b17",
+      "sha256": "94bbd25a18ca665999feb05a537de9fd2b860dcfb78bbe9ca00270825bf235da"
+    },
+    {
+      "family": "sacramento",
+      "file": "sacramento/Sacramento-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/sacramento/Sacramento-Regular.ttf",
+      "git_blob_sha": "cfd2eabc8699f40b4af3fcd82425c2e434377cd4",
+      "sha256": "9341fda10adbfeb7efc94302b34507a3e227d7e7f5c432df3f5ac8753ff73d24"
+    }
+  ]
+}

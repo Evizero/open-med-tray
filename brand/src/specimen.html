@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; font-src data:; img-src data:">
+<title>Open Med Tray — brand specimen</title>
+<link rel="icon" type="image/svg+xml" href="{{FAVICON}}">
+<style>
+{{FONTS}}
+:root { --paper: #FBFBF9; --bg: #F4F3EF; --ink: #0C2740; --ink-2: #4A5563; --hair: rgba(12, 39, 64, .12); --navy: #0E3A66; --blue: #3D95DE; --accent: #1B64BE; --sky: #6CB6F2; }
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); font: 400 15px/1.55 "IBM Plex Sans", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; }
+main { max-width: 1120px; margin: 0 auto; padding: 64px 32px 96px; }
+header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding-bottom: 48px; border-bottom: 1px solid var(--hair); }
+.stacked { width: min(100%, 400px); height: auto; display: block; }
+header p { margin: 0; max-width: 34ch; color: var(--ink-2); }
+h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 20px; }
+section { padding: 48px 0; border-bottom: 1px solid var(--hair); }
+.row { display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+figure > div { display: grid; place-items: center; border-radius: 10px; padding: 28px; min-height: 150px; }
+figcaption { font: 400 12px/1.4 "IBM Plex Mono", monospace; color: var(--ink-2); }
+.on-paper { background: var(--paper); box-shadow: inset 0 0 0 1px var(--hair); }
+.on-navy { background: var(--navy); }
+.on-ink { background: #16181B; }
+.mark { width: 180px; height: auto; display: block; }
+.tile { display: block; }
+.sizes span:nth-child(1) .tile { width: 96px; } .sizes span:nth-child(2) .tile { width: 48px; } .sizes span:nth-child(3) .tile { width: 32px; }
+.sizes { display: flex; gap: 28px; align-items: end; }
+.sizes span { display: flex; flex-direction: column; align-items: center; gap: 8px; font: 400 11px "IBM Plex Mono", monospace; color: var(--ink-2); }
+.px { image-rendering: pixelated; }
+.lock { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+.lockup { display: flex; align-items: center; gap: 14px; font-weight: 600; font-size: 28px; letter-spacing: -.005em; color: var(--ink); }
+.lockup .mark { width: 62px; }
+.lockup em { font-style: normal; font-weight: 500; color: var(--accent); }
+.on-navy .lockup { color: #fff; } .on-navy .lockup em { color: var(--sky); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.sw { border-radius: 10px; overflow: hidden; background: var(--paper); box-shadow: inset 0 0 0 1px var(--hair); }
+.sw i { display: block; height: 84px; }
+.sw div { padding: 12px 14px 14px; font-size: 13px; }
+.sw b { display: block; font-weight: 600; }
+.sw code { font: 400 12px "IBM Plex Mono", monospace; color: var(--ink-2); }
+.type p { margin: 0 0 14px; }
+.t1 { font-size: 56px; font-weight: 600; letter-spacing: -.02em; line-height: 1.05; }
+.t2 { font-size: 24px; font-weight: 500; color: var(--accent); }
+.t3 { max-width: 60ch; color: var(--ink-2); }
+.t4 { font: 400 13px "IBM Plex Mono", monospace; color: var(--ink-2); }
+ul.rules { margin: 0; padding: 0 0 0 18px; max-width: 72ch; }
+ul.rules li { margin: 0 0 8px; }
+code { font-family: "IBM Plex Mono", monospace; font-size: .92em; }
+footer { padding-top: 32px; font-size: 13px; color: var(--ink-2); max-width: 80ch; }
+@media (max-width: 640px) { header { grid-template-columns: 1fr; } main { padding: 40px 20px 64px; } .t1 { font-size: 40px; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    {{LOCKUP_STACKED}}
+    <p>Brand specimen. One mark, one wordmark. The browser edition adds the word <em>Lite</em> in text; there is no second logo.</p>
+  </header>
+
+  <section aria-labelledby="h-mark">
+    <h2 id="h-mark">Mark</h2>
+    <div class="row">
+      <figure><div class="on-paper">{{MARK}}</div><figcaption>Colour · open-med-tray-mark.svg</figcaption></figure>
+      <figure><div class="on-paper">{{MARK_MONO}}</div><figcaption>Monochrome · -mark-mono.svg</figcaption></figure>
+      <figure><div class="on-navy">{{MARK_REVERSED}}</div><figcaption>Reversed · tray white, capsule sky</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-icon">
+    <h2 id="h-icon">App icon and favicon</h2>
+    <div class="row">
+      <figure><div class="on-paper"><div class="sizes">
+        <span>{{TILE}}512 → 96</span>
+        <span>{{TILE_SMALL}}64 → 48</span>
+        <span>{{TILE_PIXEL}}32</span>
+        <span><img src="{{PNG16}}" width="16" height="16" alt="">16</span>
+      </div></div><figcaption>Tile: standard from 96 px · small cut 33–95 px · favicon cut at 32 px and below</figcaption></figure>
+      <figure><div class="on-ink"><div class="sizes">
+        <span><img src="{{PNG16}}" width="16" height="16" alt="">16</span>
+        <span><img src="{{PNG32}}" width="16" height="16" alt="">32 at 2×</span>
+        <span><img class="px" src="{{PNG16}}" width="96" height="96" alt="">16 px, 6×</span>
+        <span><img class="px" src="{{PNG32}}" width="96" height="96" alt="">32 px, 3×</span>
+      </div></div><figcaption>Tab-bar check on a dark browser theme</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-lock">
+    <h2 id="h-lock">Lockups</h2>
+    <div class="row">
+      <figure><div class="on-paper lock">
+        <span class="lockup">{{MARK}}Open Med Tray</span>
+        <span class="lockup">{{MARK}}Open Med Tray <em>Lite</em></span>
+      </div><figcaption>Horizontal · Lite in accent blue, weight 500</figcaption></figure>
+      <figure><div class="on-navy lock">
+        <span class="lockup">{{MARK_REVERSED}}Open Med Tray</span>
+        <span class="lockup">{{MARK_REVERSED}}Open Med Tray <em>Lite</em></span>
+      </div><figcaption>Reversed on navy</figcaption></figure>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-colour">
+    <h2 id="h-colour">Colour</h2>
+    <div class="swatches">
+      <div class="sw"><i style="background:#0E3A66"></i><div><b>Tray navy</b><code>#0E3A66</code><br>Mark tray, app tile</div></div>
+      <div class="sw"><i style="background:#3D95DE"></i><div><b>Capsule blue</b><code>#3D95DE</code><br>Mark capsule only; not for text</div></div>
+      <div class="sw"><i style="background:#1B64BE"></i><div><b>Accent blue</b><code>#1B64BE</code><br>Lite descriptor, links, UI accent · 5.6:1 on paper</div></div>
+      <div class="sw"><i style="background:#0C2740"></i><div><b>Ink</b><code>#0C2740</code><br>Wordmark, monochrome mark</div></div>
+      <div class="sw"><i style="background:#6CB6F2"></i><div><b>Sky</b><code>#6CB6F2</code><br>Capsule and Lite on navy</div></div>
+      <div class="sw"><i style="background:#FBFBF9;box-shadow:inset 0 -1px 0 rgba(12,39,64,.12)"></i><div><b>Paper</b><code>#FBFBF9</code><br>Default ground</div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-type" class="type">
+    <h2 id="h-type">Typography</h2>
+    <p class="t1">Open Med Tray</p>
+    <p class="t2">Open Med Tray Lite</p>
+    <p class="t3">IBM Plex Sans: 600 for the wordmark and headings, 500 for the Lite descriptor and labels, 400 for text. IBM Plex Mono 400 for measurements, identifiers and file names.</p>
+    <p class="t4">instance_ids.png · 16-bit · 8.6 × 8.6 × 3.0 mm</p>
+  </section>
+
+  <section aria-labelledby="h-rules">
+    <h2 id="h-rules">Use</h2>
+    <ul class="rules">
+      <li>Clear space around the mark: at least the capsule height on every side.</li>
+      <li>Bare mark: the standard cut from 48 px wide, the small cut from 20 to 47 px. Below 20 px, or on unknown backgrounds, use the favicon tile.</li>
+      <li>Keep the capsule's left half in outline and right half filled. Do not recolour the capsule to mimic a real product.</li>
+      <li>No red cross, check mark, shield or certification device. Open Med Tray is research software and makes no clinical claim.</li>
+      <li>The product is Open Med Tray, with no qualifier. Lite is the only edition name. Blender is named only where setup or compatibility requires it, never in a lockup, and its logo is never used.</li>
+    </ul>
+  </section>
+
+  <footer>
+    The wordmark is set in IBM Plex Sans (SIL Open Font License 1.1, see <code>brand/licenses/IBM-Plex-fonts.LICENSE.txt</code>). SVG lockups use live text and need IBM Plex Sans installed; the PNG lockups are portable. The mark and icons are pure vector paths. This page embeds IBM Plex under the same licence.
+  </footer>
+</main>
+</body>
+</html>

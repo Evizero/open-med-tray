@@ -1,0 +1,44 @@
+{
+  "seed": 731926,
+  "resolution": 768,
+  "samples": 64,
+  "device": "METAL",
+  "camera_height_mm": [
+    100,
+    150
+  ],
+  "tray_width_mm": [
+    170,
+    205
+  ],
+  "pills_per_scene": [
+    3,
+    12
+  ],
+  "chip_probability": 0.22,
+  "fragment_probability": 0.55,
+  "plastic_probability": 0.65,
+  "overlap_probability": 0.06,
+  "empty_probability": 0.18,
+  "splits": {
+    "train": 640,
+    "val": 96,
+    "test": 112,
+    "stress": 112
+  },
+  "aspect_height": 0.5,
+  "appearance_preset_probability": 0.35,
+  "appearance_presets_path": "configs/appearance-presets.json",
+  "appearance_sampling_note": "35% of fictional product prototypes use curated appearance priors; remainder from a neutral-tablet-heavy procedural mixture. Design coverage, not medication prevalence.",
+  "face_rim_probability": 0.35,
+  "imprint_layout_probability": 0.7,
+  "branding_probability": 0.94,
+  "debris_probability": 0.75,
+  "intact_debris_probability": 0.14,
+  "cpu_threads": 8,
+  "holdout_font_families": true,
+  "sticker_probability": 0.65,
+  "cover_smudge_probability": 0.8,
+  "revision": 46,
+  "split_appearance_presets": true
+}

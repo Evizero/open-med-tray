@@ -1,0 +1,18 @@
+[
+ {"id":0,"name":"background","color":[24,32,46]},
+ {"id":1,"name":"tray","color":[120,134,147]},
+ {"id":2,"name":"round_flat","color":[239,111,108]},
+ {"id":3,"name":"round_biconvex","color":[247,174,93]},
+ {"id":4,"name":"oval_tablet","color":[246,215,105]},
+ {"id":5,"name":"caplet","color":[139,205,119]},
+ {"id":6,"name":"hard_capsule","color":[75,193,162]},
+ {"id":7,"name":"softgel","color":[77,173,215]},
+ {"id":8,"name":"oblong_tablet","color":[105,139,233]},
+ {"id":9,"name":"triangular_tablet","color":[170,134,225]},
+ {"id":10,"name":"diamond_tablet","color":[222,135,202]},
+ {"id":11,"name":"hexagonal_tablet","color":[236,153,157]},
+ {"id":12,"name":"ring_tablet","color":[165,186,89]},
+ {"id":13,"name":"unknown_shape","color":[244,72,107]},
+ {"id":14,"name":"fragment","color":[245,240,223]},
+ {"id":15,"name":"packaging","color":[97,102,113]}
+]

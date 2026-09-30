@@ -1,0 +1,30 @@
+{
+  "seed": 314159,
+  "resolution": 640,
+  "samples": 64,
+  "device": "METAL",
+  "camera_height_mm": [
+    100,
+    150
+  ],
+  "tray_width_mm": [
+    170,
+    205
+  ],
+  "pills_per_scene": [
+    4,
+    12
+  ],
+  "chip_probability": 0.22,
+  "fragment_probability": 0.18,
+  "plastic_probability": 0.18,
+  "overlap_probability": 0.06,
+  "empty_probability": 0.07,
+  "splits": {
+    "train": 520,
+    "val": 80,
+    "test": 100,
+    "stress": 100
+  },
+  "aspect_height": 0.5
+}

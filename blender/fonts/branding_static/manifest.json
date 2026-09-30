@@ -1,0 +1,757 @@
+{
+  "note": "OFL sources in sibling branding directory. Variable faces instantiated at explicit weights; modified family names prefixed MT. Licenses preserved.",
+  "font_faces": 101,
+  "families": 24,
+  "fonts": [
+    {
+      "file": "barlowcondensed/BarlowCondensed-Black.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Black.ttf",
+      "axes": null,
+      "sha256": "e74b750df582c608f35db467b711b2b60d2217618e85e60b72b42dfd00446cab"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-BlackItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-BlackItalic.ttf",
+      "axes": null,
+      "sha256": "e1ed5d7e50c6a4498454d40509ce2362384a2c7870df3418fdbd010f81dffad3"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Bold.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Bold.ttf",
+      "axes": null,
+      "sha256": "e476562ec9c1e16cf16475895b511f08c804f438cc9a9f80a44ea50a0eeb5b65"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-BoldItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-BoldItalic.ttf",
+      "axes": null,
+      "sha256": "d8694f65cd70c3e5e600ead37657aab0adb5f63b275d0c1f6f4a7046de222145"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-ExtraBold.ttf",
+      "source": "barlowcondensed/BarlowCondensed-ExtraBold.ttf",
+      "axes": null,
+      "sha256": "724c9c25952d5f4a2d87185d9767aa006144c5f0d944dc05bf7d5d603551c260"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-ExtraBoldItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-ExtraBoldItalic.ttf",
+      "axes": null,
+      "sha256": "331783dae9ec0c398f4d32c9fd5a56d4c602caa0c1628c2b9cbfe93f48eb68c9"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-ExtraLight.ttf",
+      "source": "barlowcondensed/BarlowCondensed-ExtraLight.ttf",
+      "axes": null,
+      "sha256": "19e3c4a81dc7fcee8c38ab6be3819fcc45d3f3822f011ac7b4bd550e6502b80f"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-ExtraLightItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-ExtraLightItalic.ttf",
+      "axes": null,
+      "sha256": "a58c17c59c226eb0ef411b73696f79374d170f2708acc6d72d8db8c07f333286"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Italic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Italic.ttf",
+      "axes": null,
+      "sha256": "063615da0a64f318397de2afac330dfbfbbf4cdb562a9987cb72bfdcbd37ba7c"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Light.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Light.ttf",
+      "axes": null,
+      "sha256": "2c37e1e6b5feb71d38a42e6180d2e2f4ca1aad22cfecbd017430f3863deba67d"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-LightItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-LightItalic.ttf",
+      "axes": null,
+      "sha256": "14aabc4936c54a3aae666abccbc4be612e4a33501c9483f7e4ebb249359d0171"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Medium.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Medium.ttf",
+      "axes": null,
+      "sha256": "262bd143292ce479ee0cd09a42b47ab173fca8e9c6eb5ed0b5c8a845bc371d17"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-MediumItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-MediumItalic.ttf",
+      "axes": null,
+      "sha256": "e036488bfe3ea1e9f39f006b1237c2931e7cfea7d9ecdccdf17507a5986f73d9"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Regular.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Regular.ttf",
+      "axes": null,
+      "sha256": "583cec5da3b84bc4dc7c9c72e2a565c94d34e431518b19d7e250b7830ad5f996"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-SemiBold.ttf",
+      "source": "barlowcondensed/BarlowCondensed-SemiBold.ttf",
+      "axes": null,
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-SemiBoldItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-SemiBoldItalic.ttf",
+      "axes": null,
+      "sha256": "dc83cbbb7545a117ab9e4c10ed07d35eef6f563b77621a1d357f25a3194987d1"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-Thin.ttf",
+      "source": "barlowcondensed/BarlowCondensed-Thin.ttf",
+      "axes": null,
+      "sha256": "68afe339b8503a9d74b2c3b5b0c521ea5333461f29aeaf7c680141482114d85a"
+    },
+    {
+      "file": "barlowcondensed/BarlowCondensed-ThinItalic.ttf",
+      "source": "barlowcondensed/BarlowCondensed-ThinItalic.ttf",
+      "axes": null,
+      "sha256": "5b0ff874e3ae64e2b3dc2c761d8ba2eb3eae324d269441f6de0062e8fbff0b8e"
+    },
+    {
+      "file": "bebasneue/BebasNeue-Regular.ttf",
+      "source": "bebasneue/BebasNeue-Regular.ttf",
+      "axes": null,
+      "sha256": "08e4623805102d819f58601e46e345648846075e363b2ceb23313c2d1c83ec73"
+    },
+    {
+      "file": "caveat/Caveat-w400.ttf",
+      "source": "caveat/Caveat[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "67459e5de6ab8aebbef80744cdede3a9c561f63cc7712e7f86bbfe63f01d4e0c"
+    },
+    {
+      "file": "caveat/Caveat-w600.ttf",
+      "source": "caveat/Caveat[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "ab01f7e6f93ba8efc6f5b71fbf06097d6f1c7efc5466e1ea0ae43389478ca780"
+    },
+    {
+      "file": "caveat/Caveat-w800.ttf",
+      "source": "caveat/Caveat[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "b94b3078eda955aea5b4e776aa34fe9396252efc066af490984da5f24a2763b6"
+    },
+    {
+      "file": "cinzel/Cinzel-w400.ttf",
+      "source": "cinzel/Cinzel[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "0746aae6cdc617747e6f4b6ec29727cd735f988d8c335bbd3504a9bb15282494"
+    },
+    {
+      "file": "cinzel/Cinzel-w600.ttf",
+      "source": "cinzel/Cinzel[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "31e0e6a1446cb019259e4bd1961fb7ba232c8fc9203aa83848c922caa0b60e7b"
+    },
+    {
+      "file": "cinzel/Cinzel-w800.ttf",
+      "source": "cinzel/Cinzel[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "47607efc694930d574283ad80d4f81e6c62c15bb9434187825d9ed7e389ea66f"
+    },
+    {
+      "file": "comicneue/ComicNeue-Bold.ttf",
+      "source": "comicneue/ComicNeue-Bold.ttf",
+      "axes": null,
+      "sha256": "3e7e5fccfd7e0788f317b43312151c1bd5cf058c9697a8d83eac3939050bd61e"
+    },
+    {
+      "file": "comicneue/ComicNeue-BoldItalic.ttf",
+      "source": "comicneue/ComicNeue-BoldItalic.ttf",
+      "axes": null,
+      "sha256": "5c312c2a2fa64eee82f3b87fcfab8f3b12a5e59b043124401d322eb323cfbf16"
+    },
+    {
+      "file": "comicneue/ComicNeue-Italic.ttf",
+      "source": "comicneue/ComicNeue-Italic.ttf",
+      "axes": null,
+      "sha256": "e06bfd1552f5c9464c5665733ffd69239b0593885dbb9e059688a5900f78cf98"
+    },
+    {
+      "file": "comicneue/ComicNeue-Light.ttf",
+      "source": "comicneue/ComicNeue-Light.ttf",
+      "axes": null,
+      "sha256": "efb91c06dccc264f07f800c0691d40c94e8cfce6183daade0709268bec178f76"
+    },
+    {
+      "file": "comicneue/ComicNeue-LightItalic.ttf",
+      "source": "comicneue/ComicNeue-LightItalic.ttf",
+      "axes": null,
+      "sha256": "a6d36baee09c7025916ddb517835458d15ef890291507197a54875ccc096b927"
+    },
+    {
+      "file": "comicneue/ComicNeue-Regular.ttf",
+      "source": "comicneue/ComicNeue-Regular.ttf",
+      "axes": null,
+      "sha256": "a0ee5a37c8b27c4db0700137d928598b1e23b0089e1546a8961909176b779360"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-Italic-w400.ttf",
+      "source": "cormorantgaramond/CormorantGaramond-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "72deae9c539a85b8c90c6ba7f630ce09a7a774b49f719ebacce8358d4d832a54"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-Italic-w600.ttf",
+      "source": "cormorantgaramond/CormorantGaramond-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "408d694a0d52bcb0d548b1a6e4df84689a601e416380892ebe719969ddf07132"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-Italic-w800.ttf",
+      "source": "cormorantgaramond/CormorantGaramond-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "3aef74afc68d1eb86c02f2fc298765a276091e0de9a83eecd681efb96b181203"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-w400.ttf",
+      "source": "cormorantgaramond/CormorantGaramond[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "8d26ef2f6fea62a7c5d0d6ce0741dd11873038780f7c25ce5f3054a173db1c7b"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-w600.ttf",
+      "source": "cormorantgaramond/CormorantGaramond[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "6eae5ab9f308f257e752a98fd8d090172d9b64ffbd77fbedaa6d7ac393474825"
+    },
+    {
+      "file": "cormorantgaramond/CormorantGaramond-w800.ttf",
+      "source": "cormorantgaramond/CormorantGaramond[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "0f407d0cebf76832d2a345accdc9fe6271cfbcd39bf46d8d5d60ca52773d37d6"
+    },
+    {
+      "file": "dancingscript/DancingScript-w400.ttf",
+      "source": "dancingscript/DancingScript[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "5b8238b4f935ab0e1207819881ae9073dfa8af6fb78f440524f4e62ee9b1f0d5"
+    },
+    {
+      "file": "dancingscript/DancingScript-w600.ttf",
+      "source": "dancingscript/DancingScript[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "1f59a4fcd28c1ff730663f89c8e1f2a1cf3ea433c917641e666d2b96597632d6"
+    },
+    {
+      "file": "dancingscript/DancingScript-w800.ttf",
+      "source": "dancingscript/DancingScript[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "1f0e9444dc9b345549152aad188750b8d418749686ad1065a79e27a1ee1a8131"
+    },
+    {
+      "file": "domine/Domine-w400.ttf",
+      "source": "domine/Domine[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "34d991cb91b9d2ec904572d43840a87b02bcc85a1cc5bb50c2959f5c51ed7f36"
+    },
+    {
+      "file": "domine/Domine-w600.ttf",
+      "source": "domine/Domine[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "c02a35bc7706aba687f9f243e3cee5b70f995fd10da8d5b54f4d80485b765de8"
+    },
+    {
+      "file": "domine/Domine-w800.ttf",
+      "source": "domine/Domine[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "41289166dd6b39ff9333b693c937731117d80815a65c2f869206db21f1a825be"
+    },
+    {
+      "file": "greatvibes/GreatVibes-Regular.ttf",
+      "source": "greatvibes/GreatVibes-Regular.ttf",
+      "axes": null,
+      "sha256": "8d509802186f1b51572531ecf313e8098f9a5bfdfaca93f0c9b34467f9982d15"
+    },
+    {
+      "file": "josefinsans/JosefinSans-Italic-w400.ttf",
+      "source": "josefinsans/JosefinSans-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "792f7d19a23db77d6f4a6647a80ae8fac49cb61205bb9ae1b9249717fbb8ebfa"
+    },
+    {
+      "file": "josefinsans/JosefinSans-Italic-w600.ttf",
+      "source": "josefinsans/JosefinSans-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "eda6ee5983f0e821d7ccf345223087bd884f95e41ac99c3fb763f1eb6624e781"
+    },
+    {
+      "file": "josefinsans/JosefinSans-Italic-w800.ttf",
+      "source": "josefinsans/JosefinSans-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "71ed2803f942e78c5cc17116605b9407735203be8713801126985b850982120e"
+    },
+    {
+      "file": "josefinsans/JosefinSans-w400.ttf",
+      "source": "josefinsans/JosefinSans[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "6c4e9960604cd989e1ea2858162417691a79667b930718a59a89d19031fa8322"
+    },
+    {
+      "file": "josefinsans/JosefinSans-w600.ttf",
+      "source": "josefinsans/JosefinSans[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "cbad8275378bea44ec231cf12fb09891ed549c55e3190e4b0401514c18f72e1b"
+    },
+    {
+      "file": "josefinsans/JosefinSans-w800.ttf",
+      "source": "josefinsans/JosefinSans[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "eb97b46f1abfbce3d4ea2995bb3912d5703107435b72a37cb9a153d384ef84f3"
+    },
+    {
+      "file": "kaushanscript/KaushanScript-Regular.ttf",
+      "source": "kaushanscript/KaushanScript-Regular.ttf",
+      "axes": null,
+      "sha256": "6d8d379d9bba98178bee476d68114c8f83812c18005ecccf679e70f60e03d8f6"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-Italic-w400.ttf",
+      "source": "librebaskerville/LibreBaskerville-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "e5aa38816d20978df30a6bda3cb7072439f3ac357162620e5a70e9e247d254cb"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-Italic-w600.ttf",
+      "source": "librebaskerville/LibreBaskerville-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "7b65247e405a49e2d21d9e15d8295f88a26a4703b05f47f99d451cc13394febe"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-Italic-w800.ttf",
+      "source": "librebaskerville/LibreBaskerville-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "3ac41eb5364f99e99f6c94b7ec0eeed766a5852dfa207b9adf7df3be5a9c70d5"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-w400.ttf",
+      "source": "librebaskerville/LibreBaskerville[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "eed1f491b1df9f072b9baed204eb55dd0bcc613cef34c4213b7f324006cefc36"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-w600.ttf",
+      "source": "librebaskerville/LibreBaskerville[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "acec1a31a1e435512b050c8a5ce8ced6ef998549cbe6bdd03ba6349e92405b30"
+    },
+    {
+      "file": "librebaskerville/LibreBaskerville-w800.ttf",
+      "source": "librebaskerville/LibreBaskerville[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "08e233f58c570bdd1403e44c484622d68ac35f376b58cb092cb6158a0a315e81"
+    },
+    {
+      "file": "lobster/Lobster-Regular.ttf",
+      "source": "lobster/Lobster-Regular.ttf",
+      "axes": null,
+      "sha256": "d6568e697fd50cedc0be04d8aae4127fe95add607e7bff954ca88604be80c205"
+    },
+    {
+      "file": "manrope/Manrope-w400.ttf",
+      "source": "manrope/Manrope[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "d72cf60d90441ebea34ee80d73f37e21d43e2d785e5c2f212c43decf2820eb77"
+    },
+    {
+      "file": "manrope/Manrope-w600.ttf",
+      "source": "manrope/Manrope[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "0e8f15f5e8a11500f8a43142d2e8b4c95733f4f6fc9980f545aa337679675c2d"
+    },
+    {
+      "file": "manrope/Manrope-w800.ttf",
+      "source": "manrope/Manrope[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "7eda6fc454adc7a5660d2b08220111dd087dd2e0dc5b46fa471203218c626139"
+    },
+    {
+      "file": "merriweather/Merriweather-Italic-w400.ttf",
+      "source": "merriweather/Merriweather-Italic[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 400,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "bd0e06eeb42d4badc41d1c835bd84d5878bf37250b4560f57275ed607047f134"
+    },
+    {
+      "file": "merriweather/Merriweather-Italic-w600.ttf",
+      "source": "merriweather/Merriweather-Italic[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 600,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "f78835d8be66554f94a4c87a4e645941a395e2c4a41ea048da5cf27451ebcf5f"
+    },
+    {
+      "file": "merriweather/Merriweather-Italic-w800.ttf",
+      "source": "merriweather/Merriweather-Italic[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 800,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "344b96abb1f272f5d9d573857fac2d1b695bb6fad0e5d76f302c5d4ed53cdc79"
+    },
+    {
+      "file": "merriweather/Merriweather-w400.ttf",
+      "source": "merriweather/Merriweather[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 400,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "39ebc8079a3d9d17bb9652c637a340b3f36227ee3b7f44e87264865332b4c69d"
+    },
+    {
+      "file": "merriweather/Merriweather-w600.ttf",
+      "source": "merriweather/Merriweather[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 600,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "8e2ff3c0586cb212079e668945d446a0bce38d2cb07ec7d71cf0db1f55c55a3a"
+    },
+    {
+      "file": "merriweather/Merriweather-w800.ttf",
+      "source": "merriweather/Merriweather[opsz,wdth,wght].ttf",
+      "axes": {
+        "wght": 800,
+        "wdth": 100.0,
+        "opsz": 18.0
+      },
+      "sha256": "2f060bba9d07189fc7fdd63ef1ff2b4a18c19ecb4aa8909e9d4e63fb3025177e"
+    },
+    {
+      "file": "montserrat/Montserrat-Italic-w400.ttf",
+      "source": "montserrat/Montserrat-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "b4cb5dd117a1ed52b478ecd2220423dd7543ac7b35615fb52beedd0eafd28ee2"
+    },
+    {
+      "file": "montserrat/Montserrat-Italic-w600.ttf",
+      "source": "montserrat/Montserrat-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "246fd4e65a892dbc76dc2b296d99ec458785f5f5e604a89d2d6542bf022acbcc"
+    },
+    {
+      "file": "montserrat/Montserrat-Italic-w800.ttf",
+      "source": "montserrat/Montserrat-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "349555a31f3d0683b3edc2013d4cb8cefeebca3374b89e23e7c51df41933f7e3"
+    },
+    {
+      "file": "montserrat/Montserrat-w400.ttf",
+      "source": "montserrat/Montserrat[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "5d5cc3ea51e74f9cd94987e406e27f9c0804a19f451b7f8d451ee7cdb7c5fff1"
+    },
+    {
+      "file": "montserrat/Montserrat-w600.ttf",
+      "source": "montserrat/Montserrat[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "db36f8f3d30fbe053bdb67cdf25c06002076a3fcdb572b476105e2988abc855b"
+    },
+    {
+      "file": "montserrat/Montserrat-w800.ttf",
+      "source": "montserrat/Montserrat[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "18c0d69c0cf14f24e327a7d5ff5ee07e828621b994c9a5101a808d121a8b2993"
+    },
+    {
+      "file": "nunito/Nunito-Italic-w400.ttf",
+      "source": "nunito/Nunito-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "ca46123650f12cd488f24772acfc023215227e8d14dcd3df065423a4c40388ba"
+    },
+    {
+      "file": "nunito/Nunito-Italic-w600.ttf",
+      "source": "nunito/Nunito-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "de2263f30138ecab13455311939980d2640bb43a31130879972ec2dcf194bd9d"
+    },
+    {
+      "file": "nunito/Nunito-Italic-w800.ttf",
+      "source": "nunito/Nunito-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "4fcf7549d186cab575ffa9d2000cd00efca9f912e20e04a3cfb87240c28ccd0a"
+    },
+    {
+      "file": "nunito/Nunito-w400.ttf",
+      "source": "nunito/Nunito[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "803f5eeff3ffa0790b7fb9de3f90b5ddac2a243f11fd6f0ed2227e43cf59bf50"
+    },
+    {
+      "file": "nunito/Nunito-w600.ttf",
+      "source": "nunito/Nunito[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "89b1a96c3a06ec001b2094b9f3a0f97c3b55db79acb89ee4a7d2cb444ef09e0f"
+    },
+    {
+      "file": "nunito/Nunito-w800.ttf",
+      "source": "nunito/Nunito[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "d716d14204d6b92a89af6c9222da259bbb8c1eabb07db91eb78d3225900ab37b"
+    },
+    {
+      "file": "orbitron/Orbitron-w400.ttf",
+      "source": "orbitron/Orbitron[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "b438b014aaedea972c9808724220c9ca5a0f5367a46d1ebfc4c27939fbc086a3"
+    },
+    {
+      "file": "orbitron/Orbitron-w600.ttf",
+      "source": "orbitron/Orbitron[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "e0b9ebd6d1d82fb1e1f0b6181f325a47c2b32801193fe795404c0ef32f0e3196"
+    },
+    {
+      "file": "orbitron/Orbitron-w800.ttf",
+      "source": "orbitron/Orbitron[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "490cab656bef6347ee78afd96784d0d9d629785729839f57418ef8d279bc3260"
+    },
+    {
+      "file": "oswald/Oswald-w400.ttf",
+      "source": "oswald/Oswald[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "da3773f6618251c658b7e1982cee9b6ded01e8b613a26d8658068553015fe803"
+    },
+    {
+      "file": "oswald/Oswald-w600.ttf",
+      "source": "oswald/Oswald[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "a5a8112337808c1575e0ed8e0fb5b6cb0c4978a11d27a2e7d3ad857f14481f94"
+    },
+    {
+      "file": "oswald/Oswald-w800.ttf",
+      "source": "oswald/Oswald[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "9f63831378944938368594848f0e6654dcbe45b1dddaa861f624fe3ed738c05c"
+    },
+    {
+      "file": "pacifico/Pacifico-Regular.ttf",
+      "source": "pacifico/Pacifico-Regular.ttf",
+      "axes": null,
+      "sha256": "5b6c0d5334a7bf77dea52b975c5a0c408878c0f7115ed5b6fb151f634b7bf701"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-Italic-w400.ttf",
+      "source": "playfairdisplay/PlayfairDisplay-Italic[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "4fb75c0e0032a96b4d523333f9a0744e2135122c9f0cc6a0131fc8c177dd7773"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-Italic-w600.ttf",
+      "source": "playfairdisplay/PlayfairDisplay-Italic[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "966a36411d538295e24b0307c85fab5d2140b2418b609ee275dbec91f9fbb84b"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-Italic-w800.ttf",
+      "source": "playfairdisplay/PlayfairDisplay-Italic[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "7482547464c93135e0e9f275f103e638edc42a6cc66ed2a658d627f14d915a3c"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-w400.ttf",
+      "source": "playfairdisplay/PlayfairDisplay[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "86ac7ff6cfd28de87f1cc88a2d4a578adf78394ec43a3a44c636829e538f8a18"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-w600.ttf",
+      "source": "playfairdisplay/PlayfairDisplay[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "fedf446d62eb0ca81f0b4b72c1c53472eb78045a4a76d8a3f263131bf0afce7c"
+    },
+    {
+      "file": "playfairdisplay/PlayfairDisplay-w800.ttf",
+      "source": "playfairdisplay/PlayfairDisplay[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "4016c68ac08be0b2bad5a4d4c4b2331cff709708aaa5d5d827ef58c94229c298"
+    },
+    {
+      "file": "quicksand/Quicksand-w400.ttf",
+      "source": "quicksand/Quicksand[wght].ttf",
+      "axes": {
+        "wght": 400
+      },
+      "sha256": "e46056ada452b2ad2158780c1c9102959da6d518ed6a64f7a9ddca164f84f4fd"
+    },
+    {
+      "file": "quicksand/Quicksand-w600.ttf",
+      "source": "quicksand/Quicksand[wght].ttf",
+      "axes": {
+        "wght": 600
+      },
+      "sha256": "8fa713b560fdceb90a58007bf755285cb5ae40f955adb685f6a3e57953f70b7d"
+    },
+    {
+      "file": "quicksand/Quicksand-w800.ttf",
+      "source": "quicksand/Quicksand[wght].ttf",
+      "axes": {
+        "wght": 800
+      },
+      "sha256": "5349e274027ea5ca4bc324682fce642fd29e5d784462507f3e1e7db61a95065e"
+    },
+    {
+      "file": "rajdhani/Rajdhani-Bold.ttf",
+      "source": "rajdhani/Rajdhani-Bold.ttf",
+      "axes": null,
+      "sha256": "691470dd3286a14e9677940d0bf75796179841ba5215cbda1a2c8910a3226afd"
+    },
+    {
+      "file": "rajdhani/Rajdhani-Light.ttf",
+      "source": "rajdhani/Rajdhani-Light.ttf",
+      "axes": null,
+      "sha256": "140e9f13af69538161c5780fcf7f81594c069aea887e7bffd417ae1c641213c3"
+    },
+    {
+      "file": "rajdhani/Rajdhani-Medium.ttf",
+      "source": "rajdhani/Rajdhani-Medium.ttf",
+      "axes": null,
+      "sha256": "12ff7dcfe4c206e3875ac53b1762eab57de6a2fa7f5a86c26b97b88d6591eac2"
+    },
+    {
+      "file": "rajdhani/Rajdhani-Regular.ttf",
+      "source": "rajdhani/Rajdhani-Regular.ttf",
+      "axes": null,
+      "sha256": "6e1fc228a8318251a6e569502ec57bac1e4656c582f92f59ccecc4688e039b98"
+    },
+    {
+      "file": "rajdhani/Rajdhani-SemiBold.ttf",
+      "source": "rajdhani/Rajdhani-SemiBold.ttf",
+      "axes": null,
+      "sha256": "94bbd25a18ca665999feb05a537de9fd2b860dcfb78bbe9ca00270825bf235da"
+    },
+    {
+      "file": "sacramento/Sacramento-Regular.ttf",
+      "source": "sacramento/Sacramento-Regular.ttf",
+      "axes": null,
+      "sha256": "9341fda10adbfeb7efc94302b34507a3e227d7e7f5c432df3f5ac8753ff73d24"
+    }
+  ]
+}

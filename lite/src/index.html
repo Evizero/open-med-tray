@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src data: blob:; worker-src blob:">
+<title>Open Med Tray Lite — procedural medication workbench</title>
+<meta name="description" content="Open Med Tray Lite: build synthetic tablets, capsules and trays in the browser and export labelled training scenes. Research software; it does not identify medication.">
+<meta name="application-name" content="Open Med Tray Lite">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22#0E3A66%22/%3E%3Cg transform=%22translate(4.48 17.323) scale(0.45867)%22%3E%3Cpath fill=%22#FFFFFF%22 d=%22M2.59 35A1 1 0 0 1 1.69 33.57L14.53 6.81A12 12 0 0 1 25.35 0L94.65 0A12 12 0 0 1 105.47 6.81L118.31 33.57A1 1 0 0 1 117.41 35L104.63 35A1 1 0 0 1 103.73 34.43L93.64 13.42A2.5 2.5 0 0 0 91.39 12L28.61 12A2.5 2.5 0 0 0 26.36 13.42L16.27 34.43A1 1 0 0 1 15.37 35Z%22/%3E%3Cpath fill=%22#FFFFFF%22 d=%22M0 44A1.5 1.5 0 0 1 1.5 42.5L18.88 42.5A6 6 0 0 1 23.79 45.06L27.56 50.44A6 6 0 0 0 32.47 53L87.53 53A6 6 0 0 0 92.44 50.44L96.21 45.06A6 6 0 0 1 101.12 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z%22/%3E%3Cpath fill=%22#FFFFFF%22 d=%22M60 21V47H45A13 13 0 0 1 45 21Z%22/%3E%3Cpath fill=%22#6CB6F2%22 d=%22M60 21H75A13 13 0 0 1 75 47H60Z%22/%3E%3C/g%3E%3C/svg%3E">
+<style>/*@FONTS@*/</style>
+<style>/*@CSS@*/</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="gl" aria-label="Interactive 3D render"></canvas>
+  <canvas id="labelLayer" aria-hidden="true"></canvas>
+  <svg id="annot" aria-hidden="true"></svg>
+
+  <!-- Rail: app mark, mode switch, view actions. Vertical on desktop, a top bar on phones. -->
+  <nav class="rail" id="rail" aria-label="Workbench">
+    <button class="brand" id="brandBtn" aria-haspopup="dialog" title="About Open Med Tray Lite">
+      <svg viewBox="0 0 120 64" aria-hidden="true"><path class="tray" d="M2.62 36.5A1 1 0 0 1 1.72 35.05L16.21 6.08A11 11 0 0 1 26.05 0L93.95 0A11 11 0 0 1 103.79 6.08L118.28 35.05A1 1 0 0 1 117.38 36.5L106.62 36.5A1 1 0 0 1 105.72 35.95L93.83 12.16A3 3 0 0 0 91.15 10.5L28.85 10.5A3 3 0 0 0 26.17 12.16L14.28 35.95A1 1 0 0 1 13.38 36.5ZM0 44A1.5 1.5 0 0 1 1.5 42.5L19.12 42.5A6 6 0 0 1 23.8 44.75L29.4 51.75A6 6 0 0 0 34.08 54L85.92 54A6 6 0 0 0 90.6 51.75L96.2 44.75A6 6 0 0 1 100.88 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z"/><path class="capsule" fill-rule="evenodd" d="M43.5 23H76.5A12.5 12.5 0 0 1 76.5 48H43.5A12.5 12.5 0 0 1 43.5 23ZM60 29H43.5A6.5 6.5 0 0 0 43.5 42H60Z"/></svg>
+      <span class="sr">About Open Med Tray Lite</span>
+    </button>
+    <div class="modes" role="tablist" aria-label="Mode" aria-orientation="vertical">
+      <button role="tab" data-mode="specimen" aria-selected="true" title="Specimen — one pill in the studio (1)">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><ellipse cx="10" cy="10" rx="7.5" ry="5.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4.4 12.6 C6 15.3 14 15.3 15.6 12.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 4.8v10.4" stroke="currentColor" stroke-width="1.2" stroke-opacity=".7"/></svg>
+        <span class="lbl">Specimen</span>
+      </button>
+      <button role="tab" data-mode="tray" aria-selected="false" title="Tray — pills in a container scene (2)">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4.5" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 4.5v11M2 10h16" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="7.4" r="1.2" fill="currentColor"/><circle cx="14" cy="12.6" r="1.2" fill="currentColor"/></svg>
+        <span class="lbl">Tray</span>
+      </button>
+      <button role="tab" data-mode="dataset" aria-selected="false" title="Dataset — generate and collect labelled scenes (3)">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="7" width="12" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 4.5h12a1.5 1.5 0 0 1 1.5 1.5v7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4.5 13.5 7 10.8l2.2 2 2-1.6 2.3 2.3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        <span class="lbl">Dataset</span>
+      </button>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" id="tourBtn" aria-pressed="false" title="Play guided tour (T)">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6l9.5-5.8z" fill="currentColor"/></svg><span class="lbl">Tour</span>
+      </button>
+      <button class="icon-btn" id="resetBtn" title="Reset view (0)">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 1.9-4.4M4 3.5v3.3h3.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">Reset</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mode panel: head (miniature + title + one-line sub), tab strip, scrolling body, action footer. -->
+  <aside class="panel inspector" id="inspector" aria-label="Mode panel">
+    <button class="sheet-handle" id="sheetHandle" aria-label="Expand controls" aria-expanded="false"></button>
+    <div class="insp-head">
+      <span class="insp-icon" id="inspIcon" aria-hidden="true"></span>
+      <div class="insp-text"><div class="insp-title" id="inspTitle"></div><div class="insp-sub" id="inspSub"></div></div>
+    </div>
+    <div class="tabs" id="inspTabs" role="tablist" aria-label="Properties"></div>
+    <div class="insp-body" id="inspBody" role="tabpanel"></div>
+    <div class="insp-foot" id="inspFoot"></div>
+  </aside>
+
+  <section class="sheet" id="sheet" aria-label="Dataset collection">
+    <div class="sheet-head"><h2>Collection</h2><span class="meta"><span id="sheetMeta">No scenes yet</span><span class="status" id="sheetStatus"></span></span><span class="sheet-opt" id="sheetOpt"></span></div>
+    <div class="sheet-grid" id="sheetGrid"></div>
+  </section>
+  <!-- Scene inspector: one collected scene with its image and training targets (ui/scene-inspector.js). -->
+  <section class="scinsp" id="sceneInspector" role="region" aria-label="Scene inspector" hidden></section>
+
+  <div class="readout" id="readout">
+    <span class="scalebar" id="scalebar"><i class="bar" id="scaleBarBar"></i><span id="scaleBarText"></span></span>
+    <span class="caption" id="caption"></span>
+    <span class="info" id="infoCard"></span>
+  </div>
+  <div class="tour-cap" id="tourCap" role="status" aria-live="polite">
+    <div class="progress"><i id="tourProg"></i></div>
+    <div class="tour-txt"><span class="t" id="tourTitle"></span><span class="n" id="tourNote"></span></div>
+    <button class="tour-btn" id="tourPause" title="Pause (Space)">Pause</button>
+    <button class="tour-btn" id="tourStop" title="Stop tour">Stop</button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="boot" id="boot"><span class="boot-lockup"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="tray" d="M2.62 36.5A1 1 0 0 1 1.72 35.05L16.21 6.08A11 11 0 0 1 26.05 0L93.95 0A11 11 0 0 1 103.79 6.08L118.28 35.05A1 1 0 0 1 117.38 36.5L106.62 36.5A1 1 0 0 1 105.72 35.95L93.83 12.16A3 3 0 0 0 91.15 10.5L28.85 10.5A3 3 0 0 0 26.17 12.16L14.28 35.95A1 1 0 0 1 13.38 36.5ZM0 44A1.5 1.5 0 0 1 1.5 42.5L19.12 42.5A6 6 0 0 1 23.8 44.75L29.4 51.75A6 6 0 0 0 34.08 54L85.92 54A6 6 0 0 0 90.6 51.75L96.2 44.75A6 6 0 0 1 100.88 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z"/><path class="capsule" fill-rule="evenodd" d="M43.5 23H76.5A12.5 12.5 0 0 1 76.5 48H43.5A12.5 12.5 0 0 1 43.5 23ZM60 29H43.5A6.5 6.5 0 0 0 43.5 42H60Z"/></svg><span>Open Med Tray <em>Lite</em></span></span></div>
+</div>
+<!-- Introduction: shown on every load and from the rail mark (ui/intro.js). -->
+<dialog class="intro" id="intro" aria-labelledby="introTitle" aria-describedby="introLead">
+  <div class="intro-veil"></div>
+  <div class="intro-frame">
+    <div class="intro-shade" aria-hidden="true"></div>
+    <div class="intro-sheet" id="introSheet" tabindex="-1">
+      <figure class="intro-plate" id="introPlate">
+        <figcaption class="intro-plate-cap"><span>Example drawing</span><span>Scored round · mm</span></figcaption>
+      </figure>
+      <div class="intro-main">
+        <div class="intro-scroll">
+          <span class="intro-lockup"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="tray" d="M2.62 36.5A1 1 0 0 1 1.72 35.05L16.21 6.08A11 11 0 0 1 26.05 0L93.95 0A11 11 0 0 1 103.79 6.08L118.28 35.05A1 1 0 0 1 117.38 36.5L106.62 36.5A1 1 0 0 1 105.72 35.95L93.83 12.16A3 3 0 0 0 91.15 10.5L28.85 10.5A3 3 0 0 0 26.17 12.16L14.28 35.95A1 1 0 0 1 13.38 36.5ZM0 44A1.5 1.5 0 0 1 1.5 42.5L19.12 42.5A6 6 0 0 1 23.8 44.75L29.4 51.75A6 6 0 0 0 34.08 54L85.92 54A6 6 0 0 0 90.6 51.75L96.2 44.75A6 6 0 0 1 100.88 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z"/><path class="capsule" fill-rule="evenodd" d="M43.5 23H76.5A12.5 12.5 0 0 1 76.5 48H43.5A12.5 12.5 0 0 1 43.5 23ZM60 29H43.5A6.5 6.5 0 0 0 43.5 42H60Z"/></svg><span>Open Med Tray <em>Lite</em></span></span>
+          <h2 class="intro-title rise" style="--d:120ms" id="introTitle">Build pills and trays.<br>Export labelled scenes.</h2>
+          <p class="intro-lead rise" style="--d:180ms" id="introLead">The browser edition of Open Med Tray. <span class="nw">Offline, in one file.</span></p>
+          <ol class="intro-modes rise" style="--d:240ms" aria-label="Modes">
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><ellipse cx="10" cy="10" rx="7.5" ry="5.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4.4 12.6 C6 15.3 14 15.3 15.6 12.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 4.8v10.4" stroke="currentColor" stroke-width="1.2" stroke-opacity=".7"/></svg><b>Specimen</b><span>Shape one pill</span><kbd aria-label="key 1">1</kbd></li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="4.5" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 4.5v11M2 10h16" stroke="currentColor" stroke-width="1.2"/><circle cx="6" cy="7.4" r="1.2" fill="currentColor"/><circle cx="14" cy="12.6" r="1.2" fill="currentColor"/></svg><b>Tray</b><span>Fill a container</span><kbd aria-label="key 2">2</kbd></li>
+            <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="7" width="12" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5 4.5h12a1.5 1.5 0 0 1 1.5 1.5v7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4.5 13.5 7 10.8l2.2 2 2-1.6 2.3 2.3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><b>Dataset</b><span>Export ID labels</span><kbd aria-label="key 3">3</kbd></li>
+          </ol>
+          <p class="intro-lite rise" style="--d:300ms"><b>Lite is a subset.</b> It renders with WebGL instead of Cycles, so materials and optics are simpler than in the full generator. Scenes are synthetic and identify no real medication.</p>
+        </div>
+        <div class="intro-actions rise" style="--d:300ms">
+          <button class="intro-go" id="introGo">Open the workbench<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="intro-tour" id="introTour"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6l9.5-5.8z" fill="currentColor"/></svg>Play the tour</button>
+        </div>
+      </div>
+      <button class="intro-x" id="introClose" aria-label="Close introduction" title="Close (Esc)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</dialog>
+<script>/*@JS@*/</script>
+</body>
+</html>

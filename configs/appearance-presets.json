@@ -1,0 +1,3187 @@
+[
+  {
+    "id": "ATLAS-001",
+    "reference_name": "Bisoprolol Accord 2.5 mg",
+    "source_registration": "1-31181",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-31181__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Bisoprolol Accord 2.5 mg: offwhite; round_biconvex; 1 score line(s); source dimensions (5.6, 5.6, None); marking reference: b / 1; other face plain.",
+    "source_pdf_sha256": "767fd219ede22a6b77890c5656c913f800593d3dfb0323487165e73cd01ecca8",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 5.6,
+        "width_mm": 5.6,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "b / 1; other face plain",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 5.6,
+      "width_mm": 5.6,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P01",
+      "seed": 101
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-002",
+    "reference_name": "Bisoprolol Accord 5 mg",
+    "source_registration": "1-31181",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-31181__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Bisoprolol Accord 5 mg: offwhite; round_biconvex; 1 score line(s); source dimensions (7.2, 7.2, None); marking reference: b / 2; other face plain.",
+    "source_pdf_sha256": "767fd219ede22a6b77890c5656c913f800593d3dfb0323487165e73cd01ecca8",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 7.2,
+        "width_mm": 7.2,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "b / 2; other face plain",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 7.2,
+      "width_mm": 7.2,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P02",
+      "seed": 102
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-003",
+    "reference_name": "Bisoprolol Accord 10 mg",
+    "source_registration": "1-31181",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-31181__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Bisoprolol Accord 10 mg: offwhite; round_biconvex; 1 score line(s); source dimensions (8.8, 8.8, None); marking reference: b / 3; other face plain.",
+    "source_pdf_sha256": "767fd219ede22a6b77890c5656c913f800593d3dfb0323487165e73cd01ecca8",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 8.8,
+        "width_mm": 8.8,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "b / 3; other face plain",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8.8,
+      "width_mm": 8.8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P03",
+      "seed": 103
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-004",
+    "reference_name": "Atorvastatin Actavis 10 mg",
+    "source_registration": "142543",
+    "source_url": "https://medikamente.basg.gv.at/documents/142543__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Atorvastatin Actavis 10 mg: offwhite; oval_tablet; 0 score line(s); source dimensions (8, 4, None); marking reference: 10 on opposite face to score.",
+    "source_pdf_sha256": "61b01415a6a0c51969da08b171a63b096eda9563258902d4e6bb4e19277c2857",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 8,
+        "width_mm": 4,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "10 on opposite face to score",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 4,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P04",
+      "seed": 104
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-005",
+    "reference_name": "Atorvastatin Actavis 20 mg",
+    "source_registration": "142543",
+    "source_url": "https://medikamente.basg.gv.at/documents/142543__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Atorvastatin Actavis 20 mg: offwhite; oval_tablet; 1 score line(s); source dimensions (10, 6, None); marking reference: 20 on opposite face to score.",
+    "source_pdf_sha256": "61b01415a6a0c51969da08b171a63b096eda9563258902d4e6bb4e19277c2857",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 10,
+        "width_mm": 6,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "20 on opposite face to score",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 10,
+      "width_mm": 6,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P05",
+      "seed": 105
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-006",
+    "reference_name": "Atorvastatin Actavis 40 mg",
+    "source_registration": "142543",
+    "source_url": "https://medikamente.basg.gv.at/documents/142543__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Atorvastatin Actavis 40 mg: offwhite; oval_tablet; 1 score line(s); source dimensions (13, 7, None); marking reference: 40 on opposite face to score.",
+    "source_pdf_sha256": "61b01415a6a0c51969da08b171a63b096eda9563258902d4e6bb4e19277c2857",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 13,
+        "width_mm": 7,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "40 on opposite face to score",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 13,
+      "width_mm": 7,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P06",
+      "seed": 106
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-007",
+    "reference_name": "Atorvastatin Actavis 80 mg",
+    "source_registration": "142543",
+    "source_url": "https://medikamente.basg.gv.at/documents/142543__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Atorvastatin Actavis 80 mg: offwhite; oval_tablet; 1 score line(s); source dimensions (16, 9, None); marking reference: 80 on opposite face to score.",
+    "source_pdf_sha256": "61b01415a6a0c51969da08b171a63b096eda9563258902d4e6bb4e19277c2857",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 16,
+        "width_mm": 9,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "80 on opposite face to score",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 16,
+      "width_mm": 9,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P07",
+      "seed": 107
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-008",
+    "reference_name": "Amlodipin PharmSol 5 mg",
+    "source_registration": "135853",
+    "source_url": "https://medikamente.basg.gv.at/documents/135853__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Amlodipin PharmSol 5 mg: cream; round_biconvex; 0 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "2bb53ed14c4b8f6c26c11180da0cc240623327a2e702826eb7a8b4cd2fbd7ea4",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "cream",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "secondary_color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P08",
+      "seed": 108
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-009",
+    "reference_name": "Amlodipin PharmSol 10 mg",
+    "source_registration": "135853",
+    "source_url": "https://medikamente.basg.gv.at/documents/135853__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Amlodipin PharmSol 10 mg: cream; round_biconvex; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "2bb53ed14c4b8f6c26c11180da0cc240623327a2e702826eb7a8b4cd2fbd7ea4",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "cream",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "secondary_color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P09",
+      "seed": 109
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-010",
+    "reference_name": "Euthyrox 100 micrograms",
+    "source_registration": "1-24161",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-24161__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Euthyrox 100 micrograms: offwhite; round_flat; 1 score line(s); source dimensions (None, None, None); marking reference: EM 100; flat faces, bevelled edge.",
+    "source_pdf_sha256": "5451cd043e76cf5246c0043dffecb84d17e042e84338f966a1a938e0616fb302",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_flat",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "EM 100; flat faces, bevelled edge",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_flat",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P10",
+      "seed": 110
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-011",
+    "reference_name": "Risperidon ratiopharm 1 mg",
+    "source_registration": "1-26043",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26043__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Risperidon ratiopharm 1 mg: white; round_biconvex; 1 score line(s); source dimensions (8, 8, 3.5); marking reference: RIS 1.",
+    "source_pdf_sha256": "04f6f7c9c40ecce39a4356918ea48e5a44ece9231953bca90c9cca49fb219335",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 8,
+        "width_mm": 8,
+        "height_mm": 3.5
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "imprint_description": "RIS 1",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 3.5,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P11",
+      "seed": 111
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-012",
+    "reference_name": "Risperidon ratiopharm 2 mg",
+    "source_registration": "1-26043",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26043__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Risperidon ratiopharm 2 mg: light_brown; round_biconvex; 1 score line(s); source dimensions (8, 8, 3.5); marking reference: RIS 2.",
+    "source_pdf_sha256": "04f6f7c9c40ecce39a4356918ea48e5a44ece9231953bca90c9cca49fb219335",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "light_brown",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 8,
+        "width_mm": 8,
+        "height_mm": 3.5
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "imprint_description": "RIS 2",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 3.5,
+      "finish": "matte_film",
+      "color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "secondary_color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P12",
+      "seed": 112
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-013",
+    "reference_name": "Risperidon ratiopharm 3 mg",
+    "source_registration": "1-26043",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26043__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Risperidon ratiopharm 3 mg: yellow; round_biconvex; 1 score line(s); source dimensions (9.5, 9.5, 4); marking reference: RIS 3.",
+    "source_pdf_sha256": "04f6f7c9c40ecce39a4356918ea48e5a44ece9231953bca90c9cca49fb219335",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "yellow",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 9.5,
+        "width_mm": 9.5,
+        "height_mm": 4
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "imprint_description": "RIS 3",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 9.5,
+      "width_mm": 9.5,
+      "height_mm": 4,
+      "finish": "matte_film",
+      "color": [
+        0.76,
+        0.6,
+        0.17
+      ],
+      "secondary_color": [
+        0.76,
+        0.6,
+        0.17
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P13",
+      "seed": 113
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-014",
+    "reference_name": "Risperidon ratiopharm 4 mg",
+    "source_registration": "1-26043",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26043__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Risperidon ratiopharm 4 mg: green; round_biconvex; 1 score line(s); source dimensions (10.5, 10.5, 4.5); marking reference: RIS 4.",
+    "source_pdf_sha256": "04f6f7c9c40ecce39a4356918ea48e5a44ece9231953bca90c9cca49fb219335",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "green",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 10.5,
+        "width_mm": 10.5,
+        "height_mm": 4.5
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "imprint_description": "RIS 4",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 10.5,
+      "width_mm": 10.5,
+      "height_mm": 4.5,
+      "finish": "matte_film",
+      "color": [
+        0.27,
+        0.46,
+        0.2
+      ],
+      "secondary_color": [
+        0.27,
+        0.46,
+        0.2
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P14",
+      "seed": 114
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-015",
+    "reference_name": "Risperidon ratiopharm 6 mg",
+    "source_registration": "1-26043",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26043__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Risperidon ratiopharm 6 mg: light_brown; round_biconvex; 1 score line(s); source dimensions (10.5, 10.5, 4.5); marking reference: RIS 6.",
+    "source_pdf_sha256": "04f6f7c9c40ecce39a4356918ea48e5a44ece9231953bca90c9cca49fb219335",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "light_brown",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 10.5,
+        "width_mm": 10.5,
+        "height_mm": 4.5
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "imprint_description": "RIS 6",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 10.5,
+      "width_mm": 10.5,
+      "height_mm": 4.5,
+      "finish": "matte_film",
+      "color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "secondary_color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "both",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P15",
+      "seed": 115
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-016",
+    "reference_name": "Sertralin +pharma 50 mg",
+    "source_registration": "1-26443",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26443__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Sertralin +pharma 50 mg: white; oval_tablet; 1 score line(s); source dimensions (10, 5, None); marking reference: L on reverse.",
+    "source_pdf_sha256": "f208fbf59e36e59e0344a6aad84b065cf215ff5c51b7f907c06a6767eabd2121",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 10,
+        "width_mm": 5,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "L on reverse",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 10,
+      "width_mm": 5,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P16",
+      "seed": 116
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-017",
+    "reference_name": "Sertralin +pharma 100 mg",
+    "source_registration": "1-26443",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26443__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Sertralin +pharma 100 mg: white; round_biconvex; 1 score line(s); source dimensions (10, 10, None); marking reference: C on reverse.",
+    "source_pdf_sha256": "f208fbf59e36e59e0344a6aad84b065cf215ff5c51b7f907c06a6767eabd2121",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 10,
+        "width_mm": 10,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "C on reverse",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 10,
+      "width_mm": 10,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P17",
+      "seed": 117
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-018",
+    "reference_name": "Quetiapin +pharma 25 mg",
+    "source_registration": "1-27741",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-27741__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Quetiapin +pharma 25 mg: peach; round_biconvex; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "13fb109da4cacb13fbcffa5fa4f4e6dcbce210538c3733dcc8008c63c5aa91fc",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "peach",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.72,
+        0.4,
+        0.28
+      ],
+      "secondary_color": [
+        0.72,
+        0.4,
+        0.28
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P18",
+      "seed": 118
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-019",
+    "reference_name": "Quetiapin +pharma 100 mg",
+    "source_registration": "1-27741",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-27741__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Quetiapin +pharma 100 mg: yellow; round_biconvex; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "13fb109da4cacb13fbcffa5fa4f4e6dcbce210538c3733dcc8008c63c5aa91fc",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "yellow",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.76,
+        0.6,
+        0.17
+      ],
+      "secondary_color": [
+        0.76,
+        0.6,
+        0.17
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P19",
+      "seed": 119
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-020",
+    "reference_name": "Quetiapin +pharma 200 mg",
+    "source_registration": "1-27741",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-27741__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Quetiapin +pharma 200 mg: white; round_biconvex; 0 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "13fb109da4cacb13fbcffa5fa4f4e6dcbce210538c3733dcc8008c63c5aa91fc",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P20",
+      "seed": 120
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-021",
+    "reference_name": "Quetiapin +pharma 300 mg",
+    "source_registration": "1-27741",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-27741__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Quetiapin +pharma 300 mg: white; caplet; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "13fb109da4cacb13fbcffa5fa4f4e6dcbce210538c3733dcc8008c63c5aa91fc",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "caplet",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "caplet",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 7,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P21",
+      "seed": 121
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-022",
+    "reference_name": "Tamsulosin +pharma retard 0.4 mg",
+    "source_registration": "1-26382",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-26382__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Tamsulosin +pharma retard 0.4 mg: orange; hard_capsule; 0 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "3c4c4a4b991114cc43b8c560f0dfdaf8200cc67756b55c8a0169a11a53dd9d29",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "orange",
+      "secondary_color": "olive",
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 17,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.77,
+        0.27,
+        0.045
+      ],
+      "secondary_color": [
+        0.3,
+        0.34,
+        0.13
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P22",
+      "seed": 122
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-023",
+    "reference_name": "Pregabalin Grindeks 25 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 25 mg: gray; hard_capsule; 0 score line(s); source dimensions (14, None, None); marking reference: PREG on cap, 25 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "gray",
+      "secondary_color": "gray",
+      "dimensions": {
+        "length_mm": 14,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 25 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "secondary_color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P23",
+      "seed": 123
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-024",
+    "reference_name": "Pregabalin Grindeks 50 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 50 mg: brown_red; hard_capsule; 0 score line(s); source dimensions (16, None, None); marking reference: PREG on cap, 50 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "brown_red",
+      "secondary_color": "gray",
+      "dimensions": {
+        "length_mm": 16,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 50 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 16,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.34,
+        0.055,
+        0.031
+      ],
+      "secondary_color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P24",
+      "seed": 124
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-025",
+    "reference_name": "Pregabalin Grindeks 75 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 75 mg: gray; hard_capsule; 0 score line(s); source dimensions (14, None, None); marking reference: PREG on cap, 75 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "gray",
+      "secondary_color": "gold",
+      "dimensions": {
+        "length_mm": 14,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 75 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "secondary_color": [
+        0.66,
+        0.43,
+        0.1
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P25",
+      "seed": 125
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-026",
+    "reference_name": "Pregabalin Grindeks 100 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 100 mg: gold; hard_capsule; 0 score line(s); source dimensions (16, None, None); marking reference: PREG on cap, 100 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "gold",
+      "secondary_color": "brown_red",
+      "dimensions": {
+        "length_mm": 16,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 100 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 16,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.66,
+        0.43,
+        0.1
+      ],
+      "secondary_color": [
+        0.34,
+        0.055,
+        0.031
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P26",
+      "seed": 126
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-027",
+    "reference_name": "Pregabalin Grindeks 150 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 150 mg: gray; hard_capsule; 0 score line(s); source dimensions (18, None, None); marking reference: PREG on cap, 150 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "gray",
+      "secondary_color": "gray",
+      "dimensions": {
+        "length_mm": 18,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 150 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 18,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "secondary_color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P27",
+      "seed": 127
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-028",
+    "reference_name": "Pregabalin Grindeks 200 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 200 mg: brown_red; hard_capsule; 0 score line(s); source dimensions (19, None, None); marking reference: PREG on cap, 200 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "brown_red",
+      "secondary_color": "brown_red",
+      "dimensions": {
+        "length_mm": 19,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 200 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 19,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.34,
+        0.055,
+        0.031
+      ],
+      "secondary_color": [
+        0.34,
+        0.055,
+        0.031
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P28",
+      "seed": 128
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-029",
+    "reference_name": "Pregabalin Grindeks 300 mg",
+    "source_registration": "143578",
+    "source_url": "https://medikamente.basg.gv.at/documents/143578__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Pregabalin Grindeks 300 mg: gray; hard_capsule; 0 score line(s); source dimensions (22, None, None); marking reference: PREG on cap, 300 on body; black ink.",
+    "source_pdf_sha256": "2ddb34ac842c52caf219a9e98736179c5b216549c37604ebffea876a6d0e6d62",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "gray",
+      "secondary_color": "gold",
+      "dimensions": {
+        "length_mm": 22,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "PREG on cap, 300 on body; black ink",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 22,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.63,
+        0.65,
+        0.65
+      ],
+      "secondary_color": [
+        0.66,
+        0.43,
+        0.1
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P29",
+      "seed": 129
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-030",
+    "reference_name": "Duloxetin +pharma 30 mg",
+    "source_registration": "137311",
+    "source_url": "https://medikamente.basg.gv.at/documents/137311__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Duloxetin +pharma 30 mg: white; hard_capsule; 0 score line(s); source dimensions (None, None, None); marking reference: DLX / 30 mg in yellow ink; opaque cap and body.",
+    "source_pdf_sha256": "643cf4c430718c8ada1908f75f42b82b9ac0627631d03b101eeb957ff2daa5a5",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "white",
+      "secondary_color": "blue",
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "DLX / 30 mg in yellow ink; opaque cap and body",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 17,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.16,
+        0.4,
+        0.69
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P30",
+      "seed": 130
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-031",
+    "reference_name": "Duloxetin +pharma 60 mg",
+    "source_registration": "137311",
+    "source_url": "https://medikamente.basg.gv.at/documents/137311__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Duloxetin +pharma 60 mg: green; hard_capsule; 0 score line(s); source dimensions (None, None, None); marking reference: DLX / 60 mg in white ink; opaque cap and body.",
+    "source_pdf_sha256": "643cf4c430718c8ada1908f75f42b82b9ac0627631d03b101eeb957ff2daa5a5",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "hard_capsule",
+      "color": "green",
+      "secondary_color": "blue",
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "DLX / 60 mg in white ink; opaque cap and body",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "hard_capsule",
+      "outline_variant": "family",
+      "length_mm": 17,
+      "width_mm": 6,
+      "height_mm": 6,
+      "finish": "gelatin_shell",
+      "color": [
+        0.27,
+        0.46,
+        0.2
+      ],
+      "secondary_color": [
+        0.16,
+        0.4,
+        0.69
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P31",
+      "seed": 131
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-032",
+    "reference_name": "Nurofen Rapid Mini 400 mg",
+    "source_registration": "141637",
+    "source_url": "https://medikamente.basg.gv.at/documents/141637__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Nurofen Rapid Mini 400 mg: dark_red; softgel; 0 score line(s); source dimensions (15.5, 10, None); marking reference: NURO400 in white ink; degree of transparency not quantified.",
+    "source_pdf_sha256": "02a3f06183643773c4b716a29a2a9c8405df7b4f7563be61da33921dec96bd70",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "softgel",
+      "color": "dark_red",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 15.5,
+        "width_mm": 10,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "NURO400 in white ink; degree of transparency not quantified",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "softgel",
+      "outline_variant": "family",
+      "length_mm": 15.5,
+      "width_mm": 10,
+      "height_mm": 6,
+      "finish": "softgel_shell",
+      "color": [
+        0.29,
+        0.025,
+        0.012
+      ],
+      "secondary_color": [
+        0.29,
+        0.025,
+        0.012
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P32",
+      "seed": 132
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-033",
+    "reference_name": "Levodopa/Carbidopa/Entacapon Rivopharm 50 mg levodopa strength",
+    "source_registration": "135799",
+    "source_url": "https://medikamente.basg.gv.at/documents/135799__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Levodopa/Carbidopa/Entacapon Rivopharm 50 mg levodopa strength: light_brown; round_biconvex; 0 score line(s); source dimensions (14, 14, None); marking reference: 50.",
+    "source_pdf_sha256": "0dbe4b71bccba22e8e5cdfebe093e085a92860368e3e55234f15772ac7238340",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "light_brown",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 14,
+        "width_mm": 14,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "50",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 14,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "secondary_color": [
+        0.53,
+        0.33,
+        0.18
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P33",
+      "seed": 133
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-034",
+    "reference_name": "Levodopa/Carbidopa/Entacapon Rivopharm 75 mg levodopa strength",
+    "source_registration": "135799",
+    "source_url": "https://medikamente.basg.gv.at/documents/135799__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Levodopa/Carbidopa/Entacapon Rivopharm 75 mg levodopa strength: orange; oval_tablet; 0 score line(s); source dimensions (16, 10, None); marking reference: 75.",
+    "source_pdf_sha256": "0dbe4b71bccba22e8e5cdfebe093e085a92860368e3e55234f15772ac7238340",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "orange",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 16,
+        "width_mm": 10,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "75",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 16,
+      "width_mm": 10,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.77,
+        0.27,
+        0.045
+      ],
+      "secondary_color": [
+        0.77,
+        0.27,
+        0.045
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P34",
+      "seed": 134
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-035",
+    "reference_name": "Levodopa/Carbidopa/Entacapon Rivopharm 100 mg levodopa strength",
+    "source_registration": "135799",
+    "source_url": "https://medikamente.basg.gv.at/documents/135799__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Levodopa/Carbidopa/Entacapon Rivopharm 100 mg levodopa strength: pale_red; oblong_tablet; 0 score line(s); source dimensions (17, 9, None); marking reference: 100.",
+    "source_pdf_sha256": "0dbe4b71bccba22e8e5cdfebe093e085a92860368e3e55234f15772ac7238340",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oblong_tablet",
+      "color": "pale_red",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 17,
+        "width_mm": 9,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "100",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oblong_tablet",
+      "outline_variant": "family",
+      "length_mm": 17,
+      "width_mm": 9,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.66,
+        0.31,
+        0.27
+      ],
+      "secondary_color": [
+        0.66,
+        0.31,
+        0.27
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P35",
+      "seed": 135
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-036",
+    "reference_name": "Levodopa/Carbidopa/Entacapon Rivopharm 150 mg levodopa strength",
+    "source_registration": "135799",
+    "source_url": "https://medikamente.basg.gv.at/documents/135799__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Levodopa/Carbidopa/Entacapon Rivopharm 150 mg levodopa strength: dark_red; oval_tablet; 0 score line(s); source dimensions (16, 10, None); marking reference: 150.",
+    "source_pdf_sha256": "0dbe4b71bccba22e8e5cdfebe093e085a92860368e3e55234f15772ac7238340",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "dark_red",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 16,
+        "width_mm": 10,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "150",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 16,
+      "width_mm": 10,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.29,
+        0.025,
+        0.012
+      ],
+      "secondary_color": [
+        0.29,
+        0.025,
+        0.012
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P36",
+      "seed": 136
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-037",
+    "reference_name": "Levodopa/Carbidopa/Entacapon Rivopharm 200 mg levodopa strength",
+    "source_registration": "135799",
+    "source_url": "https://medikamente.basg.gv.at/documents/135799__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Levodopa/Carbidopa/Entacapon Rivopharm 200 mg levodopa strength: brown; oblong_tablet; 0 score line(s); source dimensions (17, 9, None); marking reference: 200.",
+    "source_pdf_sha256": "0dbe4b71bccba22e8e5cdfebe093e085a92860368e3e55234f15772ac7238340",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oblong_tablet",
+      "color": "brown",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 17,
+        "width_mm": 9,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "200",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oblong_tablet",
+      "outline_variant": "family",
+      "length_mm": 17,
+      "width_mm": 9,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.3,
+        0.13,
+        0.045
+      ],
+      "secondary_color": [
+        0.3,
+        0.13,
+        0.045
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P37",
+      "seed": 137
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-038",
+    "reference_name": "Concor 2.5 mg",
+    "source_registration": "1-18586",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-18586__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Concor 2.5 mg: white; heart; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "424ff56f66f8504e7dd24c933a69f5b78a382156a8fe684ac58d929c7de758fe",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "heart",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "unknown_shape",
+      "outline_variant": "heart",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P38",
+      "seed": 138
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-039",
+    "reference_name": "Concor 5 mg",
+    "source_registration": "1-18586",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-18586__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Concor 5 mg: pale_yellow; heart; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "424ff56f66f8504e7dd24c933a69f5b78a382156a8fe684ac58d929c7de758fe",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "heart",
+      "color": "pale_yellow",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "unknown_shape",
+      "outline_variant": "heart",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.84,
+        0.77,
+        0.4
+      ],
+      "secondary_color": [
+        0.84,
+        0.77,
+        0.4
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P39",
+      "seed": 139
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-040",
+    "reference_name": "Concor 10 mg",
+    "source_registration": "1-18586",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-18586__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Concor 10 mg: peach; heart; 1 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "424ff56f66f8504e7dd24c933a69f5b78a382156a8fe684ac58d929c7de758fe",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "heart",
+      "color": "peach",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "unknown_shape",
+      "outline_variant": "heart",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.72,
+        0.4,
+        0.28
+      ],
+      "secondary_color": [
+        0.72,
+        0.4,
+        0.28
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P40",
+      "seed": 140
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-041",
+    "reference_name": "Madopar 100 mg/25 mg",
+    "source_registration": "1-22672",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-22672__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Madopar 100 mg/25 mg: pale_red; round_biconvex; 2 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "960bd5f7e2ff2f1e0cefa70b1a4fe649190569c13b9fa2e357c9cf090125819b",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "pale_red",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 2,
+      "score_layout": "cross",
+      "score_faces": "both",
+      "imprint_description": "",
+      "speckled": true
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.66,
+        0.31,
+        0.27
+      ],
+      "secondary_color": [
+        0.66,
+        0.31,
+        0.27
+      ],
+      "score": 2,
+      "score_layout": "cross",
+      "score_faces": "both",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.1,
+      "speckles": 0.5,
+      "synthetic_marking": "P41",
+      "seed": 141
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-042",
+    "reference_name": "Marcoumar tablets",
+    "source_registration": "8096",
+    "source_url": "https://medikamente.basg.gv.at/documents/8096__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Marcoumar tablets: white; round_flat; 2 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "3a6a37be83002e77a46708dbf7d045889f0760b11d90a096e3aa9785412c42a8",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_flat",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 2,
+      "score_layout": "cross",
+      "score_faces": "both",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_flat",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 2,
+      "score_layout": "cross",
+      "score_faces": "both",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P42",
+      "seed": 142
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-043",
+    "reference_name": "Sintrom 4 mg",
+    "source_registration": "9828",
+    "source_url": "https://medikamente.basg.gv.at/documents/9828__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Sintrom 4 mg: white; round_flat; 2 score line(s); source dimensions (None, None, None); marking reference: CG on one face; A in each scored quadrant.",
+    "source_pdf_sha256": "d4f31bec2b3c58604c172947b0b1cc6d94ed8414488866bc1974ca5ac5f17d25",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_flat",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 2,
+      "score_layout": "cross",
+      "score_faces": "top",
+      "imprint_description": "CG on one face; A in each scored quadrant",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_flat",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 2,
+      "score_layout": "cross",
+      "score_faces": "top",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P43",
+      "seed": 143
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-044",
+    "reference_name": "Trittico retard 150 mg",
+    "source_registration": "1-23301",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-23301__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Trittico retard 150 mg: offwhite; oval_tablet; 2 score line(s); source dimensions (None, None, None); marking reference: .",
+    "source_pdf_sha256": "0fba5e52c2e27d06c2ae0b29d6d2e39d577a53c1e2c426a02a173bd633b91054",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "offwhite",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 2,
+      "score_layout": "parallel",
+      "score_faces": "both",
+      "imprint_description": "",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 7,
+      "height_mm": 3.6,
+      "finish": "chalky_uncoated",
+      "color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "secondary_color": [
+        0.83,
+        0.81,
+        0.73
+      ],
+      "score": 2,
+      "score_layout": "parallel",
+      "score_faces": "both",
+      "press_defects": 0.65,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P44",
+      "seed": 144
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-045",
+    "reference_name": "Cipralex 5 mg",
+    "source_registration": "1-24550",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-24550__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Cipralex 5 mg: white; round_biconvex; 0 score line(s); source dimensions (6, 6, None); marking reference: EK.",
+    "source_pdf_sha256": "44f6f16fb9b3524475b0be10a773cba987d8a7b9ae54a1d8f516c45531e6a608",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 6,
+        "width_mm": 6,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "EK",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 6,
+      "width_mm": 6,
+      "height_mm": 2.8,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P45",
+      "seed": 145
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-046",
+    "reference_name": "Cipralex 10 mg",
+    "source_registration": "1-24550",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-24550__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Cipralex 10 mg: white; oval_tablet; 1 score line(s); source dimensions (8, 5.5, None); marking reference: E / L.",
+    "source_pdf_sha256": "44f6f16fb9b3524475b0be10a773cba987d8a7b9ae54a1d8f516c45531e6a608",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 8,
+        "width_mm": 5.5,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "E / L",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 5.5,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P46",
+      "seed": 146
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-047",
+    "reference_name": "Cipralex 15 mg",
+    "source_registration": "1-24550",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-24550__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Cipralex 15 mg: white; oval_tablet; 1 score line(s); source dimensions (9.8, 6.3, None); marking reference: E / M.",
+    "source_pdf_sha256": "44f6f16fb9b3524475b0be10a773cba987d8a7b9ae54a1d8f516c45531e6a608",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 9.8,
+        "width_mm": 6.3,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "E / M",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 9.8,
+      "width_mm": 6.3,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P47",
+      "seed": 147
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-048",
+    "reference_name": "Cipralex 20 mg",
+    "source_registration": "1-24550",
+    "source_url": "https://medikamente.basg.gv.at/documents/1-24550__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Cipralex 20 mg: white; oval_tablet; 1 score line(s); source dimensions (11, 5.7, None); marking reference: E / N.",
+    "source_pdf_sha256": "44f6f16fb9b3524475b0be10a773cba987d8a7b9ae54a1d8f516c45531e6a608",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "oval_tablet",
+      "color": "white",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": 11,
+        "width_mm": 5.7,
+        "height_mm": null
+      },
+      "score_lines": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "E / N",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "oval_tablet",
+      "outline_variant": "family",
+      "length_mm": 11,
+      "width_mm": 5.7,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "secondary_color": [
+        0.86,
+        0.85,
+        0.81
+      ],
+      "score": 1,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P48",
+      "seed": 148
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-049",
+    "reference_name": "Nurofen 200 mg dragee",
+    "source_registration": "14712",
+    "source_url": "https://medikamente.basg.gv.at/documents/14712__DOTC_FACH_INFO.pdf",
+    "source_section": 3,
+    "source_description": "Nurofen 200 mg dragee: cream; round_biconvex; 0 score line(s); source dimensions (None, None, None); marking reference: black printed logo.",
+    "source_pdf_sha256": "04b97c8a5f3762dad053c83a86d71fa91c2c63db0d597a477af4184ef83842e0",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "round_biconvex",
+      "color": "cream",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "black printed logo",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "round_biconvex",
+      "outline_variant": "family",
+      "length_mm": 8,
+      "width_mm": 8,
+      "height_mm": 2.8,
+      "finish": "satin_film",
+      "color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "secondary_color": [
+        0.84,
+        0.81,
+        0.66
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P49",
+      "seed": 149
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  },
+  {
+    "id": "ATLAS-050",
+    "reference_name": "Viagra 50 mg film-coated",
+    "source_registration": "EMA-VIAGRA",
+    "source_url": "https://www.ema.europa.eu/en/documents/product-information/viagra-epar-product-information_en.pdf",
+    "source_section": 3,
+    "source_description": "Viagra 50 mg film-coated: blue; diamond_tablet; 0 score line(s); source dimensions (None, None, None); marking reference: VIAGRA / VGR 50.",
+    "source_pdf_sha256": "3dfb61026a0b65a464b6f808e369d24cf179b676a74f0698337bc4bcb355c275",
+    "appearance_review": "curated from approved description; no physical specimen verification",
+    "declared": {
+      "shape": "diamond_tablet",
+      "color": "blue",
+      "secondary_color": null,
+      "dimensions": {
+        "length_mm": null,
+        "width_mm": null,
+        "height_mm": null
+      },
+      "score_lines": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "imprint_description": "VIAGRA / VGR 50",
+      "speckled": false
+    },
+    "parameters": {
+      "family": "diamond_tablet",
+      "outline_variant": "family",
+      "length_mm": 14,
+      "width_mm": 7,
+      "height_mm": 3.6,
+      "finish": "matte_film",
+      "color": [
+        0.16,
+        0.4,
+        0.69
+      ],
+      "secondary_color": [
+        0.16,
+        0.4,
+        0.69
+      ],
+      "score": 0,
+      "score_layout": "single",
+      "score_faces": "top",
+      "press_defects": 0.12,
+      "grain_multiplier": 1.0,
+      "speckles": 0.0,
+      "synthetic_marking": "P50",
+      "seed": 150
+    },
+    "assumptions": {
+      "dimensions_not_in_source": [
+        "length_mm",
+        "width_mm",
+        "height_mm"
+      ],
+      "color_rgb": "appearance prior, not measured colorimetry",
+      "finish_microstructure": "procedural material prior; not quantified in product description",
+      "crown_and_bevel": "heuristic profile where section 3 does not quantify it",
+      "transparency": "softgel attenuation is a varied material prior, not a measured product property",
+      "glyphs": "fictional P-code in renders; source imprint retained only as reference text"
+    },
+    "drug_identity_verified": false,
+    "training_drug_identity": null
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "purpose": "Illustrative appearance-count comparison only; redraw polygons for the actual image",
+  "slots": [
+    {"name":"MORGEN","polygon_normalized":[[0.03,0.15],[0.26,0.15],[0.26,0.9],[0.03,0.9]],"expected":[{"class_id":3,"count":1},{"class_id":6,"count":1}]},
+    {"name":"MITTAG","polygon_normalized":[[0.27,0.15],[0.49,0.15],[0.49,0.9],[0.27,0.9]],"expected":[]},
+    {"name":"ABEND","polygon_normalized":[[0.5,0.15],[0.73,0.15],[0.73,0.9],[0.5,0.9]],"expected":[{"class_id":4,"count":1}]},
+    {"name":"NACHT","polygon_normalized":[[0.74,0.15],[0.97,0.15],[0.97,0.9],[0.74,0.9]],"expected":[]}
+  ]
+}

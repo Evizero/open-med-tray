@@ -1,0 +1,12 @@
+{
+  "file": "index.html",
+  "files": [
+    "index.html"
+  ],
+  "generatorRevision": "405867abdd4ec141268706d1038821ec7107d73d8555958f0ddb985591c8bf06",
+  "bytes": 4892303,
+  "sha256": "5bbd083a721660b1b6cb9047bcb5a6c2599d9bf3b1164c5a74eeb7b1f6a8527a",
+  "built": "2026-09-30T11:55:38.332Z",
+  "dependencies": "@fontsource/ibm-plex-mono@5.3.0, @fontsource/ibm-plex-sans@5.3.0, @fontsource/instrument-serif@5.3.0, fflate@0.8.3, three@0.186.1, three-bvh-csg@0.0.18, three-mesh-bvh@0.9.15",
+  "node": "v22.23.1"
+}
