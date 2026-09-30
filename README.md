@@ -4,7 +4,7 @@
 
 Open Med Tray generates synthetic medication-tray scenes for computer-vision research. Tablets, capsules, softgels, containers, covers, lighting and cameras are procedural and seeded, and every render comes with integer instance and class IDs from the same scene and camera.
 
-**Showcase:** [evizero.github.io/open-med-tray](https://evizero.github.io/open-med-tray/) hosts the landing page and [Open Med Tray Lite](https://evizero.github.io/open-med-tray/lite/). Nothing else from this repository is published.
+**Showcase:** [evizero.github.io/open-med-tray](https://evizero.github.io/open-med-tray/) hosts the landing page and [Open Med Tray Lite](https://evizero.github.io/open-med-tray/lite/). Nothing else from this repository is hosted there; the source, including the research history, is public here on GitHub.
 
 ## Two editions
 
@@ -27,7 +27,7 @@ Lite is a subset of the full generator, not a port with full parity. Its geometr
 | `scripts/` | Rendering, add-on packaging, font download, Pages build and publish |
 | `lite/` | Open Med Tray Lite source; `lite/index.html` is the built app |
 | `brand/` | Mark, lockups, page sources and their build tools |
-| `docs/research-history.md` | Research record kept for context, including earlier results under the name MedTray; not published |
+| `docs/research-history.md` | Research record kept for context, including earlier results under the name MedTray; not hosted on the showcase site |
 
 The repository holds source only. Datasets, renders, trained models and the generator's font files are not committed; `scripts/fetch_fonts.py` downloads the fonts on demand. The small web fonts and images the pages and Lite need to run are included.
 
@@ -68,4 +68,4 @@ A research preview, not a release.
 - Every scene is synthetic. Open Med Tray does not identify or verify medication, is not a medical device and has not been validated for any clinical purpose. Models trained on its data are research demonstrations.
 - Labels mark visible geometric surfaces with transparent covers removed; refraction, glare and defocus in the render can move edges in those regions.
 - Licensing is not final. Terms for the generator, Lite and the add-on are still being decided; third-party notices ship with each component.
-- The repository is private; access is by invitation.
+- The source repository is public. Public source is not a license grant; see the licensing note above.
