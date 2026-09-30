@@ -70,11 +70,20 @@ let html = r('src/index.html').toString('utf8')
   .replace('/*@FONTS@*/', () => fontCss)
   .replace('/*@CSS@*/', () => r('src/styles.css').toString('utf8'))
   .replace('/*@JS@*/', () => `/*!\n${licText}\n*/\n/* bundled: ${versions} */\n${js}`);
+// The startup cover shows the file size; the placeholder has the same byte
+// length as the value, so the size it states is exact.
+const size = `${(Buffer.byteLength(html) / 1e6).toFixed(1)} MB`;
+if (size.length !== '@SIZE@'.length) throw new Error(`File size label ${size} needs a new placeholder`);
+html = html.replace('@SIZE@', size);
+// The cover must arrive before the embedded fonts, styles and script.
+const byteAt = (s) => Buffer.byteLength(html.slice(0, html.indexOf(s)));
+const coverEnd = byteAt('id="bootRetry"'), bulkStart = byteAt('@font-face');
+if (!(coverEnd < bulkStart && coverEnd < 16384)) throw new Error(`Startup cover must lead the file (ends near byte ${coverEnd}, assets from ${bulkStart})`);
 const files = ['index.html'];
 for (const file of files) writeFileSync(here + file, html);
 const hash = createHash('sha256').update(html).digest('hex');
 writeFileSync(here + 'build-info.json', JSON.stringify({ file: files[0], files, generatorRevision, bytes: Buffer.byteLength(html), sha256: hash, built: new Date().toISOString(), dependencies: versions, node: process.version }, null, 2));
-console.log(`${files.join(' = ')} ${(Buffer.byteLength(html) / 1024).toFixed(0)} KiB sha256 ${hash.slice(0, 16)}`);
+console.log(`${files.join(' = ')} ${(Buffer.byteLength(html) / 1024).toFixed(0)} KiB sha256 ${hash.slice(0, 16)} (startup cover within the first ${coverEnd} bytes)`);
 
 const legacy = new URL('../artifacts/web-parity-v3/', import.meta.url).pathname;
 if (existsSync(legacy)) {

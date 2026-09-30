@@ -1,4 +1,4 @@
-// Open Med Tray Lite — application wiring: state, inspector, overlays, tour, export.
+// Open Med Tray Lite — application wiring: state, inspector, overlays, export.
 import * as THREE from 'three';
 import { Stage } from './app/stage.js';
 import { PRESETS, BASE, validate, familyOf, randomProduct, instanceVariant } from './scene/catalog.js';
@@ -34,7 +34,6 @@ const state = {
   tray: clone(DEFAULT_TRAY), trayView: 'capture', selected: null,
   labels: 'off', boxes: true, labelData: null,
   dataset: { sampling:'mixed', stressProbability:.06, cameraProfile:'auto', count: 8, res: '1024x512', samples: 12, seed: 1000, running: false, zip: null, nextIndex: 0, status: '', showLabels: false, scenes: [] },
-  tour: { playing: false, paused: false, step: 0 },
 };
 window.__atelier = { state, THREE: { WebGLRenderTarget: THREE.WebGLRenderTarget, HalfFloatType: THREE.HalfFloatType, MeshPhysicalMaterial: THREE.MeshPhysicalMaterial, Color: THREE.Color, Vector3: THREE.Vector3 } };
 
@@ -54,21 +53,57 @@ const INTRO_EXAMPLE = clone(PRESETS.find((p) => p.id === 'p10').spec);
 const intro = createIntro({
   // The blueprint is a fixed example (the default preset), not a live drawing of the bench.
   reduced, getSpec: () => INTRO_EXAMPLE,
-  onClose: (action) => {
+  onClose: () => {
     introUp = false;
     const held = introHold; introHold = false;
-    if (action === 'tour') playTour();
-    else if (held) stage.specimenFrame(stage.pill, { macro: true, resume: true });
+    if (held) stage.specimenFrame(stage.pill, { macro: true, resume: true });
     updateFab();
   },
 });
+// Startup cover (#boot, painted by index.html before this bundle arrives).
+// It shows real startup steps only: the fill counts completed steps, and the
+// cover leaves once the canvas holds a rendered frame of the bench.
+const BOOT_STEPS = ['Decoding fonts and textures', 'Starting the WebGL renderer', 'Building the specimen', 'Drawing the first frame'];
+let bootStep = -1;
+function bootAt(step) {
+  bootStep = step;
+  performance.mark(`lite-boot-${step}`);
+  $('boot').style.setProperty('--boot-done', String(step / BOOT_STEPS.length));
+  $('bootLabel').textContent = BOOT_STEPS[step];
+  $('bootMeta').textContent = `${step + 1} / ${BOOT_STEPS.length}`;
+}
+// Lets the new step paint before a long synchronous stretch (a hidden tab does not wait for frames).
+const painted = () => new Promise((r) => { requestAnimationFrame(() => setTimeout(r)); setTimeout(r, 120); });
+function hasWebGL2() {
+  try { const gl = document.createElement('canvas').getContext('webgl2'); gl?.getExtension('WEBGL_lose_context')?.loseContext(); return !!gl; } catch { return false; }
+}
+// The render loop runs from the first layout on: an exception in any frame
+// before the reveal fails startup (at the step it happened in) instead of
+// leaving the cover up.
+let bootError = null, bootErrorStep = -1, onBootError = null;
+const bootErrors = (e) => { if (bootError) return; bootError = e.error ?? new Error(e.message); bootErrorStep = bootStep; onBootError?.(); };
+function bootFailed(e) {
+  removeEventListener('error', bootErrors);
+  const graphics = !hasWebGL2(), step = BOOT_STEPS[e === bootError ? bootErrorStep : bootStep] ?? 'Startup';
+  console.error(graphics ? 'Open Med Tray Lite: WebGL 2 is not available.' : `Open Med Tray Lite: startup failed at "${step}".`, e);
+  intro.abort(); introHold = false;
+  const detail = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+  if (window.__liteBoot) window.__liteBoot.fail(graphics ? 'graphics' : 'error', graphics ? '' : detail, step);
+}
+
 async function boot() {
+  if (window.__liteBoot) window.__liteBoot.started = true;
+  addEventListener('error', bootErrors);
+  bootAt(0);
   await Promise.all([loadFonts(),prepareWood()]);
+  bootAt(1); await painted();
   const canvas = $('gl');
   stage = new Stage(canvas, { mobile: mobileQuery.matches || /Mobi|Android/i.test(navigator.userAgent), reducedMotion: reduced, legacySampling: new URLSearchParams(location.search).has('legacy-sampling') });
   window.__atelier.stage = stage;
   layout();
+  bootAt(2); await painted();
   await stage.setSpecimen(state.spec);
+  bootAt(3);
   stage.specimenFrame(stage.pill, { instant: true });
   if (introOnLoad && !reduced) { introHold = true; stage.specimenFrame(stage.pill, { macro: true, hold: true }); }
   stage.pipe.dof.enabled = true;
@@ -77,14 +112,13 @@ async function boot() {
   updateCaption();
   stage.on('frame', onFrame);
   stage.on('idle', onIdle);
-  stage.on('interact', () => { hideDims(); if (state.tour.playing && !state.tour.paused) pauseTour(true); });
+  stage.on('interact', () => { hideDims(); });
   stage.on('pill', () => { updateCaption(); scheduleDims(); });
   stage.annotationFit = annotationFit;
-  stage.annotationsEnabled = () => !state.tour.playing;
   // Direct manipulation of the drawn size dimensions (specimen view only).
   handles = new DimHandles({
     stage, canvas: $('gl'),
-    enabled: () => state.mode === 'specimen' && !state.tour.playing && !state.dataset.running,
+    enabled: () => state.mode === 'specimen' && !state.dataset.running,
     getSpec: () => state.spec,
     begin: beginEdit,
     update: (fn) => { editSpecimen(fn, false); refreshPanel(); },
@@ -96,14 +130,6 @@ async function boot() {
   window.__atelier.handles = handles;
   setEditHooks({ begin: beginEdit, cancel: cancelEdit });
   stage.wake();
-  // First frame is on screen: reveal under the introduction, whose close
-  // starts the short macro pull-back (skippable by any input).
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    const from = document.querySelector('#boot .boot-lockup');
-    $('boot').classList.add('gone');
-    if (introOnLoad) intro.show({ from });
-    else if (!reduced) stage.specimenFrame(stage.pill, { macro: true });
-  }));
   addEventListener('resize', () => { layout(); });
   // Mobile browsers settle toolbar and orientation changes over several
   // frames; coalesce those into one layout per frame.
@@ -112,6 +138,30 @@ async function boot() {
   visualViewport?.addEventListener('resize', queueLayout);
   addEventListener('orientationchange', queueLayout);
   mobileQuery.addEventListener('change', () => { if (!mobileQuery.matches) setSheet(false, true); layout(); renderInspector(); updateFab(); });
+  // Wait for a rendered sample, then one more frame so it is on screen.
+  await new Promise((resolve, reject) => {
+    let raf = 0;
+    const fail = () => { cancelAnimationFrame(raf); reject(bootError); };
+    const done = () => (bootError ? fail() : resolve());
+    const poll = () => { if (bootError) fail(); else raf = requestAnimationFrame(stage.pipe.samples > 0 ? done : poll); };
+    onBootError = fail;
+    poll();
+  }).finally(() => { onBootError = null; });
+  removeEventListener('error', bootErrors);
+  // A failure reported meanwhile keeps its message on screen.
+  if (window.__liteBoot?.failed) return;
+  // First frame is on screen: reveal under the introduction, whose close
+  // starts the short macro pull-back (skippable by any input).
+  const cover = $('boot'), from = cover.querySelector('.boot-lockup');
+  performance.mark('lite-boot-ready');
+  cover.style.setProperty('--boot-done', '1');
+  cover.removeAttribute('aria-busy');
+  $('app').inert = false;
+  cover.classList.add('gone');
+  if (introOnLoad) intro.show({ from });
+  else if (!reduced) stage.specimenFrame(stage.pill, { macro: true });
+  // Out of the way once faded (stops its looping line).
+  setTimeout(() => { if (!window.__liteBoot?.failed) cover.hidden = true; }, 700);
 }
 
 // ------------------------------------------------------------ layout
@@ -955,7 +1005,7 @@ const datasetActions = {
       return datasetActions.run(resume,true);
     });
     if(resume&&d.pendingRun?.generatorRevision!==GENERATOR_REVISION){d.status='This batch belongs to a different generator version. Use its original HTML to resume, or Generate & add a new batch.';renderInspector();return;}
-    stopTour();d.running=true;d.zip=null;d.status='Starting…';d.failure=null;batchStep=null;
+    d.running=true;d.zip=null;d.status='Starting…';d.failure=null;batchStep=null;
     const run=resume&&d.pendingRun?structuredClone(d.pendingRun):{generatorRevision:GENERATOR_REVISION,count:clampCount(d.count),done:0,baseSeed:d.seed,startIndex:d.nextIndex,res:d.res,samples:d.samples,cameraProfile:d.cameraProfile,stressProbability:d.stressProbability,sampling:d.sampling};
     d.pendingRun=run;
     const [w,h]=run.res.split('x').map(Number),count=run.count-run.done,baseSeed=run.baseSeed+run.done,startIndex=run.startIndex+run.done,offset=run.done;
@@ -1034,8 +1084,8 @@ function setDsStatus(text, frac) {
 
 // Phone, Dataset: the dock carries the batch size and Generate & add while
 // the sheet is collapsed; it steps aside for the expanded sheet (whose footer
-// carries both), an open scene (until its close finishes), the introduction
-// and the tour. A press that starts a batch arms Cancel only after a short
+// carries both), an open scene (until its close finishes) and the
+// introduction. A press that starts a batch arms Cancel only after a short
 // delay, so a double tap cannot start and immediately stop the same batch.
 // Scene builds block the main thread, so a second tap can be delivered
 // seconds late: presses are timed by their pointerdown / keydown, and the
@@ -1045,7 +1095,7 @@ let dockArmedAt = 0, dockArmTimer = 0, dockPressAt = 0;
 function updateDock() {
   const dock = $('dsDock'); if (!dock || !stage) return;
   const d = state.dataset, busy = d.running || !!generating;
-  const on = mobileQuery.matches && state.mode === 'dataset' && !introUp && !state.tour.playing && !$('inspector').classList.contains('open') && $('sceneInspector').hidden;
+  const on = mobileQuery.matches && state.mode === 'dataset' && !introUp && !$('inspector').classList.contains('open') && $('sceneInspector').hidden;
   $('app').classList.toggle('dock-on', on);
   dock.classList.toggle('running', busy);
   syncCountControls();
@@ -1070,69 +1120,6 @@ function dockAction(e) {
   dockArmedAt = pressed + CANCEL_ARM_MS;
   clearTimeout(dockArmTimer); dockArmTimer = setTimeout(updateDock, CANCEL_ARM_MS + 20);
   datasetActions.generate();
-}
-
-// ------------------------------------------------------------ tour
-const wait = (ms) => new Promise((res) => {
-  let left = ms, last = performance.now();
-  const tick = () => {
-    if (!state.tour.playing) return res();
-    const now = performance.now();
-    if (!state.tour.paused) left -= now - last;
-    last = now;
-    $('tourProg').style.transform = `scaleX(${Math.max(0, Math.min(1, 1 - left / ms))})`;
-    if (left <= 0) res(); else setTimeout(tick, 50);
-  };
-  tick();
-});
-const P = (id) => PRESETS.find((p) => p.id === id);
-const TOUR = [
-  { t: 'Pressed powder', n: 'grain, pores, breakouts · 0.14 mm score · P10 deboss', run: async () => { await setMode('specimen'); await applyPreset(P('p10')); await stage.specimenFrame(stage.pill, { macro: true }); }, hold: 1600 },
-  { t: 'Shape is a parameter', n: 'same mesh, morphed vertex for vertex', run: () => applyPreset(P('inset')), hold: 2600 },
-  { t: 'Faces and edges', n: 'hexagon · cross score on both faces', run: () => applyPreset(P('hex')), hold: 2400 },
-  { t: 'Marks at any scale', n: 'crossed wordmark, conformal deboss', run: () => applyPreset(P('cross')), hold: 2400 },
-  { t: 'Damage is geometry', n: 'CSG chips and a tilted, wavy fracture', run: () => applyPreset(P('damaged')), hold: 2800 },
-  { t: 'Two shells, one instance', n: 'section plane · telescoping cap', run: () => applyPreset(P('cap22')), hold: 2600 },
-  { t: 'Light passes through', n: 'Beer–Lambert path through the fill', run: () => applyPreset(P('amber')), hold: 2800 },
-  { t: 'Into the tray', n: 'one moulded skin · seeded placement', run: () => setMode('tray'), hold: 3200 },
-  { t: 'What the dataset sees', n: 'instance IDs from a frozen pinhole pass', run: () => setLabels('instance'), hold: 3000 },
-  { t: 'Every scene is a new roll', n: 'container, cover, light, camera, contents', run: () => { setLabels('off'); trayActions.randomize(); }, hold: 3400 },
-];
-async function playTour() {
-  handles?.cancel();
-  if (state.dataset.running || generating) return;
-  state.tour = { playing: true, paused: false, step: 0 };
-  $('tourBtn').setAttribute('aria-pressed', 'true');
-  $('tourCap').classList.add('on');
-  $('readout').classList.add('hidden');
-  updateFab();
-  hideDims();
-  for (let i = 0; i < TOUR.length && state.tour.playing; i++) {
-    state.tour.step = i;
-    const s = TOUR[i];
-    $('tourTitle').textContent = s.t;
-    $('tourNote').textContent = `${String(i + 1).padStart(2, '0')}/${TOUR.length} · ${s.n}`;
-    $('tourProg').style.transform = 'scaleX(0)';
-    while (state.tour.paused && state.tour.playing) await new Promise((r) => setTimeout(r, 100));
-    await s.run();
-    await wait(s.hold);
-  }
-  stopTour();
-}
-function stopTour() {
-  if (!state.tour.playing) return;
-  state.tour.playing = false; state.tour.paused = false;
-  $('tourBtn').setAttribute('aria-pressed', 'false');
-  $('tourCap').classList.remove('on');
-  $('readout').classList.remove('hidden');
-  $('tourPause').textContent = 'Pause';
-  updateFab();
-  scheduleDims();
-}
-function pauseTour(force) {
-  if (!state.tour.playing) return;
-  state.tour.paused = force === true ? true : !state.tour.paused;
-  $('tourPause').textContent = state.tour.paused ? 'Resume' : 'Pause';
 }
 
 // ------------------------------------------------------------ mobile sheet
@@ -1171,7 +1158,6 @@ function samplePill() {
 let resampling = null;
 function resample() {
   if (state.mode === 'dataset' || state.dataset.running) return Promise.resolve(false);
-  stopTour();
   handles?.cancel();
   if (state.mode === 'tray') { trayActions.randomize(); return Promise.resolve(true); }
   // A specimen build is synchronous and then animates; further taps wait for it.
@@ -1193,11 +1179,11 @@ function resample() {
   return resampling;
 }
 // Shown on phones in Specimen and Tray while nothing else claims the bottom
-// of the render: not in Dataset, pill inspection, the tour, the introduction
-// or with the sheet expanded (its footer then carries Resample).
+// of the render: not in Dataset, pill inspection, the introduction or with
+// the sheet expanded (its footer then carries Resample).
 function updateFab() {
   const fab = $('fab'); if (!fab || !stage) return;
-  const on = mobileQuery.matches && (state.mode === 'specimen' || state.mode === 'tray') && !state.selected && !state.tour.playing && !introUp && !state.dataset.running && !$('inspector').classList.contains('open');
+  const on = mobileQuery.matches && (state.mode === 'specimen' || state.mode === 'tray') && !state.selected && !introUp && !state.dataset.running && !$('inspector').classList.contains('open');
   // Off, the card is visibility:hidden (display:none on desktop), which also
   // takes it out of focus order and the accessibility tree.
   $('app').classList.toggle('fab-on', on);
@@ -1220,12 +1206,9 @@ function liftChrome(px) {
 // ------------------------------------------------------------ input
 let hoverPill = null, down = null;
 function bindUI() {
-  for (const b of document.querySelectorAll('.modes button')) b.addEventListener('click', () => { stopTour(); setMode(b.dataset.mode); });
-  $('tourBtn').addEventListener('click', () => (state.tour.playing ? stopTour() : playTour()));
-  $('tourPause').addEventListener('click', () => pauseTour());
-  $('tourStop').addEventListener('click', () => stopTour());
+  for (const b of document.querySelectorAll('.modes button')) b.addEventListener('click', () => setMode(b.dataset.mode));
   $('resetBtn').addEventListener('click', resetView);
-  $('brandBtn').addEventListener('click', () => { stopTour(); handles?.cancel(); introUp = true; updateFab(); intro.show({ from: $('brandBtn'), returnFocus: $('brandBtn') }); });
+  $('brandBtn').addEventListener('click', () => { handles?.cancel(); introUp = true; updateFab(); intro.show({ from: $('brandBtn'), returnFocus: $('brandBtn') }); });
   const sheetOpen = () => $('inspector').classList.contains('open');
   $('sheetHandle').addEventListener('click', () => setSheet(!sheetOpen()));
   $('sheetHandle').addEventListener('keydown', (e) => { if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); setSheet(e.key === 'ArrowUp'); } });
@@ -1249,7 +1232,7 @@ function bindUI() {
   updateFab();
   $('inspTabs').addEventListener('keydown', (e) => { const id = tabArrow($('inspTabs'), e); if (id) setTab(id); });
   const modes = document.querySelector('.modes');
-  modes.addEventListener('keydown', (e) => { const m = tabArrow(modes, e, 'data-mode'); if (m) { stopTour(); setMode(m); } });
+  modes.addEventListener('keydown', (e) => { const m = tabArrow(modes, e, 'data-mode'); if (m) setMode(m); });
   initDataset();
   $('sheetOpt').append(toggle({ label: 'Label previews', get: () => state.dataset.showLabels, set: (v) => datasetActions.showLabels(v) }));
   const canvas = $('gl');
@@ -1261,7 +1244,7 @@ function bindUI() {
     if (moved > 6) return;
     if (state.mode !== 'tray') { closeSheetIfMobile(); return; }
     const pill = stage.pick(e.clientX, e.clientY);
-    if (pill) { stopTour(); select(pill); }
+    if (pill) select(pill);
     else if (state.selected) deselect();
     else closeSheetIfMobile();
   });
@@ -1279,9 +1262,7 @@ function bindUI() {
     if (k === '1') setMode('specimen');
     else if (k === '2') setMode('tray');
     else if (k === '3') setMode('dataset');
-    else if (k === 't') state.tour.playing ? stopTour() : playTour();
-    else if (k === ' ' && state.tour.playing) { e.preventDefault(); pauseTour(); }
-    else if (k === 'escape') { if (state.tour.playing) stopTour(); else if (state.selected) deselect(); else closeSheetIfMobile(); }
+    else if (k === 'escape') { if (state.selected) deselect(); else closeSheetIfMobile(); }
     else if (k === 'r' && !e.metaKey && !e.ctrlKey && (state.mode === 'specimen' || state.mode === 'tray')) resample();
     else if (k === 'l' && state.mode === 'tray') { const order = ['off', 'instance', 'semantic']; setLabels(order[(order.indexOf(state.labels) + 1) % 3]); renderInspector(); }
     else if ((k === ']' || k === '[') && state.mode === 'specimen') { const i = Math.max(0, PRESETS.findIndex((p) => p.id === state.presetId)); applyPreset(PRESETS[(i + (k === ']' ? 1 : PRESETS.length - 1)) % PRESETS.length]); }
@@ -1329,5 +1310,5 @@ function labelsHash() {
   for (let i = 0; i < l.raw.length; i++) { h ^= l.raw[i]; h = Math.imul(h, 16777619); }
   return (h >>> 0).toString(16) + ':' + l.boxes.length;
 }
-window.__atelier.api = { intro, get inspector() { return sceneInspector; }, get collection() { return collection; }, labelsHash, floorMask, view: namedView, applyPresetById: (id) => applyPreset(PRESETS.find((p) => p.id === id)), setMode, applyPreset, setLabels, trayActions, resample, updateFab, datasetActions, select, deselect, playTour, stopTour, pauseTour, refreshLabels, setTab, setSheet, tabState, state, SEMANTIC };
-boot().catch((e) => { console.error(e); intro.abort(); introHold = false; document.getElementById('boot').innerHTML = `<span style="font-size:18px">WebGL 2 is required (${e.message})</span>`; });
+window.__atelier.api = { intro, get inspector() { return sceneInspector; }, get collection() { return collection; }, labelsHash, floorMask, view: namedView, applyPresetById: (id) => applyPreset(PRESETS.find((p) => p.id === id)), setMode, applyPreset, setLabels, trayActions, resample, updateFab, datasetActions, select, deselect, refreshLabels, setTab, setSheet, tabState, state, SEMANTIC };
+boot().catch(bootFailed);

@@ -2,7 +2,7 @@
 // opens before the workbench is revealed, fits or scrolls with its last line
 // visible, traps focus, blocks workbench shortcuts and pointer input, closes
 // on Escape without a camera jump, leaves the workbench usable, reopens from
-// the rail mark with focus restored, enters the tour, and honours reduced
+// the rail mark with focus restored, offers one action, and honours reduced
 // motion. No console errors, no network. Screenshots, a recording of the
 // entrance and exit and intro-qa.json go to qa/intro/shots/.
 //
@@ -63,10 +63,10 @@ for (const [name, w, h] of V) {
   for (let i = 0; i < 8; i++) { await page.keyboard.press('Shift+Tab'); trapped &&= await inDialog(page); }
   r.focusTrap = trapped; check(trapped, `${name}: focus left the dialog`);
   // Workbench shortcuts and pointer are blocked.
-  const before = await page.evaluate(() => ({ mode: window.__atelier.state.mode, tour: window.__atelier.state.tour.playing, presetId: window.__atelier.state.presetId }));
+  const before = await page.evaluate(() => ({ mode: window.__atelier.state.mode, presetId: window.__atelier.state.presetId }));
   for (const k of ['2', '3', 't', 'r', 'l', ']', '0']) await page.keyboard.press(k);
   await page.waitForTimeout(150);
-  const afterKeys = await page.evaluate(() => ({ mode: window.__atelier.state.mode, tour: window.__atelier.state.tour.playing, presetId: window.__atelier.state.presetId }));
+  const afterKeys = await page.evaluate(() => ({ mode: window.__atelier.state.mode, presetId: window.__atelier.state.presetId }));
   r.shortcutsBlocked = JSON.stringify(before) === JSON.stringify(afterKeys); check(r.shortcutsBlocked, `${name}: shortcut reached the workbench ${JSON.stringify(afterKeys)}`);
   r.pointerBlocked = await page.evaluate(() => { const t = document.querySelector('.modes button[data-mode="tray"]').getBoundingClientRect(), e = document.elementFromPoint(t.left + t.width / 2, t.top + t.height / 2); return document.getElementById('intro').contains(e); });
   check(r.pointerBlocked, `${name}: workbench control reachable by pointer`);
@@ -96,10 +96,9 @@ for (const [name, w, h] of V) {
   await page.click('#introGo'); await page.waitForTimeout(700);
   r.reopen = { ...reopened, returned: await page.evaluate(() => document.activeElement?.id) };
   check(reopened.open && reopened.focus && r.reopen.returned === 'brandBtn', `${name}: reopen ${JSON.stringify(r.reopen)}`);
-  // Tour from the sheet.
-  await page.click('#brandBtn'); await page.waitForTimeout(900); await page.click('#introTour'); await page.waitForTimeout(700);
-  r.tour = await page.evaluate(() => window.__atelier.state.tour.playing); check(r.tour, `${name}: tour did not start`);
-  await page.evaluate(() => window.__atelier.api.stopTour());
+  // One action in the sheet, and no tour anywhere.
+  r.actions = await page.evaluate(() => [...document.querySelectorAll('.intro-actions button')].map((b) => b.id));
+  check(JSON.stringify(r.actions) === '["introGo"]' && !(await page.$('#tourBtn, #tourCap, #introTour')), `${name}: intro actions ${JSON.stringify(r.actions)}`);
   r.log = log; check(!log.errors.length && !log.requests.length, `${name}: errors/requests ${JSON.stringify(log)}`);
   report.viewports[name] = r; await ctx.close();
   console.log(name, JSON.stringify({ fit: r.fit, camera: r.camera, workbench: r.workbench }));

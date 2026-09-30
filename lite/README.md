@@ -18,9 +18,9 @@ Labels come from a separate pinhole pass of the same frozen scene and camera. Th
 
 ## Introduction and controls
 
-An introduction sheet opens on every load: what Lite is, the three modes, and what separates it from the full generator. **Open the workbench**, Esc, the close button or a click outside it dismisses it; **Play the tour** starts the guided tour instead. The mark at the top of the rail reopens it. With reduced motion the sheet appears and closes without animation, and the camera does not move. For automated tests only, `?no-intro` skips the sheet.
+An introduction sheet opens on every load: what Lite is, the three modes, and what separates it from the full generator. **Open the workbench**, Esc, the close button or a click outside it dismisses it. The mark at the top of the rail reopens it. With reduced motion the sheet appears and closes without animation, and the camera does not move. For automated tests only, `?no-intro` skips the sheet.
 
-Keys: `1` `2` `3` modes · `[` `]` preset · `T` tour · `Space` pause tour · `R` resample the pill or tray scene · `L` label view · `0` reset view · `Esc` stop tour, leave pill inspection or collapse the phone sheet. On phones the rail becomes a top bar with the three modes, the panel a bottom sheet you drag or tap between two states, and Resample floats above the collapsed sheet; the tour starts from the introduction.
+Keys: `1` `2` `3` modes · `[` `]` preset · `R` resample the pill or tray scene · `L` label view · `0` reset view · `Esc` leave pill inspection or collapse the phone sheet. On phones the rail becomes a top bar with the three modes, the panel a bottom sheet you drag or tap between two states, and Resample floats above the collapsed sheet.
 
 ## Saved collections
 

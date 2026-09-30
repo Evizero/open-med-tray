@@ -1,5 +1,5 @@
 // Functional QA (desktop): sliders change geometry, presets/families, section
-// transition, selection + return, randomize determinism, keyboard, tour pause,
+// transition, selection + return, randomize determinism, keyboard, no tour,
 // label overlay. Writes qa/functional.json and screenshots.
 import { withPage, settle } from './harness.mjs';
 import { writeFileSync } from 'node:fs';
@@ -71,18 +71,10 @@ await withPage(async (page, log) => {
   await page.screenshot({ path: 'qa/screens/tray-labels-semantic.png' });
   ok('label overlay visible', await ev(() => getComputedStyle(document.getElementById('labelLayer')).opacity > .5), {});
   await ev(() => window.__atelier.api.setLabels('off'));
-  // 7. Tour: plays, pause holds, stop restores.
-  await ev(() => { window.__atelier.api.playTour(); });
-  await page.waitForTimeout(2500);
-  await page.keyboard.press(' ');
-  const st1 = await ev(() => ({ ...window.__atelier.state.tour }));
-  await page.waitForTimeout(3000);
-  const st2 = await ev(() => ({ ...window.__atelier.state.tour }));
-  ok('tour pauses on Space and holds its step', st1.playing && st1.paused && st1.step === st2.step, { st1, st2 });
-  await page.keyboard.press(' '); await page.waitForTimeout(6000);
-  await page.screenshot({ path: 'qa/screens/tour-running.png' });
-  await ev(() => window.__atelier.api.stopTour());
-  ok('tour stops', await ev(() => !window.__atelier.state.tour.playing), {});
+  // 7. No tour: no controls, and T is not a shortcut.
+  const modeBeforeT = await ev(() => window.__atelier.state.mode);
+  await page.keyboard.press('t'); await page.waitForTimeout(300);
+  ok('no tour controls or shortcut', await ev(() => !document.querySelector('#tourBtn, #tourCap, #introTour') && !('tour' in window.__atelier.state) && !('playTour' in window.__atelier.api)) && await ev(() => window.__atelier.state.mode) === modeBeforeT, {});
   // 8. Idle: GPU loop stops when converged.
   await settle(page, 60000).catch(() => {});
   await page.waitForTimeout(1500);

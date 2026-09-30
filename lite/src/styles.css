@@ -88,8 +88,8 @@ html.dim-dragging #gl { cursor: inherit !important; }
 .brand:hover { background: var(--fill-2); }
 .brand:focus-visible { outline-offset: -2px; }
 .brand svg { width: 36px; height: 19.2px; display: block; }
-.brand .tray, .boot-lockup .tray { fill: var(--brand-navy); }
-.brand .capsule, .boot-lockup .capsule { fill: var(--brand-blue); }
+.brand .tray { fill: var(--brand-navy); }
+.brand .capsule { fill: var(--brand-blue); }
 .modes { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 0 6px; }
 .modes button, .icon-btn { width: 100%; height: 52px; border: 0; background: transparent; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; color: var(--ink-2); font-size: 10px; font-weight: 500; letter-spacing: .005em; line-height: 12px; position: relative; padding: 0; transition: background .15s, color .15s; }
 .modes button svg, .icon-btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
@@ -304,7 +304,6 @@ details.adv > summary:focus-visible { outline-offset: 0; }
 
 /* ---------- status bar (desktop) / readout line (phone) ---------- */
 .readout { position: absolute; left: calc(var(--rail-w) + var(--panel-w)); right: 0; bottom: 0; height: var(--status-h); display: flex; align-items: center; gap: 14px; padding: 0 12px; background: var(--panel); border-top: 1px solid var(--hair); pointer-events: none; z-index: 3; font-family: var(--mono); font-size: 10.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; transition: opacity .25s; }
-.readout.hidden { opacity: 0; }
 .scalebar { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; color: var(--ink); }
 .scalebar .bar { display: inline-block; height: 5px; border: 1.5px solid var(--ink); border-top: 0; }
 .readout .caption { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
@@ -312,17 +311,6 @@ details.adv > summary:focus-visible { outline-offset: 0; }
 .readout .sep { color: var(--ink-3); }
 .status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); margin: 0 5px 0 0; vertical-align: 1px; transition: background .3s; }
 .status-dot.live { background: var(--accent); }
-
-/* ---------- tour strip ---------- */
-.tour-cap { position: absolute; left: calc(var(--rail-w) + var(--panel-w)); right: 0; bottom: var(--peek); height: 48px; z-index: 6; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 14px; background: var(--panel); border-top: 1px solid var(--hair); transform: translateY(100%); opacity: 0; pointer-events: none; transition: transform .3s var(--ease), opacity .3s var(--ease); }
-.tour-cap.on { transform: none; opacity: 1; pointer-events: auto; }
-.tour-cap .progress { position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: transparent; overflow: hidden; }
-.tour-cap .progress i { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
-.tour-txt { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 10px; }
-.tour-cap .t { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 0 1 auto; }
-.tour-cap .n { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.tour-btn { border: 1px solid var(--hair-2); background: var(--white); border-radius: var(--r); height: 30px; padding: 0 12px; font-size: 12px; font-weight: 500; flex: 0 0 auto; }
-.tour-btn:hover { border-color: var(--ink-3); }
 
 /* ---------- dataset collection: indexed frames on a technical canvas ---------- */
 /* The canvas is a cooler, darker ground than the panel so white frames read as
@@ -570,11 +558,7 @@ details.adv > summary:focus-visible { outline-offset: 0; }
 
 .toast { position: absolute; left: calc(var(--rail-w) + var(--panel-w) + (100vw - var(--rail-w) - var(--panel-w)) / 2); top: 14px; transform: translate(-50%, -8px); background: var(--ink); color: var(--white); padding: 7px 12px; border-radius: var(--r); font-size: 12px; opacity: 0; transition: opacity .25s, transform .25s; z-index: 10; pointer-events: none; white-space: nowrap; }
 .toast.on { opacity: 1; transform: translate(-50%, 0); }
-.boot { position: absolute; inset: 0; display: grid; place-items: center; background: var(--bg); z-index: 20; transition: opacity .5s var(--ease); }
-.boot-lockup { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; letter-spacing: -.003em; color: #0c2740; }
-.boot-lockup svg { width: 36px; height: 19.2px; display: block; }
-.boot-lockup em { font-style: normal; font-weight: 500; color: var(--accent); }
-.boot.gone { opacity: 0; pointer-events: none; }
+/* The startup cover (.boot) is styled at the top of index.html, ahead of these styles. */
 
 /* ---------- phone: top bar, two-state bottom sheet ---------- */
 @media (max-width: 760px) {
@@ -584,8 +568,8 @@ details.adv > summary:focus-visible { outline-offset: 0; }
      home-indicator inset.
      --fab-reserve keeps the framed render clear of the floating Resample card. */
   :root { --top-h: calc(56px + env(safe-area-inset-top, 0px)); --rail-w: 0px; --panel-w: 0px; --head-h: 48px; --tabs-h: 45px; --foot-h: 60px; --peek-base: 70px; --peek: calc(var(--peek-base) + env(safe-area-inset-bottom, 0px)); --fab-reserve: 62px; --dock-w: 296px; --dock-h: 106px; --dock-gap: 12px; --sheet-h: min(62svh, 560px); --pad: 16px; --thumb: 20px; }
-  /* Mark plus the three modes, on one even rhythm. Tour and reset view live
-     in the introduction and the Resample card on phones. */
+  /* Mark plus the three modes, on one even rhythm. Reset view lives in the
+     Resample card on phones. */
   .rail { top: 0; left: 0; right: 0; bottom: auto; width: auto; height: var(--top-h); flex-direction: row; align-items: center; padding: env(safe-area-inset-top, 0px) calc(8px + env(safe-area-inset-right, 0px)) 0 calc(8px + env(safe-area-inset-left, 0px)); gap: 4px; border-right: 0; border-bottom: 1px solid var(--hair); }
   .brand { flex: 0 0 52px; width: 52px; height: 44px; border-radius: 10px; }
   .modes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); flex: 1 1 auto; padding: 0; gap: 4px; width: auto; min-width: 0; }
@@ -611,7 +595,7 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .switch { width: 40px; height: 24px; border-radius: 12px; }
   .switch::after { width: 20px; height: 20px; }
   .switch[aria-checked="true"]::after { transform: translateX(16px); }
-  .btn, .tour-btn, .stepper { height: 38px; }
+  .btn, .stepper { height: 38px; }
   .insp-foot .btn.icon { flex-basis: 40px; width: 40px; }
   .stepper button { width: 38px; }
   .txt input { height: 36px; }
@@ -696,10 +680,6 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .tile .cap { gap: 6px; height: 34px; }
   .tile .sub { font-size: 10.5px; }
   .tile .sub > span:nth-child(3):not(.tag) { display: none; }
-  .tour-cap { left: 0; right: 0; padding-left: 12px; height: 56px; }
-  .tour-txt { flex-direction: column; align-items: flex-start; gap: 1px; }
-  .tour-cap .t { max-width: 100%; }
-  .tour-cap .n { max-width: 100%; }
   .toast { left: 50%; top: calc(var(--top-h) + 10px); }
   .dataset-mode .insp-foot { flex-basis: 108px; height: 108px; grid-template-rows: 38px 38px; padding: 10px var(--pad); }
   /* Inspector: full-screen page with its own back bar; content scrolls as one column. */
@@ -824,10 +804,7 @@ details.adv > summary:focus-visible { outline-offset: 0; }
 .intro-go:hover { background: var(--accent-hover); }
 .intro-go svg { width: 16px; height: 16px; transition: transform .25s var(--ease); }
 .intro-go:hover svg { transform: translateX(3px); }
-.intro-tour { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 12px; border: 0; border-radius: 8px; background: none; color: var(--accent); font-size: 14.5px; font-weight: 500; white-space: nowrap; transition: background .15s; }
-.intro-tour:hover { background: var(--accent-soft); }
-.intro-tour svg { width: 13px; height: 13px; }
-.intro-go:focus-visible, .intro-tour:focus-visible, .intro-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.intro-go:focus-visible, .intro-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .intro-x { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--i-muted); transition: background .15s, color .15s; z-index: 1; }
 .intro-x:hover { background: rgba(12, 39, 64, .06); color: var(--i-ink); }
 .intro-x svg { width: 16px; height: 16px; }
@@ -856,7 +833,7 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .intro-modes li { padding-top: 10px; }
   .intro-lite { margin-top: 18px; padding-top: 12px; }
   .intro-actions { padding: 10px 28px 12px; }
-  .intro-go, .intro-tour { height: 42px; }
+  .intro-go { height: 42px; }
   .intro-plate-cap { left: 14px; right: 14px; top: 12px; }
   .intro-plate-cap span:last-child { display: none; }
 }
@@ -877,15 +854,14 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .intro-modes span { font-size: 12.5px; }
   .intro-modes kbd { display: none; }
   .intro-lite { margin-top: 22px; }
-  .intro-actions { padding: 12px 24px calc(18px + env(safe-area-inset-bottom)); gap: 6px 4px; justify-content: center; }
-  .intro-go { flex: 1 1 auto; height: 50px; font-size: 15.5px; }
-  .intro-tour { height: 50px; padding: 0 14px; }
+  .intro-actions { padding: 12px 24px calc(18px + env(safe-area-inset-bottom)); }
+  .intro-go { flex: 1 1 100%; height: 50px; font-size: 15.5px; }
   .intro-x { top: 10px; right: 10px; width: 40px; height: 40px; color: rgba(214, 234, 252, .85); }
   .intro-x:hover { background: rgba(255, 255, 255, .1); color: #fff; }
   .intro-x:focus-visible { outline-color: var(--i-sky); outline-offset: 0; }
   .intro-plate-cap { left: 18px; right: 64px; top: 16px; }
 }
-/* Narrow phones: modes stack as compact lines; tour becomes an icon + word below. */
+/* Narrow phones: modes stack as compact lines. */
 @media (max-width: 360px) and (max-aspect-ratio: 1/1) {
   .intro-sheet { grid-template-rows: clamp(112px, 20svh, 140px) minmax(0, 1fr); }
   .intro-plate-cap span:last-child { display: none; }
@@ -898,8 +874,6 @@ details.adv > summary:focus-visible { outline-offset: 0; }
   .intro-modes span { grid-column: auto; }
   .intro-lite { margin-top: 12px; }
   .intro-actions { padding-left: 20px; padding-right: 20px; }
-  .intro-go { flex-basis: 100%; }
-  .intro-tour { height: 40px; margin: 0 auto; }
 }
 @media (hover: none) { .intro-modes kbd { display: none; } }
 @media (prefers-reduced-motion: reduce) {

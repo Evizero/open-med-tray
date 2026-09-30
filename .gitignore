@@ -48,6 +48,8 @@ blender/fonts/**/*.ttf
 
 /lite/qa/*
 !/lite/qa/harness.mjs
+!/lite/qa/boot-loader.mjs
+!/lite/qa/no-tour.mjs
 !/lite/qa/functional.mjs
 !/lite/qa/dataset.mjs
 !/lite/qa/mobile.mjs

@@ -35,7 +35,7 @@ const probe = (page) => page.evaluate(() => {
     footResample: [...document.querySelectorAll('#inspFoot .resample')].map((b) => ({ text: b.textContent.trim(), cls: b.className, first: b === b.parentElement.firstElementChild, visible: vis(b) })),
     anyNewScene: document.body.innerText.includes('New scene'),
     cam: a.stage.camera.position.toArray().map((v) => +v.toFixed(4)),
-    tour: st.tour.playing, busy: document.getElementById('app').classList.contains('resampling') || a.stage.animations.size > 0 || !!a.stage.section,
+    busy: document.getElementById('app').classList.contains('resampling') || a.stage.animations.size > 0 || !!a.stage.section,
   };
 });
 const navProbe = (page) => page.evaluate(() => {
@@ -300,18 +300,15 @@ async function phoneRun(w, h, tag, { full }) {
       await page.setViewportSize({ width: w, height: h });
       await page.waitForTimeout(600);
 
-      // Tour: no card while it plays; Resample (R) stops it.
-      await page.evaluate(() => { window.__atelier.api.playTour(); });
-      await page.waitForTimeout(3000);
+      // Resample (R) samples a new pill with the card on.
       s = await probe(page);
-      ok(`${tag}: card hidden while the tour plays`, s.tour && !s.fabVisible, { tour: s.tour, fab: s.fabVisible });
       const specT = s.spec;
       await page.keyboard.press('r');
       await page.waitForTimeout(100); await waitIdle(page, 20000);
       s = await probe(page);
-      ok(`${tag}: Resample stops the tour and samples`, !s.tour && s.fabOn && s.sampled && JSON.stringify(s.spec) !== JSON.stringify(specT), { tour: s.tour, fabOn: s.fabOn, sampled: s.sampled });
+      ok(`${tag}: R resamples with the card on`, s.fabOn && s.sampled && JSON.stringify(s.spec) !== JSON.stringify(specT), { fabOn: s.fabOn, sampled: s.sampled });
 
-      // Introduction: the mark opens it (and its tour); no card under it.
+      // Introduction: the mark opens it; no card under it.
       await page.tap('#brandBtn'); await page.waitForTimeout(900);
       s = await probe(page);
       const introOpen = await page.evaluate(() => window.__atelier.api.intro.open);
@@ -376,7 +373,7 @@ async function phoneRun(w, h, tag, { full }) {
       await settle(page).catch(() => {});
       await shot(page, `after-${h}x${w}-landscape`);
     } else {
-      ok(`${tag} landscape ${h}x${w}: desktop layout, no card, rail keeps Tour and Reset`, !s.fabVisible && n.ids.includes('tourBtn') && n.ids.includes('resetBtn'), { fab: s.fabVisible, ids: n.ids });
+      ok(`${tag} landscape ${h}x${w}: desktop layout, no card, rail keeps Reset`, !s.fabVisible && !n.ids.includes('tourBtn') && n.ids.includes('resetBtn'), { fab: s.fabVisible, ids: n.ids });
       await settle(page).catch(() => {});
       await shot(page, `after-${h}x${w}-landscape`);
     }
@@ -451,7 +448,7 @@ await withPage(async (page, log) => {
   await page.waitForTimeout(4200); await settle(page).catch(() => {});
   const n = await navProbe(page);
   let s = await probe(page);
-  ok('desktop: rail keeps mark, modes, Tour and Reset', JSON.stringify(n.ids) === JSON.stringify(['brandBtn', 'specimen', 'tray', 'dataset', 'tourBtn', 'resetBtn']), n.ids);
+  ok('desktop: rail keeps mark, modes and Reset', JSON.stringify(n.ids) === JSON.stringify(['brandBtn', 'specimen', 'tray', 'dataset', 'resetBtn']), n.ids);
   checkPanel('desktop specimen', await panelProbe(page), { mobile: false });
   ok('desktop specimen: preset list keeps its miniatures', (await panelProbe(page)).presetMinis === 16);
   ok('desktop: no floating card', !s.fabVisible && (await page.evaluate(() => getComputedStyle(document.getElementById('fab')).display)) === 'none');

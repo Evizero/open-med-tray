@@ -35,7 +35,6 @@ export function createIntro({ reduced, getSpec, onClose }) {
   dlg.addEventListener('close', () => { if (isOpen) finish(closing?.action ?? 'close'); });
   dlg.querySelector('.intro-veil').addEventListener('click', () => hide('close'));
   document.getElementById('introGo').addEventListener('click', () => hide('enter'));
-  document.getElementById('introTour').addEventListener('click', () => hide('tour'));
   document.getElementById('introClose').addEventListener('click', () => hide('close'));
   const scroller = sheet.querySelector('.intro-scroll'), main = sheet.querySelector('.intro-main');
   // The actions' rule and shadow appear only while copy is hidden beneath them.
@@ -79,7 +78,7 @@ export function createIntro({ reduced, getSpec, onClose }) {
     requestAnimationFrame(() => { dlg.classList.add('shown'); dlg.classList.remove('entering'); });
   }
 
-  // action: 'enter' (primary), 'tour', or 'close' (Esc, close button, veil).
+  // action: 'enter' (primary) or 'close' (Esc, close button, veil).
   function hide(action) {
     if (!isOpen || closing) return;
     closing = { action };
@@ -105,7 +104,7 @@ export function createIntro({ reduced, getSpec, onClose }) {
       run(ghost, [{ transform: 'none', opacity: 1 }, { opacity: 1, offset: .85 }, { transform: `translate(${mi.left - lr.left}px, ${mi.top - lr.top}px) scale(${k})`, opacity: 0 }], { duration: 460, easing: IN_OUT });
       mark.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.1)', offset: .4 }, { transform: 'scale(1)' }], { duration: 360, delay: 380, easing: 'ease-out' });
     }
-    // The workbench reacts now (camera pull-back, tour), under the fold.
+    // The workbench reacts now (camera pull-back), under the fold.
     closing.notified = true;
     onClose?.(action);
     setTimeout(() => { if (dlg.open) dlg.close(); else finish(action); }, 470);

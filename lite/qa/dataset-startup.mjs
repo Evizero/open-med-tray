@@ -30,10 +30,9 @@ await withPage(async (page, log) => {
       const generation = api.datasetActions.generate();
       await held.ready;
       await api.setMode('specimen');
-      await api.playTour();
       await api.datasetActions.remove(name);
       api.datasetActions.inspect(name);
-      const pending = { ...buttons(), mode: a.state.mode, tour: a.state.tour.playing, names: d.scenes.map((s) => s.name), running: d.running };
+      const pending = { ...buttons(), mode: a.state.mode, names: d.scenes.map((s) => s.name), running: d.running };
       api.inspector.close({ instant: true });
       const stop = setInterval(() => { if (d.running) api.datasetActions.cancel(); }, 0);
       try { held.release({}); await generation; } finally { clearInterval(stop); }
@@ -57,7 +56,6 @@ await withPage(async (page, log) => {
   assert.equal(result.afterSuccess.deleteLocked, false);
   assert.equal(result.pending.running, false, 'probe must target startup before rendering');
   assert.equal(result.pending.mode, 'dataset');
-  assert.equal(result.pending.tour, false);
   assert.deepEqual(result.pending.names, [result.name]);
   assert.equal(result.pending.countLocked, true);
   assert.equal(result.pending.deleteLocked, true);
@@ -77,5 +75,5 @@ await withPage(async (page, log) => {
   assert.equal(result.afterError.deleteLocked, false);
   assert.equal(result.finalMode, 'specimen');
   assert.deepEqual(log.errors, []);
-  console.log('PASS: pending batch blocks mode/tour/delete; count and delete controls unlock after success, cancellation, lock refusal and error');
+  console.log('PASS: pending batch blocks mode/delete; count and delete controls unlock after success, cancellation, lock refusal and error');
 }, { width: 390, height: 844, mobile: true, timeout: 90000 });

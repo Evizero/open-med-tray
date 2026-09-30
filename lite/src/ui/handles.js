@@ -172,7 +172,7 @@ export class DimHandles {
     this.h.update((x) => d.p.write(x, v));
   }
 
-  // Abandon a gesture from outside (mode change, tour, blur): restore.
+  // Abandon a gesture from outside (mode change, introduction, blur): restore.
   cancel() { if (this.drag) this.end(false); }
 
   // commit = true on release; false for Escape, pointercancel, lost capture,

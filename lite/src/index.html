@@ -27,11 +27,106 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","@id":"https://evizero.github.io/open-med-tray/lite/#app","name":"Open Med Tray Lite","url":"https://evizero.github.io/open-med-tray/lite/","description":"Shape pills, arrange medication trays and generate labelled synthetic scenes in your browser. Export images, instance masks and class labels. No install needed.","applicationCategory":"DeveloperApplication","operatingSystem":"Any platform with a WebGL 2 browser","browserRequirements":"JavaScript and WebGL 2 enabled","image":"https://evizero.github.io/open-med-tray/assets/open-med-tray-social.jpg","isPartOf":{"@id":"https://evizero.github.io/open-med-tray/#software","name":"Open Med Tray","url":"https://evizero.github.io/open-med-tray/"}}</script>
 <meta name="application-name" content="Open Med Tray Lite">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22#0E3A66%22/%3E%3Cg transform=%22translate(4.48 17.323) scale(0.45867)%22%3E%3Cpath fill=%22#FFFFFF%22 d=%22M2.59 35A1 1 0 0 1 1.69 33.57L14.53 6.81A12 12 0 0 1 25.35 0L94.65 0A12 12 0 0 1 105.47 6.81L118.31 33.57A1 1 0 0 1 117.41 35L104.63 35A1 1 0 0 1 103.73 34.43L93.64 13.42A2.5 2.5 0 0 0 91.39 12L28.61 12A2.5 2.5 0 0 0 26.36 13.42L16.27 34.43A1 1 0 0 1 15.37 35Z%22/%3E%3Cpath fill=%22#FFFFFF%22 d=%22M0 44A1.5 1.5 0 0 1 1.5 42.5L18.88 42.5A6 6 0 0 1 23.79 45.06L27.56 50.44A6 6 0 0 0 32.47 53L87.53 53A6 6 0 0 0 92.44 50.44L96.21 45.06A6 6 0 0 1 101.12 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z%22/%3E%3Cpath fill=%22#FFFFFF%22 d=%22M60 21V47H45A13 13 0 0 1 45 21Z%22/%3E%3Cpath fill=%22#6CB6F2%22 d=%22M60 21H75A13 13 0 0 1 75 47H60Z%22/%3E%3C/g%3E%3C/svg%3E">
-<style>/*@FONTS@*/</style>
-<style>/*@CSS@*/</style>
+<!-- Startup cover styles: the first bytes of the page, so the cover paints
+     before the embedded fonts, styles and script (megabytes) stream in.
+     Self-contained: system type until the embedded faces arrive. -->
+<style>
+.boot { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; overflow: auto; padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); background: #f1f1ee; color: #0c2740; font: 400 12px/1.4 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; transition: opacity .5s cubic-bezier(.2, .7, .15, 1); }
+.boot[hidden] { display: none; }
+.boot.gone { opacity: 0; pointer-events: none; }
+.boot-col { display: flex; flex-direction: column; align-items: center; width: min(240px, 100%); }
+/* Same box as the introduction's lockup, which flies out of this one. */
+.boot-lockup { display: inline-flex; align-items: center; gap: 10px; height: 24px; font-size: 15px; font-weight: 600; letter-spacing: -.003em; color: #0c2740; white-space: nowrap; }
+.boot-lockup svg { width: 36px; height: 19.2px; display: block; flex: 0 0 auto; overflow: visible; }
+.boot-lockup .tray { fill: #0e3a66; }
+.boot-lockup .capsule { fill: #3d95de; }
+.boot-lockup em { font-style: normal; font-weight: 500; color: #1b64be; }
+/* Caliper line: an indeterminate sweep while the file streams and scripts
+   compile (compositor-only, so it keeps moving through long tasks); the fill
+   counts completed startup steps. */
+.boot-track { position: relative; width: 100%; height: 2px; margin-top: 22px; border-radius: 1px; background: rgba(12, 39, 64, .1); overflow: hidden; }
+.boot-track i { position: absolute; top: 0; bottom: 0; left: 0; }
+.boot-fill { right: 0; background: #1b64be; transform-origin: 0 50%; transform: scaleX(var(--boot-done, 0)); transition: transform .45s cubic-bezier(.2, .7, .15, 1); }
+.boot-sweep { width: 36%; background: linear-gradient(90deg, rgba(108, 182, 242, 0), #6cb6f2 60%, rgba(108, 182, 242, 0)); transform: translateX(-100%); }
+.boot-status { display: flex; justify-content: space-between; gap: 12px; width: 100%; margin: 10px 0 0; font: 400 11px/16px "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: .01em; color: #5d6874; white-space: nowrap; }
+.boot-status span:first-child { overflow: hidden; text-overflow: ellipsis; }
+.boot-meta { color: #8b95a0; font-variant-numeric: tabular-nums; }
+.js .boot-lockup .capsule { animation: boot-settle .75s cubic-bezier(.2, .7, .15, 1) .1s both; }
+.js .boot-sweep { animation: boot-sweep 1.6s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes boot-settle { from { opacity: 0; transform: translateY(-22px); } }
+@keyframes boot-sweep { to { transform: translateX(280%); } }
+.boot.gone .boot-track, .boot.gone .boot-status { opacity: 0; transition: opacity .16s ease-out; }
+/* Failure: text and a retry, never a spinner that keeps going. */
+.boot-fail, .boot-nojs { display: none; margin: 22px 0 0; text-align: center; }
+.boot.failed .boot-col { width: min(360px, 100%); }
+.boot.failed .boot-fail, .boot-nojs { display: block; }
+.boot.failed .boot-track, .boot.failed .boot-status, html:not(.js) .boot-track, html:not(.js) .boot-status { display: none; }
+.boot-fail-title { margin: 0; font-size: 17px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em; color: #0c2740; }
+.boot-fail p:not(.boot-fail-title), .boot-nojs { margin: 8px 0 0; font-size: 13.5px; line-height: 1.5; color: #3a4757; text-wrap: pretty; }
+.boot-fail code { display: block; margin-top: 12px; padding: 8px 10px; max-height: 7.5em; overflow: auto; border-radius: 6px; background: rgba(12, 39, 64, .06); font: 400 11px/1.45 "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace; color: #3a4757; text-align: left; overflow-wrap: anywhere; }
+.boot-fail code:empty { display: none; }
+.boot-fail button { margin-top: 18px; min-width: 44px; height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: #1b64be; color: #fff; font: 500 14px/1 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif; cursor: pointer; }
+.boot-fail button:hover { background: #154f98; }
+.boot-fail button:focus-visible { outline: 2px solid #1b64be; outline-offset: 3px; }
+@media (max-width: 760px) and (max-aspect-ratio: 1/1) { .boot-lockup { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  .boot *, .boot *::before, .boot *::after { animation: none !important; }
+  .boot-sweep { display: none; }
+}
+</style>
+<script>
+// Startup cover state shared with main.js. The failure panel is filled here so
+// it also works when the bundle never runs (script error, outdated browser).
+(function () {
+  var boot = window.__liteBoot = { started: false, failed: false, error: '' };
+  document.documentElement.classList.add('js');
+  var COPY = {
+    graphics: ["This browser can't draw the 3D workbench", 'Open Med Tray Lite needs WebGL 2. Turn on hardware acceleration in the browser settings, or open this file in a current Chrome, Edge, Firefox or Safari.'],
+    error: ["The workbench didn't start", 'Startup stopped at: %s. The browser console has the full error.'],
+    script: ["The workbench didn't start", 'This browser could not run Open Med Tray Lite. Open the file in a current Chrome, Edge, Firefox or Safari.'],
+  };
+  // kind: 'graphics' | 'error' | 'script'. All text is set as text, never markup.
+  boot.fail = function (kind, detail, step) {
+    var el = document.getElementById('boot'), copy = COPY[kind] || COPY.error;
+    if (!el || boot.failed) return;
+    boot.failed = true;
+    document.getElementById('bootFailTitle').textContent = copy[0];
+    document.getElementById('bootFailText').textContent = copy[1].replace('%s', (step || 'startup').toLowerCase());
+    document.getElementById('bootFailDetail').textContent = detail ? String(detail).slice(0, 400) : '';
+    el.hidden = false;
+    el.classList.remove('gone');
+    el.classList.add('failed');
+    el.removeAttribute('aria-busy');
+    var retry = document.getElementById('bootRetry');
+    retry.onclick = function () { location.reload(); };
+    retry.focus();
+  };
+  addEventListener('error', function (e) { if (!boot.started && !boot.error) boot.error = String(e.message || ''); });
+  // The bundle runs before load; if it never started, it could not.
+  addEventListener('load', function () { if (!boot.started) boot.fail('script', boot.error); });
+})();
+</script>
 </head>
 <body>
-<div id="app">
+<!-- Startup cover: painted from the first chunk of the file; main.js reports
+     its real startup steps here and lifts it once the bench has drawn a frame. -->
+<div class="boot" id="boot" aria-busy="true">
+  <div class="boot-col">
+    <span class="boot-lockup"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="tray" d="M2.62 36.5A1 1 0 0 1 1.72 35.05L16.21 6.08A11 11 0 0 1 26.05 0L93.95 0A11 11 0 0 1 103.79 6.08L118.28 35.05A1 1 0 0 1 117.38 36.5L106.62 36.5A1 1 0 0 1 105.72 35.95L93.83 12.16A3 3 0 0 0 91.15 10.5L28.85 10.5A3 3 0 0 0 26.17 12.16L14.28 35.95A1 1 0 0 1 13.38 36.5ZM0 44A1.5 1.5 0 0 1 1.5 42.5L19.12 42.5A6 6 0 0 1 23.8 44.75L29.4 51.75A6 6 0 0 0 34.08 54L85.92 54A6 6 0 0 0 90.6 51.75L96.2 44.75A6 6 0 0 1 100.88 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z"/><path class="capsule" fill-rule="evenodd" d="M43.5 23H76.5A12.5 12.5 0 0 1 76.5 48H43.5A12.5 12.5 0 0 1 43.5 23ZM60 29H43.5A6.5 6.5 0 0 0 43.5 42H60Z"/></svg><span>Open Med Tray <em>Lite</em></span></span>
+    <div class="boot-track" aria-hidden="true"><i class="boot-fill"></i><i class="boot-sweep"></i></div>
+    <p class="boot-status"><span id="bootLabel" role="status">Loading the workbench</span><span class="boot-meta" id="bootMeta">@SIZE@</span></p>
+    <div class="boot-fail" role="alert">
+      <p class="boot-fail-title" id="bootFailTitle"></p>
+      <p id="bootFailText"></p>
+      <code id="bootFailDetail"></code>
+      <button type="button" id="bootRetry">Try again</button>
+    </div>
+    <noscript><p class="boot-nojs">Open Med Tray Lite needs JavaScript. Turn it on, then reload this page.</p></noscript>
+  </div>
+</div>
+<style>/*@FONTS@*/</style>
+<style>/*@CSS@*/</style>
+<div id="app" inert>
   <canvas id="gl" aria-label="Interactive 3D render"></canvas>
   <canvas id="labelLayer" aria-hidden="true"></canvas>
   <svg id="annot" aria-hidden="true"></svg>
@@ -57,9 +152,6 @@
       </button>
     </div>
     <div class="actions">
-      <button class="icon-btn" id="tourBtn" aria-pressed="false" title="Play guided tour (T)">
-        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6l9.5-5.8z" fill="currentColor"/></svg><span class="lbl">Tour</span>
-      </button>
       <button class="icon-btn" id="resetBtn" title="Reset view (0)">
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 1.9-4.4M4 3.5v3.3h3.3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">Reset</span>
       </button>
@@ -114,14 +206,7 @@
       <span id="dockGoText">Generate &amp; add</span>
     </button>
   </div>
-  <div class="tour-cap" id="tourCap" role="status" aria-live="polite">
-    <div class="progress"><i id="tourProg"></i></div>
-    <div class="tour-txt"><span class="t" id="tourTitle"></span><span class="n" id="tourNote"></span></div>
-    <button class="tour-btn" id="tourPause" title="Pause (Space)">Pause</button>
-    <button class="tour-btn" id="tourStop" title="Stop tour">Stop</button>
-  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <div class="boot" id="boot"><span class="boot-lockup"><svg viewBox="0 0 120 64" aria-hidden="true"><path class="tray" d="M2.62 36.5A1 1 0 0 1 1.72 35.05L16.21 6.08A11 11 0 0 1 26.05 0L93.95 0A11 11 0 0 1 103.79 6.08L118.28 35.05A1 1 0 0 1 117.38 36.5L106.62 36.5A1 1 0 0 1 105.72 35.95L93.83 12.16A3 3 0 0 0 91.15 10.5L28.85 10.5A3 3 0 0 0 26.17 12.16L14.28 35.95A1 1 0 0 1 13.38 36.5ZM0 44A1.5 1.5 0 0 1 1.5 42.5L19.12 42.5A6 6 0 0 1 23.8 44.75L29.4 51.75A6 6 0 0 0 34.08 54L85.92 54A6 6 0 0 0 90.6 51.75L96.2 44.75A6 6 0 0 1 100.88 42.5L118.5 42.5A1.5 1.5 0 0 1 120 44L120 57A7 7 0 0 1 113 64L7 64A7 7 0 0 1 0 57Z"/><path class="capsule" fill-rule="evenodd" d="M43.5 23H76.5A12.5 12.5 0 0 1 76.5 48H43.5A12.5 12.5 0 0 1 43.5 23ZM60 29H43.5A6.5 6.5 0 0 0 43.5 42H60Z"/></svg><span>Open Med Tray <em>Lite</em></span></span></div>
 </div>
 <!-- Introduction: shown on every load and from the rail mark (ui/intro.js). -->
 <dialog class="intro" id="intro" aria-labelledby="introTitle" aria-describedby="introLead">
@@ -146,7 +231,6 @@
         </div>
         <div class="intro-actions rise" style="--d:300ms">
           <button class="intro-go" id="introGo">Open the workbench<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button class="intro-tour" id="introTour"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6l9.5-5.8z" fill="currentColor"/></svg>Play the tour</button>
         </div>
       </div>
       <button class="intro-x" id="introClose" aria-label="Close introduction" title="Close (Esc)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>

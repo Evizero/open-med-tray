@@ -40,7 +40,7 @@ await withPage(async (page, log) => {
   await page.evaluate(() => { window.__atelier.api.applyPresetById('cap22'); });
   await page.waitForTimeout(250);
   out.reducedMotion.sectionDone = await page.evaluate(() => !window.__atelier.stage.section && window.__atelier.stage.pill.spec.kind === 'capsule');
-  out.reducedMotion.uiTransitions = await page.evaluate(() => ({ tabs: getComputedStyle(document.getElementById('inspTabs'), '::after').transitionDuration, sheet: getComputedStyle(document.getElementById('inspector')).transitionDuration, tour: getComputedStyle(document.getElementById('tourCap')).transitionDuration }));
+  out.reducedMotion.uiTransitions = await page.evaluate(() => ({ tabs: getComputedStyle(document.getElementById('inspTabs'), '::after').transitionDuration, sheet: getComputedStyle(document.getElementById('inspector')).transitionDuration }));
   out.reducedLog = log.errors;
 }, { reducedMotion: 'reduce', timeout: 120000 });
 console.log(JSON.stringify(out, null, 1));
