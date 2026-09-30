@@ -7,10 +7,12 @@ import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / '_site'
-PUBLIC_FILES = (
+PAGE_FILES = (
     'index.html',
     'lite/index.html',
 )
+PUBLIC_FILES = PAGE_FILES + ('assets/open-med-tray-social.jpg', 'sitemap.xml')
+SITE_URL = 'https://evizero.github.io/open-med-tray/'
 
 
 class References(HTMLParser):
@@ -19,24 +21,30 @@ class References(HTMLParser):
         self.refs = []
 
     def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
         for key, value in attrs:
             if value and key in ('href', 'src', 'poster'):
-                self.refs.append((tag, key, value))
+                self.refs.append((tag, key, value, attributes.get('rel')))
 
 
 def main():
     bodies = {name: (ROOT / name).read_bytes() for name in PUBLIC_FILES}
     build = json.loads((ROOT / 'lite/build-info.json').read_text())
     assert hashlib.sha256(bodies[PUBLIC_FILES[1]]).hexdigest() == build['sha256'], 'Stale Lite build'
-    for name, body in bodies.items():
+    for name in PAGE_FILES:
+        body = bodies[name]
         text = body.decode('utf-8')
         for private in ('/Users/', 'file://', 'localhost:', '127.0.0.1:'):
             assert private not in text, f'Local reference in {name}: {private}'
         parser = References()
         parser.feed(text)
-        for tag, attribute, reference in parser.refs:
+        for tag, attribute, reference, rel in parser.refs:
             url = urlsplit(reference)
             if url.scheme in ('https', 'http', 'mailto'):
+                if tag == 'link' and rel == 'canonical':
+                    expected = SITE_URL + ('' if name == 'index.html' else 'lite/')
+                    assert reference == expected, f'Incorrect canonical: {reference}'
+                    continue
                 assert tag == 'a' and attribute == 'href', f'External runtime dependency: {reference}'
                 continue
             if url.scheme == 'data' or not url.path:

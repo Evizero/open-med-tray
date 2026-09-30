@@ -3,10 +3,10 @@
   "files": [
     "index.html"
   ],
-  "generatorRevision": "fadf07ab581066a2e6840055c356c5a54351943e61aa70bedfba324e6134e2a6",
-  "bytes": 4909685,
-  "sha256": "168fb49bbe6b2ee59fb890441fdae69ba704606896b07ebc654a1fc29e46b514",
-  "built": "2026-09-30T13:58:50.410Z",
+  "generatorRevision": "d6329cb6e452b9d6a59e9d57bd297e127d5ed56759688310165a917bcca22040",
+  "bytes": 4912152,
+  "sha256": "7ea9eb7b5bec8070b8ca8274bbbb95e0f158c2aed7905c654f1d48a897115936",
+  "built": "2026-09-30T15:00:58.184Z",
   "dependencies": "@fontsource/ibm-plex-mono@5.3.0, @fontsource/ibm-plex-sans@5.3.0, @fontsource/instrument-serif@5.3.0, fflate@0.8.3, three@0.186.1, three-bvh-csg@0.0.18, three-mesh-bvh@0.9.15",
   "node": "v22.23.1"
 }
