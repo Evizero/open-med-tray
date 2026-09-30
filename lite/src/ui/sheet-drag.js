@@ -80,7 +80,10 @@ export function bindSheetDrag({ panel, surfaces, enabled, isOpen, setOpen, range
     s.addEventListener('pointercancel', cancel);
     s.addEventListener('lostpointercapture', lost);
   }
-  panel.addEventListener('click', (e) => { if (performance.now() < swallowUntil) { swallowUntil = 0; e.preventDefault(); e.stopPropagation(); } }, true);
+  // Only swallow the compatibility click from the completed drag. A new
+  // pointer gesture or keyboard activation is a deliberate next interaction.
+  panel.addEventListener('pointerdown', () => { swallowUntil = 0; }, true);
+  panel.addEventListener('click', (e) => { if (e.detail && performance.now() < swallowUntil) { swallowUntil = 0; e.preventDefault(); e.stopPropagation(); } }, true);
 
   return {
     get dragging() { return !!drag?.live; },

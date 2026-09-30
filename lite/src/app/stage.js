@@ -238,6 +238,9 @@ export class Stage {
   }
 
   setSpecimen(spec, { transition = 'auto', frame = true } = {}) {
+    // A newer preset or sample can arrive before the section sweep finishes.
+    // Complete that swap and release its resources before starting another.
+    this.section?.finish();
     if (!this.pill) {
       this.pill = new Pill(spec, { lod: 'hero', instance: 1, semantic: 3 });
       this.placeHero(this.pill);
@@ -308,11 +311,23 @@ export class Stage {
     this.studio.add(line);
     const dur = this.reducedMotion ? .01 : 1.05;
     let t = 0;
-    this.section = { old, next };
     // Reframe during the sweep so a larger specimen never overflows the view.
     if (frame) this.specimenFrame(next, { keepDirection: true });
     return new Promise((resolve) => {
-      this.animate((dt) => {
+      let cancel;
+      const finish = () => {
+        cancel?.();
+        old.dispose();
+        next.setClipping(null);
+        this.studio.remove(line); line.geometry.dispose(); line.material.dispose();
+        this.pill = next;
+        this.section = null;
+        this.lightStudio();
+        this.emit('pill', next);
+        resolve();
+      };
+      this.section = { old, next, finish };
+      cancel = this.animate((dt) => {
         t = Math.min(1, t + dt / dur);
         const k = easeInOut(t);
         const s = -R + 2 * R * k;
@@ -320,14 +335,7 @@ export class Stage {
         line.position.copy(right).multiplyScalar(s);
         line.material.opacity = Math.sin(Math.PI * Math.min(1, t * 1.1)) * .9;
         if (t >= 1) {
-          old.dispose();
-          next.setClipping(null);
-          this.studio.remove(line); line.geometry.dispose(); line.material.dispose();
-          this.pill = next;
-          this.section = null;
-          this.lightStudio();
-          this.emit('pill', next);
-          resolve();
+          finish();
           return false;
         }
         return true;

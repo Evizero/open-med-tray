@@ -310,7 +310,10 @@ function describeSpec(s) {
   return `${fam} · ${specDims(s)}`;
 }
 
+// A delayed sample must not replace a newer preset, edit or mode choice.
+let specimenRevision = 0;
 function applyPreset(p) {
+  specimenRevision++;
   state.presetId = p.id; state.sampled = false;
   const next = clone(p.spec);
   const sameKind = next.kind === state.spec.kind;
@@ -343,6 +346,7 @@ function cancelEdit() {
   return true;
 }
 function editSpecimen(fn, final, hint) {
+  specimenRevision++;
   fn(state.spec);
   validate(state.spec);
   state.presetId = null; state.sampled = false;
@@ -389,6 +393,7 @@ function openInStudio(spec) {
 async function setMode(mode) {
   handles?.cancel();
   if (state.dataset.running && mode !== 'dataset') { toast('Generation in progress — cancel first'); return; }
+  specimenRevision++;
   const prev = state.mode;
   if (mode !== 'dataset') sceneInspector?.close({ instant: true });
   state.mode = mode;
@@ -1052,10 +1057,11 @@ function resample() {
   if (state.mode === 'tray') { trayActions.randomize(); return Promise.resolve(true); }
   // A specimen build is synchronous and then animates; further taps wait for it.
   if (resampling) return resampling;
+  const revision = specimenRevision;
   $('app').classList.add('resampling');
   // Let the pressed state paint before the geometry is built.
   resampling = new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))).then(() => {
-    if (state.mode !== 'specimen') return false;
+    if (state.mode !== 'specimen' || revision !== specimenRevision) return false;
     const next = samplePill(), sameKind = next.kind === state.spec.kind;
     state.spec = next; state.presetId = null; state.sampled = true;
     hideDims();
